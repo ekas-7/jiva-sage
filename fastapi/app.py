@@ -3,26 +3,36 @@ from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from langchain.chains import RetrievalQA
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI  # Updated import
-from langchain_community.vectorstores import FAISS
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_community.vectorstores import FAISS, MongoDBAtlasVectorSearch
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_core.documents import Document
+from pymongo import MongoClient
 
 # Load environment variables from .env
 load_dotenv()
 
-# Get API key from environment
+# Get API keys and MongoDB connection details from environment
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+MONGO_URI = os.getenv("MONGO_URI")
+MONGO_DB_NAME = os.getenv("MONGO_DB_NAME")
+MONGO_COLLECTION_NAME = os.getenv("MONGO_COLLECTION_NAME")
 
-if not OPENAI_API_KEY:
-    raise ValueError("Missing OpenAI API Key! Please set it in your .env file.")
+if not OPENAI_API_KEY or not MONGO_URI or not MONGO_DB_NAME or not MONGO_COLLECTION_NAME:
+    raise ValueError("Missing required environment variables! Please check your .env file.")
 
 # Initialize FastAPI
 app = FastAPI()
 
 # Initialize embeddings with API key
 embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
-vectorstore = None  # Will be initialized when data is added
+
+# Initialize MongoDB client
+mongo_client = MongoClient(MONGO_URI)
+mongo_collection = mongo_client[MONGO_DB_NAME][MONGO_COLLECTION_NAME]
+
+# Initialize FAISS vector store
+vectorstore_faiss = None  # Will be initialized when data is added
 
 # Define request models
 class AddDataRequest(BaseModel):
@@ -37,53 +47,59 @@ def split_text_into_chunks(text: str):
     chunks = text_splitter.split_text(text)
     return [Document(page_content=chunk) for chunk in chunks]
 
-# Route to add data to the vector store
+# Route to add data to the vector stores
 @app.post("/add-data")
 async def add_data(request: AddDataRequest):
-    global vectorstore
+    global vectorstore_faiss
 
     try:
         # Split the input text into chunks
         chunks = split_text_into_chunks(request.text)
 
-        # Initialize or update the vector store
-        if vectorstore is None:
-            vectorstore = FAISS.from_documents(chunks, embeddings)
+        # Add data to FAISS
+        if vectorstore_faiss is None:
+            vectorstore_faiss = FAISS.from_documents(chunks, embeddings)
         else:
-            vectorstore.add_documents(chunks)
+            vectorstore_faiss.add_documents(chunks)
 
-        return {"message": "Data added successfully!"}
+        # Add data to MongoDB Atlas Vector Search
+        MongoDBAtlasVectorSearch.from_documents(
+            documents=chunks,
+            embedding=embeddings,
+            collection=mongo_collection,
+            index_name="vector_index"  # Ensure this index exists in your MongoDB Atlas collection
+        )
+
+        return {"message": "Data added successfully to both FAISS and MongoDB!"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
 # Route to query the RAG pipeline
 @app.post("/query")
 async def query(request: QueryRequest):
-    global vectorstore
+    global vectorstore_faiss
 
-    if vectorstore is None:
+    if vectorstore_faiss is None:
         raise HTTPException(status_code=400, detail="No data has been added yet. Please add data first.")
 
     try:
-        # Initialize the retriever
-        retriever = vectorstore.as_retriever()
+        # Initialize the retriever (using FAISS for local search)
+        retriever_faiss = vectorstore_faiss.as_retriever()
 
         # Initialize the LLM
-        # Initialize the chat model instead of standard OpenAI model
         llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, openai_api_key=OPENAI_API_KEY)
-
 
         # Create the RetrievalQA chain
         qa_chain = RetrievalQA.from_chain_type(
             llm=llm,
             chain_type="stuff",
-            retriever=retriever,
+            retriever=retriever_faiss,
             return_source_documents=True
         )
 
         # Run the query
         result = qa_chain.invoke({"query": request.query})
-        
+
         return {
             "answer": result.get("result", "No answer found"),
             "source_documents": result.get("source_documents", [])
