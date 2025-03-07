@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: lab-report-ocr-api
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./:/app
+      - lab_reports_temp:/tmp/lab_reports
+    env_file:
+      - .env
+    depends_on:
+      - mongodb
+    networks:
+      - lab-report-network
+
+  mongodb:
+    image: mongo:6.0
+    container_name: lab-report-mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGODB_DB_NAME}
+    volumes:
+      - mongodb_data:/data/db
+    networks:
+      - lab-report-network
+
+networks:
+  lab-report-network:
+    driver: bridge
+
+volumes:
+  mongodb_data:
+    driver: local
+  lab_reports_temp:
+    driver: local
