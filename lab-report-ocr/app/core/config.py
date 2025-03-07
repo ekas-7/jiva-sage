@@ -1,7 +1,9 @@
 import os
 from pathlib import Path
 from typing import Dict, Any, Optional, List
-from pydantic import BaseSettings, validator, AnyHttpUrl, field_validator
+
+# Fix: Import BaseSettings from pydantic_settings instead of pydantic
+from pydantic import AnyHttpUrl, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -15,7 +17,7 @@ class Settings(BaseSettings):
 
     # MongoDB Settings
     MONGODB_URL: str
-    MONGODB_DB_NAME: str = "Jiva_lab_reports"
+    MONGODB_DB_NAME: str = "lab_reports"
     
     # Auth Settings
     SECRET_KEY: str
@@ -23,7 +25,8 @@ class Settings(BaseSettings):
     
     # Claude API Settings
     ANTHROPIC_API_KEY: str
-    CLAUDE_MODEL: str = "claude-3-5-sonnet-20240229"  # Use latest available Claude model
+    # Using a model that definitely exists in the Anthropic API
+    CLAUDE_MODEL: str = "claude-3-sonnet-20240229"
     
     # Storage Settings
     TEMP_FILE_PATH: str = "/tmp/lab_reports"
