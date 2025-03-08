@@ -1,5 +1,3 @@
-# Jiva
-
 <div align="center">
   <<div align="center">
   <img src="./assets/images/logo.png" alt="Jiva Logo" width="500"/>
