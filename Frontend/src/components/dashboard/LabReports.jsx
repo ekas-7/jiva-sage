@@ -28,8 +28,8 @@ const LabReports = ({ darkMode }) => {
         </div>
       </div>
 
-      <div className="p-6">
-        <div className="bg-gray-50 rounded-lg border border-gray-100 p-4 mb-6">
+      <div className="p-4 h-90 overflow-y-scroll">
+        <div className="bg-gray-50 rounded-lg border border-gray-100 p-4 mb-6 ">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-gray-700 flex items-center">
               <BarChart2 size={16} className="mr-2 text-gray-400" />
@@ -67,7 +67,7 @@ const LabReports = ({ darkMode }) => {
             <FileText size={16} className="mr-2 text-gray-400" />
             Recent Lab Reports
           </h3>
-          <div className="space-y-2">
+          <div className="h-64 overflow-y-auto pr-1 space-y-2">
             {labReports.map((report) => (
               <div
                 key={report.id}

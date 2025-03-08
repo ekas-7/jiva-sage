@@ -22,7 +22,7 @@ const Medications = ({ darkMode }) => {
       </div>
       
       <div className="p-6">
-        <div className="space-y-3">
+        <div className="space-y-3 h-80 overflow-y-scroll">
           {medications.map((medication) => {
             // Calculate days until refill
             const today = new Date();
