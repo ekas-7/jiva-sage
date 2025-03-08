@@ -26,8 +26,6 @@ const UserQRCode = ({closeModal}) => {
   // In a real app, this would be a unique URL with the user's token
   // For this example, we're using a placeholder URL
   const url = token
-    ? `${URI}/qr-code`
-    : `https://www.npmjs.com/package/qrcode.react`
 
   // Function to download QR code as PNG
   const downloadQRCode = () => {

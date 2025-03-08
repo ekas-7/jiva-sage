@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Activity, AlertCircle, Scissors } from 'lucide-react';
+import { Activity, AlertCircle, Scissors, FileText, Calendar, Clock } from 'lucide-react';
 
 const MedicalRecords = ({ darkMode }) => {
   const [activeTab, setActiveTab] = useState('conditions');
@@ -21,98 +21,138 @@ const MedicalRecords = ({ darkMode }) => {
     ]
   };
 
-  const tabIcons = {
-    conditions: <Activity size={16} className="inline-block mr-1" />,
-    allergies: <AlertCircle size={16} className="inline-block mr-1" />,
-    surgeries: <Scissors size={16} className="inline-block mr-1" />
+  const tabConfig = {
+    conditions: {
+      icon: <Activity size={16} className="mr-2" />,
+      label: "Conditions",
+      color: "text-orange-500",
+      bgColor: "bg-orange-50"
+    },
+    allergies: {
+      icon: <AlertCircle size={16} className="mr-2" />,
+      label: "Allergies",
+      color: "text-red-500",
+      bgColor: "bg-red-50"
+    },
+    surgeries: {
+      icon: <Scissors size={16} className="mr-2" />,
+      label: "Surgeries",
+      color: "text-blue-500",
+      bgColor: "bg-blue-50"
+    }
   };
 
   return (
-    <div className={`h-full px-6 py-4 rounded-lg shadow-md overflow-hidden ${darkMode ? 'bg-gray-800 text-white' : 'bg-white text-black'}`}>
-      
+    <div className="h-full rounded-lg shadow-sm overflow-hidden bg-white border border-gray-100">
       {/* Header */}
-      <div className={`flex justify-between items-center ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}>
-        <div>
-          <h2 className="text-2xl font-semibold">Medical Records & History</h2>
-          <p className="text-gray-500">Conditions, allergies, and surgeries</p>
+      <div className="p-6 border-b border-gray-100">
+        <div className="flex justify-between items-center">
+          <div>
+            <h2 className="text-xl font-semibold text-gray-900">Medical Records & History</h2>
+            <p className="text-sm text-gray-500">Conditions, allergies, and surgeries</p>
+          </div>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className={`mt-4 p-2 rounded-lg ${darkMode ? 'bg-gray-700' : 'bg-gray-100'}`}>
-        <nav className="flex space-x-2">
-          {["conditions", "allergies", "surgeries"].map((tab) => (
+      <div className="px-6 pt-4">
+        <div className="bg-gray-100 inline-flex p-1 rounded-lg">
+          {Object.keys(tabConfig).map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`cursor-pointer px-4 py-2 text-sm font-bold rounded-lg transition ${
+              className={`flex items-center px-4 py-2 text-sm font-medium rounded-md transition ${
                 activeTab === tab
-                  ? darkMode
-                    ? 'bg-gray-600 text-white'
-                    : 'bg-white text-black'
-                  : 'bg-transparent text-gray-400'
+                  ? 'bg-white text-gray-900 shadow-sm'
+                  : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              {tabIcons[tab]} {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              {tabConfig[tab].icon}
+              {tabConfig[tab].label}
             </button>
           ))}
-        </nav>
+        </div>
       </div>
 
       {/* Data List with Scrollbar */}
-      <div className="mt-4 max-h-64 overflow-y-auto pr-2">
+      <div className="px-6 py-4 max-h-64 overflow-y-auto">
         {activeTab === 'conditions' && (
-          <div>
+          <div className="space-y-3">
             {medicalData.conditions.map((condition, index) => (
-              <div key={index} className={`p-4 mb-3 rounded-lg border ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-200'}`}>
-                <div className="flex justify-between">
-                  <h3 className="font-medium">{condition.name}</h3>
-                  <span className={`px-2 py-1 text-xs rounded ${
-                    condition.severity === 'Severe' ? 'bg-red-100 text-red-800' :
-                    condition.severity === 'Moderate' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-green-100 text-green-800'
+              <div key={index} className="p-4 rounded-lg border border-gray-100 bg-white hover:border-gray-200 transition-colors">
+                <div className="flex justify-between items-start">
+                  <div className="flex items-start gap-3">
+                    <div className={`h-10 w-10 rounded-full ${tabConfig.conditions.bgColor} flex items-center justify-center ${tabConfig.conditions.color}`}>
+                      <Activity size={18} />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-gray-900">{condition.name}</h3>
+                      <div className="flex items-center mt-1 text-sm text-gray-500">
+                        <Clock className="h-3.5 w-3.5 mr-1 text-gray-400" />
+                        Since: {condition.since}
+                      </div>
+                      <p className="text-sm text-gray-500 mt-1">{condition.notes}</p>
+                    </div>
+                  </div>
+                  <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${
+                    condition.severity === 'Severe' ? 'bg-red-50 text-red-700' :
+                    condition.severity === 'Moderate' ? 'bg-yellow-50 text-yellow-700' :
+                    'bg-green-50 text-green-700'
                   }`}>
                     {condition.severity}
                   </span>
                 </div>
-                <p className="text-sm text-gray-400">Since: {condition.since}</p>
-                <p className="text-sm text-gray-400">{condition.notes}</p>
               </div>
             ))}
           </div>
         )}
 
         {activeTab === 'allergies' && (
-          <div>
+          <div className="space-y-3">
             {medicalData.allergies.map((allergy, index) => (
-              <div key={index} className={`p-4 mb-3 rounded-lg border ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-200'}`}>
-                <div className="flex justify-between">
-                  <h3 className="font-medium">{allergy.name}</h3>
-                  <span className={`px-2 py-1 text-xs rounded ${
-                    allergy.severity === 'Severe' ? 'bg-red-100 text-red-800' :
-                    allergy.severity === 'Moderate' ? 'bg-yellow-100 text-yellow-800' :
-                    'bg-green-100 text-green-800'
+              <div key={index} className="p-4 rounded-lg border border-gray-100 bg-white hover:border-gray-200 transition-colors">
+                <div className="flex justify-between items-start">
+                  <div className="flex items-start gap-3">
+                    <div className={`h-10 w-10 rounded-full ${tabConfig.allergies.bgColor} flex items-center justify-center ${tabConfig.allergies.color}`}>
+                      <AlertCircle size={18} />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-gray-900">{allergy.name}</h3>
+                      <p className="text-sm text-gray-500 mt-1">Reaction: {allergy.reaction}</p>
+                    </div>
+                  </div>
+                  <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${
+                    allergy.severity === 'Severe' ? 'bg-red-50 text-red-700' :
+                    allergy.severity === 'Moderate' ? 'bg-yellow-50 text-yellow-700' :
+                    'bg-green-50 text-green-700'
                   }`}>
                     {allergy.severity}
                   </span>
                 </div>
-                <p className="text-sm text-gray-400">Reaction: {allergy.reaction}</p>
               </div>
             ))}
           </div>
         )}
 
         {activeTab === 'surgeries' && (
-          <div>
+          <div className="space-y-3">
             {medicalData.surgeries.map((surgery, index) => (
-              <div key={index} className={`p-4 mb-3 rounded-lg border ${darkMode ? 'bg-gray-700 border-gray-600' : 'bg-white border-gray-200'}`}>
-                <h3 className="font-medium">{surgery.procedure}</h3>
-                <p className="text-sm text-gray-400">
-                  Date: {new Date(surgery.date).toLocaleDateString()}
-                </p>
-                <p className="text-sm text-gray-400">
-                  Hospital: {surgery.hospital}
-                </p>
+              <div key={index} className="p-4 rounded-lg border border-gray-100 bg-white hover:border-gray-200 transition-colors">
+                <div className="flex items-start gap-3">
+                  <div className={`h-10 w-10 rounded-full ${tabConfig.surgeries.bgColor} flex items-center justify-center ${tabConfig.surgeries.color}`}>
+                    <Scissors size={18} />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-gray-900">{surgery.procedure}</h3>
+                    <div className="flex items-center mt-1 text-sm text-gray-500">
+                      <Calendar className="h-3.5 w-3.5 mr-1 text-gray-400" />
+                      {new Date(surgery.date).toLocaleDateString()}
+                    </div>
+                    <p className="text-sm text-gray-500 mt-1">
+                      Hospital: {surgery.hospital}
+                    </p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>

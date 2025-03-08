@@ -8,7 +8,7 @@ function Home() {
   return (
     <div className="flex h-screen">
       {/* Sidebar on the left */}
-      <Sidebar className="w-1/3"/>
+      <Sidebar className="w-1/3 dark:bg-red-100"/>
 
       {/* Main Content Area */}
       <div className="flex-1 overflow-y-auto">
