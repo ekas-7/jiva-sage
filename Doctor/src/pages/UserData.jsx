@@ -1,67 +1,47 @@
 import React, { useState } from 'react';
 import MedicalRecords from '../components/userData/MedicalRecords.jsx';
-import Appointments from '../components/userData/Appointments.jsx';
 import LabReports from '../components/userData/LabReports.jsx';
 import Medications from '../components/userData/Medications.jsx';
 import HealthMonitoring from '../components/userData/HealthMonitoring.jsx';
 import Insurance from '../components/userData/Insurance.jsx';
-import ThemeToggle from '../components/userData/ThemeToggle.jsx';
+
+import { useLocation } from 'react-router-dom';
+
+import { Bell, Share, User, Sun, Moon, Settings } from 'lucide-react';
 
 const UserData = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [showModal, setShowModal] = useState(false); // State for modal visibility
 
+  const location = useLocation();
+  const data = location.state?.userData || null;
+
+  console.log(data);
+  
   return (
-    <div className={`min-h-screen relative ${darkMode ? 'bg-gray-900 text-white' : 'bg-gray-100 text-gray-800'}`}>
-      <div className="container mx-auto px-4 py-6">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold">Patient Dashboard</h1>
-          <div className='flex gap-4'>
-            <button
-              onClick={() => setShowModal(true)} // Open modal on click
-              className={`cursor-pointer p-2 rounded-full transition duration-300 ${
-                darkMode ? "bg-gray-800 text-white" : "bg-gray-200 text-gray-800"
-              }`}
-            >
-              Share Profile
-            </button>
-            <ThemeToggle darkMode={darkMode} setDarkMode={setDarkMode} />
-          </div>
-        </div>
-
-        <div className="flex flex-col lg:grid lg:grid-cols-3 gap-6">
-          {/* First Row */}
-          <div className="col-span-2">
-            <Appointments darkMode={darkMode} />
-          </div>
-
+    <div className={`min-h-screen relative ${darkMode ? 'bg-gray-900 text-white' : 'bg-[0xFFFFB6C1] text-gray-800'}`}>
+      <div className="container mx-auto px-4 py-6 bg-[#ffdde2] border-radius-5 border-black">
+        <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3">
           {/* Second Row */}
           <div className="col-span-1 h-120">
-            <MedicalRecords darkMode={darkMode} />
+            <MedicalRecords darkMode={darkMode} userProfile={data}/>
           </div>
           <div className="col-span-1 h-120">
-            <LabReports darkMode={darkMode} />
+            <LabReports darkMode={darkMode} userProfile={data} />
           </div>
           <div className="col-span-1 h-120">
-            <Medications darkMode={darkMode} />
+            <Medications darkMode={darkMode} userProfile={data}/>
           </div>
 
           {/* Third Row */}
           <div className="col-span-1">
-            <Insurance darkMode={darkMode} />
+            <Insurance darkMode={darkMode} userProfile={data}/>
           </div>
           <div className="col-span-2">
-            <HealthMonitoring darkMode={darkMode} />
+            <HealthMonitoring darkMode={darkMode} userProfile={data}/>
           </div>
         </div>
       </div>
-
-      {/* Modal */}
-      {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <UserQRCode closeModal={() => setShowModal(false)} />
-        </div>
-      )}
     </div>
   );
 };
