@@ -23,7 +23,7 @@ function App() {
       ) : (
         <>
           {/* Authenticated Routes */}
-          <Route path="/*" element={<Home />} />
+          <Route path="/*" element={<Landing />} />
           <Route path="/qr-code" element={<QRCodeData />} />
           <Route path="*" element={<Navigate to="/" replace />} />
           

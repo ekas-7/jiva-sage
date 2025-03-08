@@ -9,7 +9,7 @@ import MedicalRecordsPage from './MedicalRecordsPage.jsx';
 import MedicationPage from './MedicationPage.jsx';
 import InsurancePage from './InsurancePage.jsx';
 import HealthMonitoringPage from './HealthMonitoringPage.jsx';
-
+import Landing from './Landing.jsx';
 function Home() {
   return (
     <div className="flex h-screen">
@@ -19,7 +19,7 @@ function Home() {
       {/* Main Content Area */}
       <div className="flex-1 overflow-y-auto bg-[#ffdde2]">
         <Routes>
-          <Route path="/" element={<Navigate to="/dashboard" />} />
+          <Route path="/" element={<Landing/>} />
           <Route path="/dashboard" element={<PatientDashboard />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/appointments" element={<AppointmentPage />} />
@@ -30,7 +30,7 @@ function Home() {
           <Route path="/health-monitoring" element={<HealthMonitoringPage />} />
           {/* <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} /> */}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
+          {/* <Route path="*" element={<Navigate to="/dashboard" />} /> */}
         </Routes>
       </div>
     </div>
