@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { useUser } from "@/context/userContext"
 import { motion } from "framer-motion"
-import { Calendar, Edit2, Mail, MapPin, Phone, Save, User, X } from "lucide-react"
+import { Calendar, Edit2, Mail, MapPin, Phone, Save, User, X, Camera, Heart } from "lucide-react"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -12,8 +12,9 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Badge } from "@/components/ui/badge"
 
-function Profile() {
+function Profile({ darkMode }) {
   const { profile } = useUser()
   const [isEditing, setIsEditing] = useState(false)
   const [activeTab, setActiveTab] = useState("personal")
@@ -90,27 +91,29 @@ function Profile() {
     },
   }
 
-  const calculateAge = (birthDate) => {
-    const today = new Date()
-    const birth = new Date(birthDate)
-    let age = today.getFullYear() - birth.getFullYear()
-    const monthDiff = today.getMonth() - birth.getMonth()
-
-    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-      age--
-    }
-
-    return age
-  }
+  // Set colors based on dark mode
+  const bgColor = darkMode ? "bg-gray-900" : "bg-white";
+  const cardBgColor = darkMode ? "bg-gray-800" : "bg-white";
+  const textColor = darkMode ? "text-white" : "text-gray-900";
+  const mutedTextColor = darkMode ? "text-gray-400" : "text-gray-500";
+  const borderColor = darkMode ? "border-gray-700" : "border-gray-200";
+  const inputBgColor = darkMode ? "bg-gray-700" : "bg-muted/20";
+  const inputTextColor = darkMode ? "text-gray-300" : "text-gray-700";
+  const iconColor = darkMode ? "text-gray-400" : "text-gray-500";
 
   return (
-    <motion.div className="container mx-auto py-8 px-4" initial="hidden" animate="visible" variants={containerVariants}>
+    <motion.div 
+      className={`container min-h-screen mx-auto py-6 px-3 sm:px-4 ${darkMode ? "bg-gray-900" : "bg-gray-50"}`} 
+      initial="hidden" 
+      animate="visible" 
+      variants={containerVariants}
+    >
       {/* Profile Header */}
-      <motion.div className="flex flex-col items-center mb-8" variants={itemVariants}>
+      <motion.div className="flex flex-col items-center mb-6 sm:mb-8" variants={itemVariants}>
         <div className="relative mb-4 group">
-          <Avatar className="h-32 w-32 border-4 border-background shadow-xl">
+          <Avatar className="h-24 w-24 sm:h-32 sm:w-32 border-4 border-[#FFB6C1] shadow-xl">
             <AvatarImage src={user.profileImage} alt={user.name} />
-            <AvatarFallback className="text-4xl">
+            <AvatarFallback className={`text-3xl sm:text-4xl bg-[#FFE6EA] text-[#FF9CAD]`}>
               {user.name
                 .split(" ")
                 .map((n) => n[0])
@@ -118,28 +121,25 @@ function Profile() {
             </AvatarFallback>
           </Avatar>
           {isEditing && (
-            <Button size="sm" variant="secondary" className="absolute bottom-0 right-0 rounded-full">
-              <Edit2 className="h-4 w-4" />
+            <Button size="sm" variant="secondary" className="absolute bottom-0 right-0 rounded-full bg-[#FFB6C1] hover:bg-[#FF9CAD] text-white">
+              <Camera className="h-4 w-4" />
             </Button>
           )}
         </div>
         <motion.h1
-          className="text-3xl font-bold mb-1"
+          className={`text-2xl sm:text-3xl font-bold mb-1 ${textColor}`}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
         >
           {user.name}
         </motion.h1>
-        {/* <motion.div
-          className="flex items-center text-muted-foreground mb-4"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.4 }}
-        >
-          <MapPin className="h-4 w-4 mr-1" />
-          <span>{user.address}</span>
-        </motion.div> */}
+        
+        <div className="flex gap-2 mt-1 mb-3">
+          <Badge className="bg-[#FFE6EA] text-[#FF7C8C] hover:bg-[#FFE6EA] hover:text-[#FF7C8C]">{user.bloodGroup}</Badge>
+          <Badge className="bg-[#FFE6EA] text-[#FF7C8C] hover:bg-[#FFE6EA] hover:text-[#FF7C8C]">{user.gender}</Badge>
+          <Badge className="bg-[#FFE6EA] text-[#FF7C8C] hover:bg-[#FFE6EA] hover:text-[#FF7C8C]">{user.age} years</Badge>
+        </div>
 
         <motion.div
           className="flex space-x-2"
@@ -149,17 +149,17 @@ function Profile() {
         >
           {isEditing ? (
             <>
-              <Button onClick={handleSave} className="flex items-center gap-1">
+              <Button onClick={handleSave} className="flex items-center gap-1 bg-[#FFB6C1] hover:bg-[#FF9CAD] text-white border-0">
                 <Save className="h-4 w-4" />
                 Save Changes
               </Button>
-              <Button variant="outline" onClick={handleCancel} className="flex items-center gap-1">
+              <Button variant="outline" onClick={handleCancel} className="flex items-center gap-1 border-[#FFB6C1] text-[#FF7C8C] hover:bg-[#FFE6EA] hover:text-[#FF7C8C]">
                 <X className="h-4 w-4" />
                 Cancel
               </Button>
             </>
           ) : (
-            <Button onClick={() => setIsEditing(true)} className="flex items-center gap-1">
+            <Button onClick={() => setIsEditing(true)} className="flex items-center gap-1 bg-[#FFB6C1] hover:bg-[#FF9CAD] text-black border-0">
               <Edit2 className="h-4 w-4" />
               Edit Profile
             </Button>
@@ -170,100 +170,90 @@ function Profile() {
       {/* Profile Content */}
       <motion.div variants={itemVariants}>
         <Tabs defaultValue="personal" value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid grid-cols-2 mb-8">
-            <TabsTrigger value="personal">Personal Info</TabsTrigger>
-            <TabsTrigger value="contact">Contact Details</TabsTrigger>
-            {/* <TabsTrigger value="medical">Medical Info</TabsTrigger> */}
+          <TabsList className="grid grid-cols-2 mb-6 text-black bg-[#FFB6C1] p-1 rounded-lg max-w-md mx-auto">
+            <TabsTrigger 
+              value="personal" 
+              className={`rounded-md text-sm ${activeTab === "personal" ? "bg-white shadow-sm" : "text-black hover:bg-[#FFC1CA]"}`}
+            >
+              Personal Info
+            </TabsTrigger>
+            <TabsTrigger 
+              value="contact" 
+              className={`rounded-md text-sm ${activeTab === "contact" ? "bg-white shadow-sm" : "text-black hover:bg-[#FFC1CA]"}`}
+            >
+              Contact Details
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="personal" className="space-y-6">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Personal Information</CardTitle>
-                  <CardDescription>Your basic personal details</CardDescription>
+              <Card className={`${cardBgColor} ${borderColor} border shadow-sm`}>
+                <CardHeader className="pb-4">
+                  <div className="flex items-center gap-2">
+                    <Heart className="h-5 w-5 text-[#FFB6C1]" />
+                    <CardTitle className={`${textColor}`}>Personal Information</CardTitle>
+                  </div>
+                  <CardDescription className={`${mutedTextColor}`}>Your basic personal details</CardDescription>
                 </CardHeader>
                 <CardContent className="grid gap-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     <div className="space-y-2">
-                      <Label htmlFor="name">Full Name</Label>
+                      <Label htmlFor="name" className={`${textColor}`}>Full Name</Label>
                       {isEditing ? (
-                        <Input id="name" name="name" value={formData.name} onChange={handleInputChange} />
-                      ) : (
-                        <div className="p-2 border rounded-md bg-muted/20">{user.name}</div>
-                      )}
-                    </div>
-
-                    {/* <div className="space-y-2">
-                      <Label htmlFor="birthDate">Date of Birth</Label>
-                      {isEditing ? (
-                        <Input
-                          id="birthDate"
-                          name="birthDate"
-                          type="date"
-                          value={formData.birthDate}
-                          onChange={handleInputChange}
+                        <Input 
+                          id="name" 
+                          name="name" 
+                          value={formData.name} 
+                          onChange={handleInputChange} 
+                          className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
                         />
                       ) : (
-                        <div className="p-2 border rounded-md bg-muted/20 flex items-center gap-2">
-                          <Calendar className="h-4 w-4 text-muted-foreground" />
-                          {new Date(user.birthDate).toLocaleDateString()} ({calculateAge(user.birthDate)} years)
-                        </div>
-                      )}
-                    </div> */}
-
-                    <div className="space-y-2">
-                      <Label htmlFor="gender">Gender</Label>
-                      {isEditing ? (
-                        <Input id="gender" name="gender" value={formData.gender} onChange={handleInputChange} />
-                      ) : (
-                        <div className="p-2 border rounded-md bg-muted/20">{user.gender}</div>
+                        <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} ${textColor}`}>{user.name}</div>
                       )}
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="bloodGroup">Blood Group</Label>
+                      <Label htmlFor="gender" className={`${textColor}`}>Gender</Label>
+                      {isEditing ? (
+                        <Input 
+                          id="gender" 
+                          name="gender" 
+                          value={formData.gender} 
+                          onChange={handleInputChange} 
+                          className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
+                        />
+                      ) : (
+                        <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} ${textColor}`}>{user.gender}</div>
+                      )}
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="bloodGroup" className={`${textColor}`}>Blood Group</Label>
                       {isEditing ? (
                         <Input
                           id="bloodGroup"
                           name="bloodGroup"
                           value={formData.bloodGroup}
                           onChange={handleInputChange}
+                          className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
                         />
                       ) : (
-                        <div className="p-2 border rounded-md bg-muted/20">{user.bloodGroup}</div>
+                        <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} ${textColor}`}>{user.bloodGroup}</div>
                       )}
                     </div>
 
-                    {/* <div className="space-y-2">
-                      <Label htmlFor="height">Height</Label>
-                      {isEditing ? (
-                        <Input id="height" name="height" value={formData.height} onChange={handleInputChange} />
-                      ) : (
-                        <div className="p-2 border rounded-md bg-muted/20">{user.height}</div>
-                      )}
-                    </div> */}
-
-                    {/* <div className="space-y-2">
-                      <Label htmlFor="weight">Weight</Label>
-                      {isEditing ? (
-                        <Input id="weight" name="weight" value={formData.weight} onChange={handleInputChange} />
-                      ) : (
-                        <div className="p-2 border rounded-md bg-muted/20">{user.weight}</div>
-                      )}
-                    </div> */}
-
                     <div className="space-y-2">
-                      <Label htmlFor="occupation">Occupation</Label>
+                      <Label htmlFor="occupation" className={`${textColor}`}>Occupation</Label>
                       {isEditing ? (
                         <Input
                           id="occupation"
                           name="occupation"
-                          value={formData.occupation}
+                          value={formData.occupation || ""}
                           onChange={handleInputChange}
+                          className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
                         />
                       ) : (
-                        <div className="p-2 border rounded-md bg-muted/20">{user.occupation}</div>
+                        <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} ${textColor}`}>{user.occupation || "Not specified"}</div>
                       )}
                     </div>
                   </div>
@@ -274,15 +264,18 @@ function Profile() {
 
           <TabsContent value="contact" className="space-y-6">
             <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Contact Information</CardTitle>
-                  <CardDescription>Your contact details and emergency contact</CardDescription>
+              <Card className={`${cardBgColor} ${borderColor} border shadow-sm`}>
+                <CardHeader className="pb-4">
+                  <div className="flex items-center gap-2">
+                    <Phone className="h-5 w-5 text-[#FFB6C1]" />
+                    <CardTitle className={`${textColor}`}>Contact Information</CardTitle>
+                  </div>
+                  <CardDescription className={`${mutedTextColor}`}>Your contact details and emergency contact</CardDescription>
                 </CardHeader>
                 <CardContent className="grid gap-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                     <div className="space-y-2">
-                      <Label htmlFor="email">Email Address</Label>
+                      <Label htmlFor="email" className={`${textColor}`}>Email Address</Label>
                       {isEditing ? (
                         <Input
                           id="email"
@@ -290,88 +283,107 @@ function Profile() {
                           type="email"
                           value={formData.email}
                           onChange={handleInputChange}
+                          className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
                         />
                       ) : (
-                        <div className="p-2 border rounded-md bg-muted/20 flex items-center gap-2">
-                          <Mail className="h-4 w-4 text-muted-foreground" />
+                        <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} flex items-center gap-2 ${textColor}`}>
+                          <Mail className={`h-4 w-4 ${iconColor}`} />
                           {user.email}
                         </div>
                       )}
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="contact">Phone Number</Label>
+                      <Label htmlFor="contact" className={`${textColor}`}>Phone Number</Label>
                       {isEditing ? (
-                        <Input id="contact" name="contact" value={formData.contact} onChange={handleInputChange} />
+                        <Input 
+                          id="contact" 
+                          name="contact" 
+                          value={formData.contact} 
+                          onChange={handleInputChange} 
+                          className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
+                        />
                       ) : (
-                        <div className="p-2 border rounded-md bg-muted/20 flex items-center gap-2">
-                          <Phone className="h-4 w-4 text-muted-foreground" />
+                        <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} flex items-center gap-2 ${textColor}`}>
+                          <Phone className={`h-4 w-4 ${iconColor}`} />
                           {user.contact}
                         </div>
                       )}
                     </div>
 
                     <div className="space-y-2">
-                      <Label htmlFor="address">Address</Label>
+                      <Label htmlFor="address" className={`${textColor}`}>Address</Label>
                       {isEditing ? (
-                        <Input id="address" name="address" value={formData.address} onChange={handleInputChange} />
+                        <Input 
+                          id="address" 
+                          name="address" 
+                          value={formData.address || ""} 
+                          onChange={handleInputChange} 
+                          className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
+                        />
                       ) : (
-                        <div className="p-2 border rounded-md bg-muted/20 flex items-center gap-2">
-                          <MapPin className="h-4 w-4 text-muted-foreground" />
-                          {user.address}
+                        <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} flex items-center gap-2 ${textColor}`}>
+                          <MapPin className={`h-4 w-4 ${iconColor}`} />
+                          {user.address || "Not specified"}
                         </div>
                       )}
                     </div>
                   </div>
 
-                  <Separator />
+                  <Separator className={darkMode ? "bg-gray-700" : "bg-gray-200"} />
 
                   <div>
-                    <h3 className="text-lg font-medium mb-4">Emergency Contact</h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <h3 className={`text-lg font-medium mb-4 flex items-center gap-2 ${textColor}`}>
+                      <User className="h-5 w-5 text-[#FFB6C1]" />
+                      Emergency Contact
+                    </h3>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                       <div className="space-y-2">
-                        <Label htmlFor="emergencyContact.name">Name</Label>
+                        <Label htmlFor="emergencyContact.name" className={`${textColor}`}>Name</Label>
                         {isEditing ? (
                           <Input
                             id="emergencyContact.name"
                             name="emergencyContact.name"
                             value={formData.emergencyContact.name}
                             onChange={handleInputChange}
+                            className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
                           />
                         ) : (
-                          <div className="p-2 border rounded-md bg-muted/20 flex items-center gap-2">
-                            <User className="h-4 w-4 text-muted-foreground" />
+                          <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} flex items-center gap-2 ${textColor}`}>
+                            <User className={`h-4 w-4 ${iconColor}`} />
                             {user.emergencyContact.name}
                           </div>
                         )}
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="emergencyContact.relation">Relationship</Label>
+                        <Label htmlFor="emergencyContact.relation" className={`${textColor}`}>Relationship</Label>
                         {isEditing ? (
                           <Input
                             id="emergencyContact.relation"
                             name="emergencyContact.relation"
                             value={formData.emergencyContact.relation}
                             onChange={handleInputChange}
+                            className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
                           />
                         ) : (
-                          <div className="p-2 border rounded-md bg-muted/20">{user.emergencyContact.relation}</div>
+                          <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} ${textColor}`}>{user.emergencyContact.relation}</div>
                         )}
                       </div>
 
                       <div className="space-y-2">
-                        <Label htmlFor="emergencyContact.phone">Phone Number</Label>
+                        <Label htmlFor="emergencyContact.phone" className={`${textColor}`}>Phone Number</Label>
                         {isEditing ? (
                           <Input
                             id="emergencyContact.phone"
                             name="emergencyContact.phone"
                             value={formData.emergencyContact.phone}
                             onChange={handleInputChange}
+                            className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
                           />
                         ) : (
-                          <div className="p-2 border rounded-md bg-muted/20 flex items-center gap-2">
-                            <Phone className="h-4 w-4 text-muted-foreground" />
+                          <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} flex items-center gap-2 ${textColor}`}>
+                            <Phone className={`h-4 w-4 ${iconColor}`} />
                             {user.emergencyContact.phone}
                           </div>
                         )}
@@ -382,54 +394,6 @@ function Profile() {
               </Card>
             </motion.div>
           </TabsContent>
-
-          {/* <TabsContent value="medical" className="space-y-6">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
-              <Card>
-                <CardHeader>
-                  <CardTitle>Medical Information</CardTitle>
-                  <CardDescription>Your medical details and allergies</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-6">
-                    <div>
-                      <h3 className="text-lg font-medium mb-4">Allergies</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {user.allergies.map((allergy, index) => (
-                          <motion.div
-                            key={index}
-                            className="px-3 py-1 bg-red-50 text-red-700 border border-red-200 rounded-full"
-                            initial={{ scale: 0.8, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            transition={{ delay: index * 0.1 }}
-                          >
-                            {allergy}
-                          </motion.div>
-                        ))}
-                        {isEditing && (
-                          <Button variant="outline" size="sm" className="rounded-full">
-                            + Add Allergy
-                          </Button>
-                        )}
-                      </div>
-                    </div>
-
-                    <Separator />
-
-                    <div>
-                      <h3 className="text-lg font-medium mb-4">Medical History</h3>
-                      <p className="text-muted-foreground">
-                        Your complete medical history is available in the Medical Records section.
-                      </p>
-                      <Button variant="outline" className="mt-4">
-                        View Medical Records
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </TabsContent> */}
         </Tabs>
       </motion.div>
     </motion.div>
@@ -437,4 +401,3 @@ function Profile() {
 }
 
 export default Profile
-

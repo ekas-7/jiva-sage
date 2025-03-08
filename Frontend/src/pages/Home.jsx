@@ -17,7 +17,7 @@ function Home() {
       <Sidebar className="w-1/3 dark:bg-red-100"/>
 
       {/* Main Content Area */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto bg-[#ffdde2]">
         <Routes>
           <Route path="/" element={<Navigate to="/dashboard" />} />
           <Route path="/dashboard" element={<PatientDashboard />} />

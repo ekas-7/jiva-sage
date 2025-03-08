@@ -18,7 +18,7 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<ApiCaller />} />
+        <Route path="/" element={<QRCodeReader />} />
         {userProfile && <Route path="/user-data" element={<UserData />} />}
       </Routes>
     </div>

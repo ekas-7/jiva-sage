@@ -1,8 +1,396 @@
-import React from 'react'
+"use client"
 
-function AppointmentPage() {
+import { useState, useEffect } from "react"
+import { useUser } from "@/context/userContext"
+import { Calendar, MapPin, ExternalLink, FileText, Video, User, Plus, Clock, Star, HeartPulse } from "lucide-react"
+
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Badge } from "@/components/ui/badge"
+
+const AppointmentPage = ({ darkMode }) => {
+  const [activeTab, setActiveTab] = useState("upcoming")
+  const { profile } = useUser()
+  const [pageHeight, setPageHeight] = useState("100vh")
+
+  // Measure available height
+  useEffect(() => {
+    // Update height on window resize
+    const updateHeight = () => {
+      // Remove 80px for potential header/footer
+      setPageHeight(`${window.innerHeight - 80}px`)
+    }
+    
+    updateHeight()
+    window.addEventListener('resize', updateHeight)
+    return () => window.removeEventListener('resize', updateHeight)
+  }, [])
+
+  const appointments = profile?.appointments || [
+    {
+      id: 1,
+      doctor: "Dr. Sarah Johnson",
+      department: "Cardiology",
+      location: "Main Hospital, Floor 3",
+      date: "2025-03-15",
+      time: "10:30 AM",
+      isOnline: false,
+      status: "confirmed"
+    },
+    {
+      id: 2,
+      doctor: "Dr. Michael Chen",
+      department: "Telemedicine",
+      location: "Virtual Consultation",
+      date: "2025-03-20",
+      time: "2:15 PM",
+      isOnline: true,
+      status: "scheduled"
+    }
+  ]
+  
+  const pastAppointmentSample = [
+    {
+      id: 3,
+      doctor: "Dr. Emily Rodriguez",
+      department: "General Medicine",
+      location: "Downtown Clinic",
+      date: "2025-02-10",
+      time: "9:00 AM",
+      isOnline: false,
+      diagnosis: "Seasonal allergies with mild respiratory symptoms",
+      prescription: "Cetirizine 10mg once daily for 14 days, saline nasal spray as needed",
+      status: "completed"
+    }
+  ]
+
+  // Separate upcoming and past appointments dynamically
+  const upcomingAppointments = appointments.filter((appointment) => !appointment.prescription)
+  const pastAppointments = appointments.filter((appointment) => appointment.prescription) || pastAppointmentSample
+
   return (
-    <div>AppointmentPage</div>
+    <div 
+      className={`w-full ${darkMode ? "bg-gray-900" : "bg-[#ffdde2]"} transition-colors`} 
+      style={{ minHeight: pageHeight }}
+    >
+      <div className="container mx-auto py-6 px-4">
+        <div className="flex flex-col md:flex-row gap-6">
+          {/* Left Column - Appointments List */}
+          <div className="w-full md:w-2/3">
+            <Card className={`h-full overflow-hidden border ${darkMode ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"} shadow-sm`}>
+              <CardHeader className={`px-4 py-4 ${darkMode ? "border-gray-800" : "border-gray-100"} border-b`}>
+                <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
+                  <div>
+                    <CardTitle className={`text-xl font-semibold ${darkMode ? "text-white" : "text-gray-900"}`}>
+                      <span className="flex items-center gap-2">
+                        <Calendar className="h-5 w-5 text-[#FFB6C1]" /> 
+                        Appointments & Consultations
+                      </span>
+                    </CardTitle>
+                    <CardDescription className={`text-sm mt-1 ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+                      Manage your upcoming and past medical appointments
+                    </CardDescription>
+                  </div>
+                  <Button className="bg-[#FFB6C1] hover:bg-[#fba8b5] text-black font-medium transition-colors border-0 h-10">
+                    <Plus className="mr-2 h-4 w-4" /> Schedule Now
+                  </Button>
+                </div>
+              </CardHeader>
+
+              <div className="px-4 pt-4">
+                <Tabs defaultValue="upcoming" value={activeTab} onValueChange={setActiveTab} className="w-full">
+                  <TabsList className="grid w-full max-w-md grid-cols-2 bg-[#FFB6C1] p-1 rounded-lg">
+                    <TabsTrigger
+                      value="upcoming"
+                      className={`rounded-md ${activeTab === "upcoming" ? "bg-white shadow-sm" : "text-black hover:bg-[#ffc1ca]"}`}
+                    >
+                      <Calendar className="mr-2 h-4 w-4" />
+                      Upcoming
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="past" 
+                      className={`rounded-md ${activeTab === "past" ? "bg-white shadow-sm" : "text-black hover:bg-[#ffc1ca]"}`}
+                    >
+                      <Clock className="mr-2 h-4 w-4" />
+                      Past Consultations
+                    </TabsTrigger>
+                  </TabsList>
+
+                  <CardContent className="px-0 py-4">
+                    <div className="overflow-y-auto" style={{ maxHeight: "calc(100vh - 300px)" }}>
+                      <TabsContent value="upcoming" className="m-0 space-y-4">
+                        <div className="space-y-4">
+                          {upcomingAppointments.length > 0 ? (
+                            upcomingAppointments.map((appointment) => (
+                              <AppointmentCard
+                                key={appointment.id}
+                                appointment={appointment}
+                                darkMode={darkMode}
+                                isPast={false}
+                              />
+                            ))
+                          ) : (
+                            <EmptyState
+                              icon={<Calendar className={`h-14 w-14 ${darkMode ? "text-gray-700" : "text-gray-300"}`} />}
+                              message="No upcoming appointments"
+                              darkMode={darkMode}
+                            />
+                          )}
+                        </div>
+                      </TabsContent>
+
+                      <TabsContent value="past" className="m-0 space-y-4">
+                        <div className="space-y-4">
+                          {pastAppointments.length > 0 ? (
+                            pastAppointments.map((appointment) => (
+                              <AppointmentCard
+                                key={appointment.id}
+                                appointment={appointment}
+                                darkMode={darkMode}
+                                isPast={true}
+                              />
+                            ))
+                          ) : (
+                            <EmptyState
+                              icon={<FileText className={`h-14 w-14 ${darkMode ? "text-gray-700" : "text-gray-300"}`} />}
+                              message="No past consultations"
+                              darkMode={darkMode}
+                            />
+                          )}
+                        </div>
+                      </TabsContent>
+                    </div>
+                  </CardContent>
+                </Tabs>
+              </div>
+            </Card>
+          </div>
+
+          {/* Right Column - Quick Actions & Stats */}
+          <div className="w-full md:w-1/3 space-y-6">
+            {/* Quick Actions Card */}
+            <Card className={`border ${darkMode ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"} shadow-sm`}>
+              <CardHeader className="pb-2">
+                <CardTitle className={`text-lg font-medium ${darkMode ? "text-white" : "text-gray-900"}`}>
+                  <span className="flex items-center gap-2">
+                    <Star className="h-5 w-5 text-[#FFB6C1]" /> 
+                    Quick Actions
+                  </span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                <Button className="w-full justify-start bg-[#FFE6EA] hover:bg-[#ffdde2] text-[#FF7C8C]">
+                  <Calendar className="mr-2 h-4 w-4" /> Book New Appointment
+                </Button>
+                <Button className="w-full justify-start bg-[#FFE6EA] hover:bg-[#ffdde2] text-[#FF7C8C]">
+                  <Video className="mr-2 h-4 w-4" /> Start Virtual Consultation
+                </Button>
+                <Button className="w-full justify-start bg-[#FFE6EA] hover:bg-[#ffdde2] text-[#FF7C8C]">
+                  <FileText className="mr-2 h-4 w-4" /> View Medical Records
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Health Summary Card */}
+            <Card className={`border ${darkMode ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"} shadow-sm`}>
+              <CardHeader className="pb-2">
+                <CardTitle className={`text-lg font-medium ${darkMode ? "text-white" : "text-gray-900"}`}>
+                  <span className="flex items-center gap-2">
+                    <HeartPulse className="h-5 w-5 text-[#FFB6C1]" /> 
+                    Health Summary
+                  </span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className={`rounded-lg p-4 ${darkMode ? "bg-gray-800" : "bg-[#fff8f9]"}`}>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-600"}`}>Recent Consultations</span>
+                    <Badge className="bg-[#FFE6EA] text-[#FF7C8C]">{pastAppointments.length || 0}</Badge>
+                  </div>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-600"}`}>Upcoming Appointments</span>
+                    <Badge className="bg-[#FFE6EA] text-[#FF7C8C]">{upcomingAppointments.length || 0}</Badge>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-600"}`}>Prescription Renewals</span>
+                    <Badge className="bg-[#FFE6EA] text-[#FF7C8C]">0</Badge>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Tips Card */}
+            <Card className={`border ${darkMode ? "bg-gray-900 border-gray-800" : "bg-white border-gray-100"} shadow-sm`}>
+              <CardHeader className="pb-2">
+                <CardTitle className={`text-lg font-medium ${darkMode ? "text-white" : "text-gray-900"}`}>
+                  Healthcare Tips
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className={`p-4 rounded-lg border ${darkMode ? "border-gray-700 bg-gray-800" : "border-[#ffdde2] bg-[#fff8f9]"}`}>
+                  <div className="text-sm text-center">
+                    <p className={`mb-3 ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+                      Regular check-ups help prevent health issues. Schedule your annual physical exam today.
+                    </p>
+                    <Button variant="link" className="text-[#FF7C8C] p-0 h-auto">
+                      Learn more
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const AppointmentCard = ({ appointment, darkMode, isPast }) => {
+  return (
+    <div
+      className={`p-4 rounded-xl border ${
+        darkMode
+          ? "bg-gray-800 border-gray-700 hover:border-gray-600"
+          : "bg-white border-gray-100 hover:border-gray-200"
+        } transition-all shadow-sm hover:shadow`}
+    >
+      <div className="flex flex-col sm:flex-row justify-between sm:items-start gap-3">
+        {/* Doctor Details */}
+        <div className="flex items-start gap-3">
+          <div
+            className={`h-12 w-12 rounded-full flex items-center justify-center flex-shrink-0 ${
+                isPast
+                ? darkMode
+                  ? "bg-gray-700 text-gray-300"
+                  : "bg-gray-50 text-gray-500"
+                : appointment.isOnline
+                  ? darkMode
+                    ? "bg-[#FFE6EA] bg-opacity-20 text-[#FFB6C1]"
+                    : "bg-[#FFE6EA] text-[#FF7C8C]"
+                  : darkMode
+                    ? "bg-[#FFE6EA] bg-opacity-20 text-[#FFB6C1]"
+                    : "bg-[#FFE6EA] text-[#FF7C8C]"
+              }`}
+          >
+            {isPast ? <FileText size={20} /> : appointment.isOnline ? <Video size={20} /> : <User size={20} />}
+          </div>
+          <div>
+            <h3 className={`font-medium text-base ${darkMode ? "text-white" : "text-gray-900"}`}>
+              {appointment.doctor}
+            </h3>
+            <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>{appointment.department}</p>
+            <div className={`flex items-center mt-1 text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>
+              <MapPin className={`h-3.5 w-3.5 mr-1 ${darkMode ? "text-gray-500" : "text-gray-400"}`} />
+              {appointment.location}
+            </div>
+          </div>
+        </div>
+
+        {/* Appointment Time & Badge */}
+        <div className="text-left sm:text-right ml-10 sm:ml-0 mt-1 sm:mt-0">
+          <p className={`text-sm font-medium ${darkMode ? "text-white" : "text-gray-900"}`}>
+            {new Date(appointment.date).toLocaleDateString()} at {appointment.time}
+          </p>
+          {!isPast && (
+            <Badge
+              className={`mt-1 font-normal ${
+                appointment.isOnline
+                  ? darkMode
+                    ? "bg-[#FFE6EA] bg-opacity-20 text-[#FFB6C1]"
+                    : "bg-[#FFE6EA] text-[#FF7C8C] hover:bg-[#FFE6EA]"
+                  : darkMode
+                    ? "bg-[#FFE6EA] bg-opacity-20 text-[#FFB6C1]"
+                    : "bg-[#FFE6EA] text-[#FF7C8C] hover:bg-[#FFE6EA]"
+                }`}
+            >
+              {appointment.isOnline ? "Online" : "In-person"}
+            </Badge>
+          )}
+        </div>
+      </div>
+
+      {/* Diagnosis & Prescription Section for Past Appointments */}
+      {isPast && appointment.diagnosis && (
+        <div className="mt-4 ml-0 sm:ml-14">
+          <div className={`pl-4 border-l ${darkMode ? "border-gray-700" : "border-[#FFE6EA]"}`}>
+            <h4 className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"}`}>Diagnosis:</h4>
+            <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>{appointment.diagnosis}</p>
+
+            <h4 className={`text-sm font-medium mt-2 ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
+              Prescription:
+            </h4>
+            <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>{appointment.prescription}</p>
+          </div>
+        </div>
+      )}
+
+      {/* Action Buttons */}
+      <div className="mt-4 ml-0 sm:ml-14 flex flex-wrap gap-2">
+        {isPast ? (
+          <>
+            <Button
+              variant="outline"
+              size="sm"
+              className={`text-sm ${darkMode ? "border-gray-700 text-[#FFB6C1] hover:bg-gray-800 hover:text-[#FFB6C1]" : "border-[#FFB6C1] text-[#FF7C8C] hover:bg-[#FFE6EA]"}`}
+            >
+              View Summary
+              <ExternalLink size={14} className="ml-2" />
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className={`text-sm ${darkMode ? "border-gray-700 text-gray-300 hover:bg-gray-800" : "border-gray-200 text-gray-500 hover:bg-gray-50"}`}
+            >
+              Download Records
+            </Button>
+          </>
+        ) : (
+          <>
+            {appointment.isOnline && (
+              <Button
+                variant="outline"
+                size="sm"
+                className={`text-sm ${darkMode ? "border-[#FFB6C1] bg-opacity-10 text-[#FFB6C1] hover:bg-[#FFB6C1] hover:bg-opacity-20" : "border-[#FFB6C1] text-[#FF7C8C] hover:bg-[#FFE6EA]"}`}
+              >
+                Join Meeting
+                <ExternalLink size={14} className="ml-2" />
+              </Button>
+            )}
+            <Button
+              variant="outline"
+              size="sm"
+              className={`text-sm ${darkMode ? "border-gray-700 text-gray-300 hover:bg-gray-800" : "border-gray-200 text-gray-500 hover:bg-gray-50"}`}
+            >
+              Reschedule
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              className={`text-sm ${darkMode ? "border-gray-700 text-gray-300 hover:bg-gray-800" : "border-gray-200 text-gray-500 hover:bg-gray-50"}`}
+            >
+              Cancel
+            </Button>
+          </>
+        )}
+      </div>
+    </div>
+  )
+}
+
+const EmptyState = ({ icon, message, darkMode }) => {
+  return (
+    <div className={`flex flex-col items-center justify-center h-64 text-center p-6 rounded-xl border border-dashed ${darkMode ? "border-gray-700 bg-gray-800 bg-opacity-50" : "border-[#ffdde2] bg-[#fff8f9] bg-opacity-50"}`}>
+      <div className="mb-4">{icon}</div>
+      <p className={`text-base ${darkMode ? "text-gray-300" : "text-gray-600"} font-medium`}>{message}</p>
+      <p className={`text-sm ${darkMode ? "text-gray-500" : "text-gray-500"} mt-2 max-w-md`}>
+        Your appointments will appear here once scheduled. Click the "Schedule Now" button to book a new appointment.
+      </p>
+      <Button className="mt-4 bg-[#FFB6C1] hover:bg-[#fba8b5] text-black">
+        <Plus className="mr-2 h-4 w-4" /> Schedule Appointment
+      </Button>
+    </div>
   )
 }
 
