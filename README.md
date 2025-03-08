@@ -1,5 +1,4 @@
-<div align="center">
-  <<div align="center">
+  <div align="center">
   <img src="./assets/images/logo.png" alt="Jiva Logo" width="500"/>
   <h3>Your Health Story All in One Place</h3>
 
