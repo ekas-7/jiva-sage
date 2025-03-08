@@ -52,7 +52,7 @@ const Appointments = ({ darkMode }) => {
           </TabsList>
 
           <CardContent className="px-0 py-4">
-            <div className="h-80 overflow-y-auto px-1">
+            <div className="h-70 overflow-y-auto px-1">
               <TabsContent value="upcoming" className="m-0">
                 <div className="space-y-4">
                   {upcomingAppointments.length > 0 ? (
