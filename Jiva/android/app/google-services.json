@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "813737024941",
+    "project_id": "jiva-app-93f84",
+    "storage_bucket": "jiva-app-93f84.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813737024941:android:4f88b062d19885a9d6d524",
+        "android_client_info": {
+          "package_name": "com.example.jiva"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCs6l1NGAAiVNcmP-9NWtO1MspnLY6QoyE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
