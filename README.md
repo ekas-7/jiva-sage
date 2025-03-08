@@ -1,8 +1,9 @@
 # Jiva
 
 <div align="center">
-  <img src="https://drive.google.com/file/d/1bQ2uBCHn5ZdqbNGZPlDsqkbzUrP5_NyR/view?usp=sharing" alt="Jiva Logo" />
-  <h3>Your Health Story all in one Place.</h3>
+  <<div align="center">
+  <img src="./assets/images/logo.png" alt="Jiva Logo" width="500"/>
+  <h3>Your Health Story All in One Place</h3>
 
 </div>
 
