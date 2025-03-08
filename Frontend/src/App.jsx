@@ -1,9 +1,10 @@
 import React from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
+import { useUser } from './context/userContext';
 
 import Home from './pages/Home.jsx';
 import Auth from './pages/AuthPage.jsx';
-import { useUser } from './context/userContext';
+import QRCodeData from './pages/QRCodeData';
 
 function App() {
   const { token } = useUser();
@@ -21,6 +22,7 @@ function App() {
         <>
           {/* Authenticated Routes */}
           <Route path="/*" element={<Home />} />
+          <Route path="/qr-code" element={<QRCodeData />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </>
       )}

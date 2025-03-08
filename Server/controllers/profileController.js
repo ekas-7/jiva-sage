@@ -1,3 +1,4 @@
+import { model } from "mongoose";
 import Appointment from "../models/appointmentModel.js";
 import GlucoseTrend from "../models/glucoseTrendModel.js";
 import HealthMonitoring from "../models/healthMonitoringModel.js";
@@ -224,9 +225,51 @@ const storeUserDetail = async (req, res) => {
         console.error("Error in storing details:", err);
         res.status(500).json({
             success: false,
-            message: "Internal server error",
+            message: err.message,
         });
     }
 };
 
-export {getUserDetail,signup,signin,storeUserDetail};
+const getQRData = async (req, res) => {
+    try {
+        const userId = req.userId;
+
+        if (!userId) {
+            return res.status(400).json({
+                success: false,
+                message: "User id is missing",
+            });
+        }
+
+        const qrData = {};
+
+        for (const detailType of Object.keys(modelMap)) {
+            const model = modelMap[detailType];
+            let key = "userId"
+
+            if(detailType === "user"){
+                key = "_id"
+            }
+
+            const data = await model.find({ [key]:userId }); // Await inside a loop
+            qrData[detailType] = data;
+        }
+
+        console.log(qrData);
+
+        return res.status(200).json({
+            success: true,
+            message: "QR data retrieved successfully",
+            data: qrData,
+        });
+    } catch (err) {
+        console.error("Error in getting QR details:", err);
+        res.status(500).json({
+            success: false,
+            message: err.message,
+        });
+    }
+};
+
+
+export {getUserDetail,signup,signin,storeUserDetail,getQRData};
