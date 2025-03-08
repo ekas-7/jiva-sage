@@ -22,6 +22,26 @@ html {
 /* .scrollbar-thin {
   @apply scrollbar scrollbar-thin scrollbar-thumb-pink-400 scrollbar-track-[#FFDDE3];
 } */
+/* First define the font class as you already have */
+.poppins-regular {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Now apply it to the entire body */
+body {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Or if you're using Tailwind, you can apply it to the html and body tags */
+html, body {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
 
 :root {
   --background: oklch(1 0 0);
