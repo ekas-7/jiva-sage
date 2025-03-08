@@ -5,6 +5,7 @@ import 'package:jiva/core/utils/app_logger.dart'; // Added missing import
 import 'package:jiva/features/auth/data/sources/local_auth_service.dart';
 import 'package:jiva/injection_container.dart';
 import 'package:jiva/screens/qrcode.dart';
+import 'package:jiva/screens/web_analysis.dart';
 
 class JivaMinimalistDashboard extends StatefulWidget {
   // Changed to StatefulWidget
@@ -209,7 +210,7 @@ class _JivaMinimalistDashboardState extends State<JivaMinimalistDashboard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Your vitals look good',
+                      'Your vitals look good ',
                       style: GoogleFonts.poppins(
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
@@ -228,17 +229,27 @@ class _JivaMinimalistDashboardState extends State<JivaMinimalistDashboard> {
                   ],
                 ),
               ),
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: accentColor.withOpacity(0.2),
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(
-                  Icons.arrow_forward_ios_rounded,
-                  color: accentColor,
-                  size: 16,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const WebAnalysisScreen(),
+                    ),
+                  );
+                },
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  decoration: BoxDecoration(
+                    color: accentColor.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    Icons.arrow_forward_ios_rounded,
+                    color: accentColor,
+                    size: 16,
+                  ),
                 ),
               ),
             ],
