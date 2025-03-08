@@ -1,91 +1,165 @@
-import React,{useState} from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
 import { Scanner } from '@yudiel/react-qr-scanner';
+import { Camera, AlertCircle, Loader, Heart, RefreshCw, User } from 'lucide-react';
+import UserData from './UserData.jsx';
+import { useDoctor } from '@/context/DoctorContext.jsx';
+import { useNavigate } from 'react-router-dom';
 
-function QRCodeReader() {
-  const [scanResult, setScanResult] = useState(null);
-  const [scanning, setScanning] = useState(false);
-  const [otpSent, setOtpSent] = useState(false);
+function QRCodeReader({ darkMode }) {
+  const [apiResponse, setApiResponse] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [scanActive, setScanActive] = useState(true);
 
-  const handleScan = async (data) => {
-    if (data && !scanResult) {
-      setScanResult(data);
-      setScanning(false);
+  const { setUserProfile } = useDoctor();
+  const navigate = useNavigate();
 
-      try {
-        // Send the QR data to your backend to process and send OTP
-        const response = await axios.post('/api/scan-qr', {
-          qrData: data,
-          // Include the current user's ID who is scanning
-          scanningUserId: getCurrentUserId() // Implement this function to get current user
-        });
-
-        if (response.data.success) {
-          setOtpSent(true);
-        } else {
-          setError(response.data.message || 'Failed to process QR code');
+  const handleScan = async (result) => {
+    if (!result || result.length === 0 || !scanActive) return;
+    
+    // Pause scanning while processing
+    setScanActive(false);
+    
+    const qrValue = result[0].rawValue;
+    console.log(qrValue);
+    
+    try {
+      setIsLoading(true);
+      setError(null);
+      
+      // Make API call with the QR code value
+      const res = await axios.post(
+        'http://localhost:4000/api/doctor/qr-data', 
+        {}, // Empty request body
+        { 
+          headers: { 
+            Authorization:qrValue 
+          }
         }
-      } catch (err) {
-        setError('Error sending OTP. Please try again.');
-        console.error(err);
-      }
+      );
+      const data = res.data;
+      
+      // Log the API response to console
+      console.log('API Response:', data.data);
+      
+      setUserProfile(data.data);
+      // Update state with the response
+      setApiResponse(data.data);
+      
+    } catch (err) {
+      console.error('Error calling API:', err);
+      setError(err.message || 'Failed to fetch data');
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  const handleError = (err) => {
-    console.error(err);
-    setError('Error accessing camera. Please check permissions.');
-  };
-
   const resetScanner = () => {
-    setScanResult(null);
-    setOtpSent(false);
+    setApiResponse(null);
     setError(null);
+    setScanActive(true);
   };
 
-  const startScanning = () => {
-    setScanning(true);
-    resetScanner();
-  };
+  // Theme colors
+  const bgColor = darkMode ? "bg-gray-900" : "bg-gray-50";
+  const cardBgColor = darkMode ? "bg-gray-800" : "bg-white";
+  const textColor = darkMode ? "text-white" : "text-gray-900";
+  const secondaryTextColor = darkMode ? "text-gray-400" : "text-gray-500";
+  const borderColor = darkMode ? "border-gray-700" : "border-gray-100";
+  const scannerBgColor = darkMode ? "bg-gray-700" : "bg-[#FFF0F3]";
+  const footerBgColor = darkMode ? "bg-gray-800" : "bg-gray-800";
+  const footerTextColor = darkMode ? "text-gray-300" : "text-gray-300";
 
   return (
-    <div className="qr-scanner-container">
-      <h2>Scan QR Code</h2>
-
-      {!scanning && !scanResult && (
-        <button onClick={startScanning} className="scan-button">
-          Start Scanning
-        </button>
-      )}
-
-      {scanning && (
-        <div className="scanner">
-          <Scanner
-            onResult={(result) => {
-              console.log(result);
-            }}
-            onError={handleError}
-            constraints={{ facingMode: 'environment' }}
-            style={{ width: '20%' }}
-          />
+    <div className={`flex flex-col min-h-screen ${bgColor}`}>
+      {/* Header */}
+      <header className={`bg-[#FFB6C1] text-black p-4 shadow-md`}>
+        <div className="max-w-4xl mx-auto flex items-center justify-between">
+          <div className="flex items-center">
+            <div className="mr-3 bg-white p-2 rounded-full">
+              <Heart className="text-[#FF7C8C]" size={20} />
+            </div>
+            <h1 className="text-xl font-bold">Medical QR Scanner</h1>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 bg-white px-3 py-1 rounded-full text-sm font-medium">
+              <User size={14} />
+              <span>Doctor Mode</span>
+            </div>
+          </div>
         </div>
-      )}
-
-      {error && (
-        <div className="error-message">
-          <p>{error}</p>
-          <button onClick={resetScanner}>Try Again</button>
+      </header>
+      
+      <main className="flex-1 mx-auto w-full p-4 bg-[#ffdde2]">
+        {/* Scanner Container - UPDATED WITH SMALLER SIZE */}
+        <div className={`${cardBgColor} rounded-lg shadow-md overflow-hidden mb-6 border ${borderColor} max-w-md mx-auto`}>
+          <div className={`p-3 ${scannerBgColor} border-b ${borderColor}`}>
+            <h2 className={`font-bold text-[#FF7C8C] flex items-center text-sm`}>
+              <Camera size={16} className="mr-2" />
+              {scanActive ? 'Scan Patient QR Code' : 'Patient Data Loaded'}
+            </h2>
+          </div>
+          
+          {scanActive ? (
+            <div className="relative">
+              <div className="aspect-square max-h-40 w-full overflow-hidden">
+                <Scanner 
+                  onScan={handleScan}
+                  scanDelay={500}
+                  constraints={{ facingMode: "environment" }}
+                />
+              </div>
+              <div className="absolute inset-0 pointer-events-none border-2 border-[#FFB6C1] border-dashed opacity-70 m-4 rounded"></div>
+            </div>
+          ) : (
+            <div className={`aspect-square max-h-40 w-full ${darkMode ? "bg-gray-700" : "bg-gray-100"} flex items-center justify-center`}>
+              <button 
+                onClick={resetScanner}
+                className="bg-[#FFB6C1] text-black py-1 px-3 rounded-md hover:bg-[#fba8b5] transition-colors flex items-center gap-2 text-sm"
+              >
+                <RefreshCw size={14} />
+                Scan New Code
+              </button>
+            </div>
+          )}
         </div>
-      )}
-
-      {otpSent && (
-        <div className="success-message">
-          <p>QR code scanned successfully! An OTP has been sent to the owner.</p>
-          <button onClick={resetScanner}>Scan Another</button>
+        
+        {/* Status/Results Container */}
+        <div className="space-y-4 max-w-2xl mx-auto">
+          {/* Loading State */}
+          {isLoading && (
+            <div className={`${cardBgColor} p-4 rounded-lg shadow-md flex items-center border ${borderColor}`}>
+              <Loader size={20} className="text-[#FFB6C1] animate-spin mr-3" />
+              <p className={`${textColor} text-sm`}>Authenticating and retrieving patient data...</p>
+            </div>
+          )}
+          
+          {/* Error Message */}
+          {error && (
+            <div className={`${darkMode ? "bg-red-900 bg-opacity-20" : "bg-red-50"} p-4 rounded-lg shadow-md border-l-4 border-red-500`}>
+              <div className="flex items-start">
+                <AlertCircle size={20} className="text-red-500 mr-3 mt-0.5" />
+                <div>
+                  <h3 className={`font-bold text-sm ${darkMode ? "text-red-400" : "text-red-700"}`}>Authentication Error</h3>
+                  <p className={`text-xs ${darkMode ? "text-red-300" : "text-red-600"}`}>{error}</p>
+                </div>
+              </div>
+            </div>
+          )}
+          
+          {/* User Data */}
+          {apiResponse && !isLoading && !error && (
+            <UserData data={apiResponse} onReset={resetScanner} darkMode={darkMode} />
+          )}
         </div>
-      )}
+      </main>
+      
+      <footer className={`${footerBgColor} ${footerTextColor} py-3 text-center text-sm mt-6`}>
+        Secure Medical QR Scanner • © {new Date().getFullYear()} • All rights reserved
+      </footer>
     </div>
   );
 }
 
-export default QRCodeReader
+export default QRCodeReader;

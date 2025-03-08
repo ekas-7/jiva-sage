@@ -1,25 +1,28 @@
 import React from 'react';
-import {useDoctor} from '../../context/DoctorContext.jsx'
+// import { useUser } from '../../context/userContext.jsx';
+import { Pill, Calendar, Clock, Bell, RefreshCw } from 'lucide-react';
 
-const Medications = ({ darkMode }) => {
-  const {userProfile} = useDoctor();
+const Medications = ({ darkMode,userProfile }) => {
+  // const { profile } = useUser();
   // Sample medications data
-  const medications = userProfile?.medications || []
+  const medications = userProfile?.medications || [];
 
   return (
-    <div className={`overflow-y-auto h-full px-6 py-4 rounded-lg shadow-md overflow-hidden ${darkMode ? 'bg-gray-800' : 'bg-white'}`}>
-      <div className={`flex justify-between items-center ${darkMode ? 'bg-gray-700 text-white' : 'bg-white text-black'}`}>
-        <div>
-          <h2 className="text-2xl font-semibold">Medications & Prescriptions</h2>
-          <p className='text-gray-500'>Current medications and refill status</p>
+    <div className="h-full rounded-lg shadow-sm overflow-hidden bg-white border border-gray-100">
+      <div className="p-6 border-b border-gray-100">
+        <div className="flex justify-between items-center">
+          <div>
+            <h2 className="text-xl font-semibold text-gray-900">Medications & Prescriptions</h2>
+            <p className="text-sm text-gray-500">Current medications and refill status</p>
+          </div>
+          <button className="bg-[#FFB6C1] hover:bg-[#fba8b5] text-black px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+            Request All
+          </button>
         </div>
-        <button className={`${darkMode ? 'bg-white text-black' : 'bg-black text-white'} px-4 py-2 rounded-lg font-bold`}>
-          Request All
-        </button>
       </div>
       
-      <div className="mt-4">
-        <div className="space-y-4">
+      <div className="p-6">
+        <div className="space-y-3 h-80 overflow-y-scroll">
           {medications.map((medication) => {
             // Calculate days until refill
             const today = new Date();
@@ -29,56 +32,70 @@ const Medications = ({ darkMode }) => {
             return (
               <div 
                 key={medication.id} 
-                className={`p-5 rounded-lg ${darkMode ? 'bg-black text-white' : 'bg-white '} border border-gray-200`}
+                className="p-4 rounded-lg border border-gray-100 bg-white hover:border-gray-200 transition-colors"
               >
                 <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="font-bold">{medication.name} {medication.dosage}</h3>
-                    <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                      {medication.frequency}
-                    </p>
+                  <div className="flex items-start gap-3">
+                    <div className="h-10 w-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-500">
+                      <Pill size={18} />
+                    </div>
+                    <div>
+                      <h3 className="font-medium text-gray-900">{medication.name} {medication.dosage}</h3>
+                      <p className="text-sm text-gray-500">
+                        {medication.frequency}
+                      </p>
+                    </div>
                   </div>
                   <div>
                     {daysUntilRefill <= 7 ? (
-                      <span className={`inline-block px-2 py-1 text-xs rounded ${
-                        darkMode ? 'bg-red-800 text-red-200' : 'bg-red-100 text-red-800'
-                      }`}>
+                      <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-red-50 text-red-700">
                         Refill in {daysUntilRefill} days
                       </span>
                     ) : (
-                      <span className={`inline-block px-2 py-1 text-xs rounded ${
-                        darkMode ? 'bg-green-800 text-green-200' : 'bg-green-100 text-green-800'
-                      }`}>
+                      <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-green-50 text-green-700">
                         Refill in {daysUntilRefill} days
                       </span>
                     )}
                   </div>
                 </div>
                 
-                <div className="mt-2">
-                  <p className={`text-sm ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                    <span className="font-medium">Started:</span> {new Date(medication.startDate).toLocaleDateString()}
-                  </p>
-                  <p className={`text-sm mt-1 ${darkMode ? 'text-gray-400' : 'text-gray-600'}`}>
-                    <span className="font-medium">Instructions:</span> {medication.instructions}
-                  </p>
+                <div className="ml-13 pl-13 mt-2">
+                  <div className="flex flex-col space-y-1 ml-13 pl-4 border-l border-gray-100">
+                    <div className="flex items-center">
+                      <Calendar size={14} className="text-gray-400 mr-2" />
+                      <p className="text-sm text-gray-600">
+                        <span className="font-medium">Started:</span> {new Date(medication.startDate).toLocaleDateString()}
+                      </p>
+                    </div>
+                    <div className="flex items-center">
+                      <Clock size={14} className="text-gray-400 mr-2" />
+                      <p className="text-sm text-gray-600">
+                        <span className="font-medium">Instructions:</span> {medication.instructions}
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 
-                <div className="w-full mt-3 flex space-x-2">
-                  <button className={`w-1/2 px-3 py-2 text-sm font-bold rounded cursor-pointer ${
-                    darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-white border border-gray-200 hover:bg-gray-100'
-                  } `}>
+                <div className="w-full mt-4 flex space-x-2">
+                  <button className="w-1/2 px-3 py-2 text-sm font-medium rounded-md border border-gray-200 hover:bg-gray-50 text-gray-700 transition-colors flex items-center justify-center">
+                    <Bell size={16} className="mr-2" />
                     Set Reminder
                   </button>
-                  <button className={`w-1/2 px-3 py-2 text-sm font-bold rounded cursor-pointer ${
-                    darkMode ? 'bg-blue-600 hover:bg-blue-700' : 'bg-white border border-gray-200 hover:bg-gray-100'
-                  } `}>
+                  <button className="w-1/2 px-3 py-2 text-sm font-medium rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors flex items-center justify-center">
+                    <RefreshCw size={16} className="mr-2" />
                     Request Refill
                   </button>
                 </div>
               </div>
             );
           })}
+          
+          {medications.length === 0 && (
+            <div className="flex flex-col items-center justify-center h-40 text-center">
+              <Pill className="h-10 w-10 text-gray-300 mb-2" />
+              <p className="text-gray-500">No medications available.</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
