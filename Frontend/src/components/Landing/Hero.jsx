@@ -1,7 +1,7 @@
 import React from 'react';
 import { PlayIcon } from "./Decorations";
 import healthcareMain from "../../assets/main.png";  
-import { HeartBeats, HealthWaves } from './Decorations';
+import { HeartBeats, HealthWaves, HealthStar } from './Decorations';
 import { HealthCurves, HealthDots } from './Decorations';
 // import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -16,15 +16,15 @@ const Hero = () => {
   };
   
   return (
-    <div className="max-w-7xl mx-auto px-4 pt-24 pb-20 relative overflow-hidden">
-      {/* <div className='absolute top-0 right-80'>
-        <HeartBeats />
-      </div> */}
-      <div className='absolute top-73 left-94'>
+    <div className="max-w-7xl mx-auto px-4 pt-48 pb-20 relative overflow-hidden">
+      <div className='absolute top-40 right-168'>
+        <HealthCurves />
+      </div>
+      <div className='absolute top-65 left-120'>
         <HealthWaves />
       </div>
       <div className='absolute top-40 right-10 md:right-20'>
-        <HealthDots/>
+        <HealthStar/>
       </div>
       <div className='absolute bottom-40 right-32 md:right-72'>
         <HealthWaves />
@@ -39,7 +39,7 @@ const Hero = () => {
             Experience personalized healthcare tracking with AI-driven insights, comprehensive health metrics, 
             and interactive monitoring tools. Join a community where wellness meets innovation.
           </p>
-          <HealthCurves />
+          {/* <HealthCurves /> */}
           <div className="flex items-center gap-8">
             <button
               onClick={handleGetStarted}
