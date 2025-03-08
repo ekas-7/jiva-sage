@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    pin: {
+        type: Number,
+        required: true
+    },
     emergencyContact: {
         name: {
             type: String

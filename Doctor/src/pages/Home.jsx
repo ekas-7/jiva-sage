@@ -1,19 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Scanner } from '@yudiel/react-qr-scanner';
-import { Camera, AlertCircle, Loader, Heart, RefreshCw, X } from 'lucide-react';
+import { Camera, AlertCircle, Loader, Heart, RefreshCw, X, Lock } from 'lucide-react';
 import { useDoctor } from '@/context/DoctorContext';
 
 import Navbar from '@/components/NavBar';
 
 function Home() {
   const [showScanner, setShowScanner] = useState(false);
+  const [showPinVerification, setShowPinVerification] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [scannedQRValue, setScannedQRValue] = useState('');
+  const [pin, setPin] = useState(['', '', '', '']);
+  const pinInputRefs = [useRef(), useRef(), useRef(), useRef()];
   const navigate = useNavigate();
 
-  const {setUserProfile} = useDoctor();
+  const { setUserProfile } = useDoctor();
 
   const handleScan = async (result) => {
     if (!result || result.length === 0) return;
@@ -21,39 +25,83 @@ function Home() {
     const qrValue = result[0].rawValue;
     console.log('QR Code scanned:', qrValue);
     
+    // Store QR value and show PIN verification screen
+    setScannedQRValue(qrValue);
+    setShowScanner(false);
+    setShowPinVerification(true);
+    
+    // Focus the first PIN input automatically
+    setTimeout(() => {
+      pinInputRefs[0].current?.focus();
+    }, 100);
+  };
+
+  const handlePinChange = (index, value) => {
+    // Only allow digits
+    if (!/^\d*$/.test(value)) return;
+    
+    // Update the PIN array
+    const newPin = [...pin];
+    newPin[index] = value;
+    setPin(newPin);
+    
+    // Auto-focus next input
+    if (value && index < 3) {
+      pinInputRefs[index + 1].current?.focus();
+    }
+  };
+
+  const handleKeyDown = (index, e) => {
+    // Handle backspace - if current is empty, focus previous
+    if (e.key === 'Backspace' && !pin[index] && index > 0) {
+      pinInputRefs[index - 1].current?.focus();
+    }
+  };
+
+  const verifyPin = async () => {
+    const fullPin = pin.join('');
+    
+    // Check if PIN is complete
+    if (fullPin.length !== 4) {
+      setError('Please enter a 4-digit PIN');
+      return;
+    }
+    
     try {
       setIsLoading(true);
       setError(null);
       
-      // Make API call with the QR code value
+      // Make API call with both QR value and PIN
       const res = await axios.post(
         'http://localhost:4000/api/doctor/qr-data', 
-        {}, 
+        { pin: fullPin }, 
         { 
           headers: { 
-            Authorization: qrValue 
+            Authorization: scannedQRValue 
           }
         }
       );
       
       console.log('API Response:', res.data);
       
-      // If successful, close scanner and redirect
-      setUserProfile(res.data.data)
-      setShowScanner(false);
+      // If successful, set user profile and navigate
+      setUserProfile(res.data.data);
+      setShowPinVerification(false);
       navigate('/user-data', { state: { userData: res.data.data } });
       
     } catch (err) {
       console.error('Error calling API:', err);
-      setError(err.message || 'Failed to fetch data');
+      setError(err.response?.data?.message || err.message || 'Failed to verify PIN');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const closeScanner = () => {
+  const closeOverlay = () => {
     setShowScanner(false);
+    setShowPinVerification(false);
     setError(null);
+    setPin(['', '', '', '']);
   };
 
   return (
@@ -82,7 +130,7 @@ function Home() {
                   Scan Patient QR Code
                 </h2>
                 <button 
-                  onClick={closeScanner}
+                  onClick={closeOverlay}
                   className="text-gray-500 hover:text-gray-700"
                 >
                   <X size={20} />
@@ -122,6 +170,79 @@ function Home() {
                   </div>
                 )}
               </div>
+            </div>
+          </div>
+        )}
+        
+        {/* PIN Verification Overlay */}
+        {showPinVerification && (
+          <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
+            <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-md w-full">
+              {/* Header */}
+              <div className="bg-[#FFF0F3] p-3 border-b border-gray-100 flex justify-between items-center">
+                <h2 className="font-bold text-[#FF7C8C] flex items-center text-sm">
+                  <Lock size={16} className="mr-2" />
+                  Enter Patient PIN
+                </h2>
+                <button 
+                  onClick={closeOverlay}
+                  className="text-gray-500 hover:text-gray-700"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              
+              {/* PIN Input */}
+              <div className="p-6">
+                <div className="text-center mb-4">
+                  <p className="text-gray-600 text-sm">Please enter the 4-digit PIN to access patient data</p>
+                </div>
+                
+                <div className="flex justify-center gap-3 mb-6">
+                  {pin.map((digit, index) => (
+                    <input
+                      key={index}
+                      ref={pinInputRefs[index]}
+                      type="password"
+                      maxLength={1}
+                      value={digit}
+                      onChange={(e) => handlePinChange(index, e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(index, e)}
+                      className="w-12 h-12 text-center text-xl font-bold border-2 border-gray-300 rounded-md focus:border-[#FFB6C1] focus:outline-none"
+                    />
+                  ))}
+                </div>
+                
+                <button
+                  onClick={verifyPin}
+                  disabled={isLoading || pin.some(digit => digit === '')}
+                  className="w-full bg-gradient-to-r from-[#FF7C8C] to-[#FFB6C1] hover:from-[#FFB6C1] hover:to-[#FF7C8C] text-white py-2 px-4 rounded-md font-medium shadow-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isLoading ? (
+                    <span className="flex items-center justify-center">
+                      <Loader size={16} className="animate-spin mr-2" />
+                      Verifying...
+                    </span>
+                  ) : (
+                    "Access Patient Data"
+                  )}
+                </button>
+              </div>
+              
+              {/* Error Message */}
+              {error && (
+                <div className="px-6 pb-4">
+                  <div className="bg-red-50 p-3 rounded-md border-l-4 border-red-500">
+                    <div className="flex items-start">
+                      <AlertCircle size={16} className="text-red-500 mr-2 mt-0.5" />
+                      <div>
+                        <h3 className="font-bold text-sm text-red-700">Error</h3>
+                        <p className="text-xs text-red-600">{error}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}

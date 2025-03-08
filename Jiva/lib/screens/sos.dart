@@ -1,8 +1,10 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:http/http.dart' as http;
 
 class SOSScreen extends StatefulWidget {
   const SOSScreen({Key? key}) : super(key: key);
@@ -13,9 +15,8 @@ class SOSScreen extends StatefulWidget {
 
 class _SOSScreenState extends State<SOSScreen> {
   // Configuration variables
-  final double _fallThreshold =
-      1000.0; // Lower value for fall detection (near freefall)
-  final int _countdownSeconds = 15; // How long until call is made
+  final double _fallThreshold = 1000.0; // Fall detection sensitivity
+  final int _countdownSeconds = 15; // Countdown before call
 
   // Hardcoded emergency contact - replace with actual number
   final String _emergencyContact = '+917878156830'; // Replace with your number
@@ -27,15 +28,13 @@ class _SOSScreenState extends State<SOSScreen> {
   bool _sosTriggered = false;
   int _remainingSeconds = 0;
   late Timer _timer;
-  late StreamSubscription<UserAccelerometerEvent>
-      _userAccelerometerSubscription;
+  late StreamSubscription<UserAccelerometerEvent> _userAccelerometerSubscription;
 
   // Fall detection variables
   bool _possibleFall = false;
   DateTime? _fallStartTime;
-  final int _fallDurationThresholdMs =
-      300; // Minimum duration for fall detection in milliseconds
-  final double _postFallImpactThreshold = 1000.0; // Impact after fall detection
+  final int _fallDurationThresholdMs = 300; // Minimum fall duration (ms)
+  final double _postFallImpactThreshold = 1000.0; // Impact force after fall
 
   @override
   void initState() {
@@ -66,14 +65,8 @@ class _SOSScreenState extends State<SOSScreen> {
       _fallStartTime = null;
     });
 
-    // Using userAccelerometerEvents to detect free fall (gravity compensated)
-    _userAccelerometerSubscription =
-        userAccelerometerEvents.listen((UserAccelerometerEvent event) {
-      // Calculate magnitude of acceleration (excluding gravity)
-      final double acceleration =
-          _calculateMagnitude(event.x, event.y, event.z);
-
-      // Fall detection algorithm
+    _userAccelerometerSubscription = userAccelerometerEvents.listen((event) {
+      final double acceleration = _calculateMagnitude(event.x, event.y, event.z);
       _detectFall(acceleration);
     });
   }
@@ -94,26 +87,17 @@ class _SOSScreenState extends State<SOSScreen> {
       return;
     }
 
-    // Step 1: Detect the beginning of a possible fall (near zero acceleration)
     if (!_possibleFall && acceleration < _fallThreshold) {
       _possibleFall = true;
       _fallStartTime = DateTime.now();
       print('Possible fall detected: ${acceleration.toStringAsFixed(2)}');
-    }
-    // Step 2: If we're in a possible fall state, check for impact
-    else if (_possibleFall && _fallStartTime != null) {
-      final fallDuration =
-          DateTime.now().difference(_fallStartTime!).inMilliseconds;
+    } else if (_possibleFall && _fallStartTime != null) {
+      final fallDuration = DateTime.now().difference(_fallStartTime!).inMilliseconds;
 
-      // If fall is long enough and we detect an impact (high acceleration)
-      if (fallDuration >= _fallDurationThresholdMs &&
-          acceleration > _postFallImpactThreshold) {
-        print(
-            'Fall confirmed! Duration: ${fallDuration}ms, Impact: ${acceleration.toStringAsFixed(2)}');
+      if (fallDuration >= _fallDurationThresholdMs && acceleration > _postFallImpactThreshold) {
+        print('Fall confirmed! Duration: ${fallDuration}ms, Impact: ${acceleration.toStringAsFixed(2)}');
         _triggerSOS();
-      }
-      // Reset fall detection if it's taking too long without impact
-      else if (fallDuration > 1000) {
+      } else if (fallDuration > 1000) {
         _possibleFall = false;
         _fallStartTime = null;
       }
@@ -128,10 +112,9 @@ class _SOSScreenState extends State<SOSScreen> {
       _fallStartTime = null;
     });
 
-    // Send SOS message
-    _sendSOSMessage();
+    _sendSOSApi(); // 🔥 Call the API
+    _sendSOSMessage(); // 🔥 Send the SMS
 
-    // Start countdown timer
     _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (_remainingSeconds > 0) {
@@ -144,19 +127,40 @@ class _SOSScreenState extends State<SOSScreen> {
     });
   }
 
+  Future<void> _sendSOSApi() async {
+    const String apiUrl = "https://jiva-data-summarizer.davinder.live/emergency-call";
+    final Map<String, dynamic> payload = {
+      "phone_number": "+919518864166",
+      "user_name": "Davinder Singh",
+      "anomaly_type": "medical",
+      "location": {
+        "address": "123 Main Street, LA , US",
+        "latitude": 37.7749,
+        "longitude": -122.4194
+      },
+      "additional_message": "User has reported chest pain and difficulty breathing."
+    };
+
+    try {
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {"Content-Type": "application/json"},
+        body: jsonEncode(payload),
+      );
+
+      if (response.statusCode == 200) {
+        print("SOS API Success: ${response.body}");
+      } else {
+        print("SOS API Failed: ${response.statusCode}, ${response.body}");
+      }
+    } catch (error) {
+      print("Error sending SOS API request: $error");
+    }
+  }
+
   void _sendSOSMessage() {
-    // Implementation would use a SMS sending plugin
-    // For example with flutter_sms or telephony
     print('SOS Message sent to $_emergencyContact: $_emergencyMessage');
-
-    // For actual SMS implementation:
-    // Using URL launcher as a simple solution (though this opens the SMS app)
     _launchSMS();
-
-    // For a background SMS solution, you would need a plugin like:
-    // - flutter_sms
-    // - telephony
-    // - flutter_sms_inbox
   }
 
   Future<void> _launchSMS() async {
@@ -203,36 +207,20 @@ class _SOSScreenState extends State<SOSScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            // Status indicator
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16.0),
-              color: _sosTriggered
-                  ? Colors.red
-                  : _isMonitoring
-                      ? Colors.green
-                      : Colors.grey,
+              color: _sosTriggered ? Colors.red : _isMonitoring ? Colors.green : Colors.grey,
               child: Column(
                 children: [
                   Text(
-                    _sosTriggered
-                        ? 'SOS ACTIVATED!'
-                        : _isMonitoring
-                            ? 'Fall Detection Active'
-                            : 'Fall Detection Inactive',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 18,
-                    ),
+                    _sosTriggered ? 'SOS ACTIVATED!' : _isMonitoring ? 'Fall Detection Active' : 'Fall Detection Inactive',
+                    style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
                   ),
                   if (_sosTriggered)
                     Text(
                       'Emergency call in $_remainingSeconds seconds',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                      ),
+                      style: const TextStyle(color: Colors.white, fontSize: 16),
                     ),
                 ],
               ),
@@ -241,8 +229,7 @@ class _SOSScreenState extends State<SOSScreen> {
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(24.0),
-                child:
-                    _sosTriggered ? _buildSOSActiveUI() : _buildMonitoringUI(),
+                child: _sosTriggered ? _buildSOSActiveUI() : _buildMonitoringUI(),
               ),
             ),
           ],
@@ -255,52 +242,11 @@ class _SOSScreenState extends State<SOSScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        // Main activation button
         GestureDetector(
           onTap: _toggleMonitoring,
-          child: Container(
-            width: 200,
-            height: 200,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color:
-                  _isMonitoring ? Colors.green.shade100 : Colors.grey.shade200,
-              border: Border.all(
-                color: _isMonitoring ? Colors.green : Colors.grey,
-                width: 8,
-              ),
-            ),
-            child: Center(
-              child: Icon(
-                _isMonitoring ? Icons.shield : Icons.shield_outlined,
-                size: 80,
-                color: _isMonitoring ? Colors.green : Colors.grey,
-              ),
-            ),
-          ),
+          child: Icon(_isMonitoring ? Icons.shield : Icons.shield_outlined, size: 100, color: _isMonitoring ? Colors.green : Colors.grey),
         ),
-        const SizedBox(height: 32),
-        Text(
-          _isMonitoring ? 'Protection Active' : 'Tap to Activate',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: _isMonitoring ? Colors.green : Colors.grey,
-          ),
-        ),
-        const SizedBox(height: 16),
-        Text(
-          _isMonitoring
-              ? 'SOS will trigger if a fall is detected'
-              : 'When activated, SOS will trigger if phone falls',
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 16),
-        ),
-        const SizedBox(height: 32),
-        Text(
-          'Emergency Contact: $_emergencyContact',
-          style: const TextStyle(fontSize: 16),
-        ),
+        Text(_isMonitoring ? 'Protection Active' : 'Tap to Activate', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
       ],
     );
   }
@@ -309,52 +255,8 @@ class _SOSScreenState extends State<SOSScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text(
-          'FALL DETECTED - SOS ACTIVATED',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.red,
-          ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(height: 24),
-        Text(
-          'Emergency message sent to $_emergencyContact',
-          textAlign: TextAlign.center,
-          style: const TextStyle(fontSize: 18),
-        ),
-        const SizedBox(height: 32),
-        Text(
-          'Emergency call will be made in:',
-          style: TextStyle(fontSize: 18),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          '$_remainingSeconds seconds',
-          style: const TextStyle(
-            fontSize: 48,
-            fontWeight: FontWeight.bold,
-            color: Colors.red,
-          ),
-        ),
-        const SizedBox(height: 48),
-        ElevatedButton(
-          onPressed: _cancelSOS,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.red,
-            padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-              side: const BorderSide(color: Colors.red, width: 2),
-            ),
-          ),
-          child: const Text(
-            'CANCEL SOS',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-          ),
-        ),
+        const Text('FALL DETECTED - SOS ACTIVATED', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.red)),
+        ElevatedButton(onPressed: _cancelSOS, child: const Text('CANCEL SOS')),
       ],
     );
   }
