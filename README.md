@@ -131,10 +131,6 @@ Node.js backend handling user authentication, data storage, and API services for
 - [ ] Health insurance claim assistance
 
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 
 <div align="center">
   <p>Made with ❤️ by the Jiva</p>
