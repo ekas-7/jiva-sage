@@ -79,7 +79,7 @@ export const UserProvider = ({ children }) => {
         profile,
         getProfileDetails,
         fetchAllProfileDetails,
-        token,
+        token,setToken,
         signin
     }
 
