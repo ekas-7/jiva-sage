@@ -51,7 +51,7 @@ const LabReports = ({ darkMode }) => {
                 />
                 <Bar
                   dataKey="value"
-                  fill={hoveredIndex !== null ? "#f97316" : "#f97316"}
+                  fill={hoveredIndex !== null ? "#FFB6C1" : "#FFB6C1"}
                   barSize={30}
                   radius={[4, 4, 0, 0]}
                   onMouseOver={(data, index) => setHoveredIndex(index)}

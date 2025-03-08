@@ -9,6 +9,8 @@ import Insurance from '../components/dashboard/Insurance.jsx';
 import ThemeToggle from '../components/dashboard/ThemeToggle.jsx';
 import UserQRCode from '@/components/UserQRCode.jsx';
 
+import { Bell, Share, User, Sun, Moon, Settings } from 'lucide-react';
+
 const PatientDashboard = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [showModal, setShowModal] = useState(false); // State for modal visibility
@@ -31,12 +33,12 @@ const PatientDashboard = () => {
           </div>
         </div>
 
-        <div className="flex flex-col lg:grid lg:grid-cols-3 gap-6">
+        <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3">
           {/* First Row */}
-          <div className="col-span-1 h-130">
+          <div className="col-span-1">
             <PatientProfile darkMode={darkMode} />
           </div>
-          <div className="col-span-2 h-130">
+          <div className="col-span-2 h-120">
             <Appointments darkMode={darkMode} />
           </div>
 

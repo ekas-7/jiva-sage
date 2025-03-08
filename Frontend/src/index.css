@@ -5,9 +5,9 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 
-.scrollbar-thin {
+/* .scrollbar-thin {
   @apply scrollbar scrollbar-thin scrollbar-thumb-pink-400 scrollbar-track-[#FFDDE3];
-}
+} */
 
 :root {
   --background: oklch(1 0 0);

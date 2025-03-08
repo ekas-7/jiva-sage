@@ -21,95 +21,109 @@ const PatientProfile = ({ darkMode }) => {
     "profileImage": ""
   }
 
+  // Apply dark mode styles if enabled
+  const bgColor = darkMode ? "bg-gray-800" : "bg-white";
+  const textColor = darkMode ? "text-white" : "text-gray-900";
+  const secondaryTextColor = darkMode ? "text-gray-300" : "text-gray-500";
+  const borderColor = darkMode ? "border-gray-700" : "border-gray-100";
+  const headerBgColor = darkMode ? "bg-gray-700" : "bg-gray-50";
+  const cardBgColor = darkMode ? "bg-gray-700" : "bg-white";
+
   return (
-    <div className="overflow-y-scroll h-full rounded-lg shadow-sm overflow-hidden bg-white border border-gray-100">
-      {/* <div className="p-6 border-b border-gray-100">
-        <div className="flex justify-between items-center">
-          <div>
-            <h2 className="text-xl font-semibold text-gray-900">My Profile</h2>
-            <p className="text-sm text-gray-500">Conditions, allergies, and surgeries</p>
-          </div>
-        </div>
-      </div> */}
-      
-      <div className="px-6 py-4">
-        <div className="flex flex-col sm:flex-row items-center p-6 bg-gray-50 rounded-lg border border-gray-100 mb-6">
-          <div className="relative mb-4 sm:mb-0 sm:mr-6">
-            <img
-              src={patient.profileImage}
-              alt={patient.name}
-              className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-white shadow-sm"
-            />
+    <div className={`h-full rounded-lg shadow-sm overflow-hidden ${bgColor} border ${borderColor}`}>
+      <div className="px-4 py-2">
+        {/* Profile header with responsive adjustments */}
+        <div className={`flex flex-col sm:flex-row items-center p-2 ${headerBgColor} rounded-lg border ${borderColor} mb-2`}>
+          <div className="relative mb-2 sm:mb-0 sm:mr-6 flex-shrink-0">
+            {patient.profileImage ? (
+              <img
+                src={patient.profileImage}
+                alt={patient.name}
+                className="w-20 h-20 sm:w-24 sm:h-24 rounded-full object-cover border-4 border-white shadow-sm"
+              />
+            ) : (
+              <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full border-4 border-white shadow-sm flex items-center justify-center bg-gray-200">
+                <User size={32} className="text-gray-400" />
+              </div>
+            )}
             <div className="absolute bottom-0 right-0 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
           </div>
-          <div className="text-center sm:text-left">
-            <h3 className="text-lg font-medium text-gray-900">{patient.name}</h3>
-            <p className="text-sm text-gray-500">Patient ID: #{Math.floor(Math.random() * 10000).toString().padStart(4, '0')}</p>
+          <div className="text-center sm:text-left w-full">
+            <h3 className={`text-lg font-medium ${textColor}`}>{patient.name}</h3>
+            <p className={`text-sm ${secondaryTextColor}`}>Patient ID: #{Math.floor(Math.random() * 10000).toString().padStart(4, '0')}</p>
           </div>
         </div>
 
-        {/* Patient Info Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div className="p-4 rounded-lg border border-gray-100 bg-white">
-            <div className="flex items-center mb-2">
-              <div className="w-8 h-8 rounded-full bg-orange-50 flex items-center justify-center text-orange-500 mr-3">
+        {/* Patient Info Cards - keeping original padding/margin */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          {/* Age */}
+          <div className={`p-2 rounded-lg border ${borderColor} ${cardBgColor}`}>
+            <div className="flex items-center">
+              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-orange-50"} flex items-center justify-center ${darkMode ? "text-orange-300" : "text-orange-500"} mr-3`}>
                 <Calendar size={16} />
               </div>
-              <p className="text-sm font-medium text-gray-500">Age</p>
+              <p className={`text-sm font-medium ${secondaryTextColor}`}>Age</p>
             </div>
-            <p className="text-base font-medium text-gray-900 ml-11">{patient.age} years</p>
+            <p className={`text-base font-medium ${textColor} ml-11`}>{patient.age} years</p>
           </div>
           
-          <div className="p-4 rounded-lg border border-gray-100 bg-white">
-            <div className="flex items-center mb-2">
-              <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-green-500 mr-3">
+          {/* Gender */}
+          <div className={`p-2 rounded-lg border ${borderColor} ${cardBgColor}`}>
+            <div className="flex items-center">
+              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-green-50"} flex items-center justify-center ${darkMode ? "text-green-300" : "text-green-500"} mr-3`}>
                 <User size={16} />
               </div>
-              <p className="text-sm font-medium text-gray-500">Gender</p>
+              <p className={`text-sm font-medium ${secondaryTextColor}`}>Gender</p>
             </div>
-            <p className="text-base font-medium text-gray-900 ml-11">{patient.gender}</p>
+            <p className={`text-base font-medium ${textColor} ml-11`}>{patient.gender}</p>
           </div>
           
-          <div className="p-4 rounded-lg border border-gray-100 bg-white">
-            <div className="flex items-center mb-2">
-              <div className="w-8 h-8 rounded-full bg-red-50 flex items-center justify-center text-red-500 mr-3">
+          {/* Blood Group */}
+          <div className={`p-2 rounded-lg border ${borderColor} ${cardBgColor}`}>
+            <div className="flex items-center">
+              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-red-50"} flex items-center justify-center ${darkMode ? "text-red-300" : "text-red-500"} mr-3`}>
                 <Droplet size={16} />
               </div>
-              <p className="text-sm font-medium text-gray-500">Blood Group</p>
+              <p className={`text-sm font-medium ${secondaryTextColor}`}>Blood Group</p>
             </div>
-            <p className="text-base font-medium text-gray-900 ml-11">{patient.bloodGroup}</p>
+            <p className={`text-base font-medium ${textColor} ml-11`}>{patient.bloodGroup}</p>
           </div>
           
-          <div className="p-4 rounded-lg border border-gray-100 bg-white">
-            <div className="flex items-center mb-2">
-              <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-500 mr-3">
+          {/* Contact */}
+          <div className={`p-2 rounded-lg border ${borderColor} ${cardBgColor}`}>
+            <div className="flex items-center">
+              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-blue-50"} flex items-center justify-center ${darkMode ? "text-blue-300" : "text-blue-500"} mr-3`}>
                 <Phone size={16} />
               </div>
-              <p className="text-sm font-medium text-gray-500">Contact</p>
+              <p className={`text-sm font-medium ${secondaryTextColor}`}>Contact</p>
             </div>
-            <p className="text-base font-medium text-gray-900 ml-11">{patient.contact}</p>
+            <p className={`text-base font-medium ${textColor} ml-11 break-words`}>{patient.contact}</p>
           </div>
           
-          <div className="p-4 rounded-lg border border-gray-100 bg-white col-span-1 sm:col-span-2">
-            <div className="flex items-center mb-2">
-              <div className="w-8 h-8 rounded-full bg-purple-50 flex items-center justify-center text-purple-500 mr-3">
+          {/* Email - Maintained span-2 for larger screens */}
+          <div className={`p-2 rounded-lg border ${borderColor} ${cardBgColor} col-span-1 sm:col-span-2`}>
+            <div className="flex items-center">
+              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-purple-50"} flex items-center justify-center ${darkMode ? "text-purple-300" : "text-purple-500"} mr-3`}>
                 <Mail size={16} />
               </div>
-              <p className="text-sm font-medium text-gray-500">Email</p>
+              <p className={`text-sm font-medium ${secondaryTextColor}`}>Email</p>
             </div>
-            <p className="text-base font-medium text-gray-900 ml-11">{patient.email}</p>
+            <p className={`text-base font-medium ${textColor} ml-11 break-words`}>{patient.email}</p>
           </div>
           
-          <div className="p-4 rounded-lg border border-gray-100 bg-white col-span-1 sm:col-span-2">
-            <div className="flex items-center mb-2">
-              <div className="w-8 h-8 rounded-full bg-teal-50 flex items-center justify-center text-teal-500 mr-3">
+          {/* Emergency Contact - Maintained span-2 for larger screens */}
+          <div className={`p-2 rounded-lg border ${borderColor} ${cardBgColor} col-span-1 sm:col-span-2`}>
+            <div className="flex items-center">
+              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-teal-50"} flex items-center justify-center ${darkMode ? "text-teal-300" : "text-teal-500"} mr-3`}>
                 <Users size={16} />
               </div>
-              <p className="text-sm font-medium text-gray-500">Emergency Contact</p>
+              <p className={`text-sm font-medium ${secondaryTextColor}`}>Emergency Contact</p>
             </div>
             <div className="ml-11">
-              <p className="text-base font-medium text-gray-900">{patient.emergencyContact.name} ({patient.emergencyContact.relation})</p>
-              <p className="text-sm text-gray-500">{patient.emergencyContact.phone}</p>
+              <p className={`text-base font-medium ${textColor}`}>
+                {patient.emergencyContact.name} {patient.emergencyContact.relation ? `(${patient.emergencyContact.relation})` : ""}
+              </p>
+              <p className={`text-sm ${secondaryTextColor} break-words`}>{patient.emergencyContact.phone}</p>
             </div>
           </div>
         </div>
