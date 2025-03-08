@@ -56,7 +56,7 @@ const MedicalRecords = ({ darkMode }) => {
 
       {/* Tabs */}
       <div className="px-6 pt-4">
-        <div className="bg-gray-100 inline-flex p-1 rounded-lg">
+        <div className="bg-[#FFB6C1] text-black inline-flex p-1 rounded-lg">
           {Object.keys(tabConfig).map((tab) => (
             <button
               key={tab}
@@ -64,7 +64,7 @@ const MedicalRecords = ({ darkMode }) => {
               className={`flex items-center px-4 py-2 text-sm font-medium rounded-md transition ${
                 activeTab === tab
                   ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-gray-600 hover:text-gray-900'
+                  : 'text-black hover:text-gray-900'
               }`}
             >
               {tabConfig[tab].icon}

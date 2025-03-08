@@ -14,6 +14,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { Label } from "@/components/ui/label"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import PatientDashboard from "./PatientDashboard"
+import QRCodeDashboard from "@/components/QRCodeDashboard"
 
 function DashboardExport() {
   const patientDashboardRef = useRef(null)
@@ -428,7 +429,7 @@ function DashboardExport() {
   }
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 bg-[#ffdde2]">
       <Card className="mb-6">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
@@ -601,7 +602,7 @@ function DashboardExport() {
       </Card>
 
       <div ref={patientDashboardRef}>
-        <PatientDashboard />
+        <QRCodeDashboard />
       </div>
     </div>
   )

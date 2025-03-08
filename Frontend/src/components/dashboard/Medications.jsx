@@ -15,14 +15,14 @@ const Medications = ({ darkMode }) => {
             <h2 className="text-xl font-semibold text-gray-900">Medications & Prescriptions</h2>
             <p className="text-sm text-gray-500">Current medications and refill status</p>
           </div>
-          <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+          <button className="bg-[#FFB6C1] hover:bg-[#fba8b5] text-black px-4 py-2 rounded-lg text-sm font-medium transition-colors">
             Request All
           </button>
         </div>
       </div>
       
       <div className="p-6">
-        <div className="space-y-3">
+        <div className="space-y-3 h-80 overflow-y-scroll">
           {medications.map((medication) => {
             // Calculate days until refill
             const today = new Date();
