@@ -30,7 +30,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-12">
             <a href="/" className="text-2xl font-bold">
-              <img src={logo} alt="logo" className="h-10" />
+              <img src={logo} alt="logo" className="h-30" />
             </a>
             <div className="hidden md:flex items-center gap-8">
               <a

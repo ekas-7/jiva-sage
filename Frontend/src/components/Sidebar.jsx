@@ -81,7 +81,7 @@ function Sidebar({ darkMode }) {
   const handleLogout = () => {
     setToken("");
     localStorage.removeItem("token");
-    navigate("/login")
+    navigate("/landing")
   }
 
   const bgColor = darkMode ? "bg-gray-900" : "bg-white";
