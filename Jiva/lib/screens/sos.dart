@@ -16,7 +16,7 @@ class SOSScreen extends StatefulWidget {
 class _SOSScreenState extends State<SOSScreen> {
   // Configuration variables
   final double _fallThreshold = 1000.0; // Fall detection sensitivity
-  final int _countdownSeconds = 15; // Countdown before call
+  final int _countdownSeconds = 5; // Countdown before call
 
   // Hardcoded emergency contact - replace with actual number
   final String _emergencyContact = '+917878156830'; // Replace with your number

@@ -117,7 +117,7 @@ class _JivaMinimalistDashboardState extends State<JivaMinimalistDashboard> {
           children: [
             Container(
               width: 100,
-              height: 60,
+              height: 80,
               decoration: BoxDecoration(
                
                 borderRadius: BorderRadius.circular(12),
