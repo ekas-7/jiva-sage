@@ -1,0 +1,2 @@
+/Users/ekaspreetsinghatwal/Desktop/jiva/Jiva/android/app/.cxx/Debug/191w6f5f/armeabi-v7a/CMakeFiles/edit_cache.dir
+/Users/ekaspreetsinghatwal/Desktop/jiva/Jiva/android/app/.cxx/Debug/191w6f5f/armeabi-v7a/CMakeFiles/rebuild_cache.dir
