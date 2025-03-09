@@ -1,17 +1,95 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
 
 // Add this to your pubspec.yaml:
 // dependencies:
 //   qr_flutter: ^4.1.0
+//   image_picker: ^0.8.6
+//   http: ^0.13.5
 
 class EmergencyQRCodeScreen extends StatelessWidget {
   final Map<String, dynamic> medicalData;
 
   const EmergencyQRCodeScreen({Key? key, required this.medicalData})
       : super(key: key);
+
+  // Function to handle image picking and API upload
+  Future<void> _pickImageAndUpload(BuildContext context) async {
+    try {
+      final ImagePicker _picker = ImagePicker();
+      final XFile? image = await _picker.pickImage(source: ImageSource.camera);
+      
+      if (image == null) return;
+      
+      // Show loading indicator
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Uploading image...'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      
+      // Create multipart request
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse('https://jiva-ocr-backend.davinder.live/api/v1/reports/upload'),
+      );
+      
+      // Add headers
+      request.headers.addAll({
+        'accept': 'application/json',
+      });
+      
+      // Add file
+      request.files.add(
+        await http.MultipartFile.fromPath(
+          'file',
+          image.path,
+          filename: image.name,
+          contentType: MediaType('image', 'jpeg'),
+        ),
+      );
+      
+      // Add form fields with hardcoded values
+      request.fields['phone_number'] = '+918872059425';
+      request.fields['patient_name'] = 'Ekas';
+      
+      // Send the request
+      var response = await request.send();
+      
+      // Check response
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Image uploaded successfully!'),
+            backgroundColor: Colors.green,
+          ),
+        );
+      } else {
+        // Get response body
+        final responseData = await response.stream.bytesToString();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Upload failed: ${response.statusCode} - $responseData'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error: $e'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -87,31 +165,57 @@ class EmergencyQRCodeScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 32),
-                    Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        border: Border.all(
-                          color: const Color(0xFFE9C8B7),
-                          width: 2,
+                    GestureDetector(
+                      onTap: () => _pickImageAndUpload(context),
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: const Color(0xFFE9C8B7),
+                            width: 2,
+                          ),
                         ),
-                      ),
-                      child: QrImageView(
-                        data: qrData,
-                        version: QrVersions.auto,
-                        size: 200,
-                        backgroundColor: Colors.white,
-                        errorStateBuilder: (context, error) {
-                          return Center(
-                            child: Text(
-                              "Error generating QR code",
-                              style: GoogleFonts.poppins(
-                                color: Colors.red,
+                        child: Column(
+                          children: [
+                            QrImageView(
+                              data: qrData,
+                              version: QrVersions.auto,
+                              size: 200,
+                              backgroundColor: Colors.white,
+                              errorStateBuilder: (context, error) {
+                                return Center(
+                                  child: Text(
+                                    "Error generating QR code",
+                                    style: GoogleFonts.poppins(
+                                      color: Colors.red,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 12),
+                            Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF9DB0A3),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  "Upload Medical Image",
+                                  style: GoogleFonts.poppins(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white,
+                                  ),
+                                ),
                               ),
                             ),
-                          );
-                        },
+                          ],
+                        ),
                       ),
                     ),
                     const SizedBox(height: 24),
