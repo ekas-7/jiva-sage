@@ -6,6 +6,7 @@ import Home from './pages/Home.jsx';
 import Auth from './pages/AuthPage.jsx';
 import QRCodeData from './pages/QRCodeData';
 import Landing from './pages/Landing';
+import ReportData from './pages/ReportData';
 
 function App() {
   const { token } = useUser();
@@ -25,6 +26,7 @@ function App() {
           {/* Authenticated Routes */}
           <Route path="/*" element={<Home />} />
           <Route path="/qr-code" element={<QRCodeData />} />
+          <Route path="/report" element={<ReportData />} />
           <Route path="*" element={<Navigate to="/" replace />} />
           
         </>

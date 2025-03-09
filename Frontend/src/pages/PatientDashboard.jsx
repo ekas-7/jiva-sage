@@ -9,6 +9,9 @@ import Insurance from '../components/dashboard/Insurance.jsx';
 import ThemeToggle from '../components/dashboard/ThemeToggle.jsx';
 import UserQRCode from '@/components/UserQRCode.jsx';
 import { useUser } from '@/context/userContext.jsx';
+import axios from 'axios';
+
+import { useNavigate } from 'react-router-dom';
 
 import { Bell, Share, User, Sun, Moon, Settings } from 'lucide-react';
 
@@ -16,7 +19,8 @@ const PatientDashboard = () => {
   const [darkMode, setDarkMode] = useState(false);
   const [showModal, setShowModal] = useState(false); // State for modal visibility
 
-  const {profile} = useUser()
+  const { profile } = useUser()
+  const navigate = useNavigate();
 
   const user = profile?.user?.[0] || {
     name: "John Doe",
@@ -32,6 +36,95 @@ const PatientDashboard = () => {
       phone: "+1 (555) 987-6543",
     },
     profileImage: "/placeholder.svg?height=200&width=200"
+  }
+
+  const data = {
+    "reports": [
+      {
+        "patient_name": "John Doe",
+        "analysis_date": "2023-12-01",
+        "overall_health_status": "Stable with monitoring required",
+        "analysis": [
+          {
+            "parameter": "Blood Glucose",
+            "status": "Elevated",
+            "interpretation": "Blood glucose levels are higher than normal, indicating potential risk for diabetes or need for adjustment in diet or medication.",
+            "risk_level": "Moderate"
+          },
+          {
+            "parameter": "Lipid Profile",
+            "status": "Borderline",
+            "interpretation": "Lipid levels are approaching high risk, suggesting possible cardiovascular risks.",
+            "risk_level": "Moderate"
+          },
+          {
+            "parameter": "Blood Pressure",
+            "status": "Normal",
+            "interpretation": "Blood pressure levels are within normal range.",
+            "risk_level": "Low"
+          },
+          {
+            "parameter": "Heart Rate",
+            "status": "Normal",
+            "interpretation": "Heart rate is stable and within normal limits.",
+            "risk_level": "Low"
+          }
+        ],
+        "nutrition_recommendations": [
+          {
+            "food_type": "Low Glycemic Index Foods",
+            "reason": "To manage and stabilize blood glucose levels.",
+            "examples": ["Whole grains", "Legumes", "Nuts"],
+            "frequency": "Daily",
+            "portion_size": "Moderate"
+          },
+          {
+            "food_type": "High Fiber Foods",
+            "reason": "To improve lipid profile and aid in digestion.",
+            "examples": ["Fruits", "Vegetables", "Whole grains"],
+            "frequency": "Daily",
+            "portion_size": "At least half of each meal"
+          }
+        ],
+        "activity_recommendations": [
+          {
+            "activity_type": "Aerobic Exercise",
+            "reason": "To improve cardiovascular health and manage weight.",
+            "examples": ["Walking", "Cycling", "Swimming"],
+            "frequency": "5 times a week",
+            "intensity": "Moderate",
+            "duration": "30 minutes",
+            "precautions": [
+              "Start slowly and increase pace gradually",
+              "Stay hydrated",
+              "Consult a doctor if any discomfort occurs"
+            ]
+          }
+        ],
+        "follow_up_recommendations": [
+          "Regular monitoring of blood glucose and lipid levels every 3 months.",
+          "Consultation with a dietitian to adjust dietary needs based on latest health reports.",
+          "Routine check-ups with the primary care physician to monitor overall health and adjust medications as necessary."
+        ]
+      }
+    ]
+  }
+
+  const generateReport = async () => {
+    const dummyData = {
+      reports: [profile]
+    }
+    console.log(dummyData);
+
+    try {
+      // const res = await axios.post('https://jiva-data-summarizer.davinder.live/analyze-health',{dummyData});
+      // const data = res.data
+      console.log("report data : ", data);
+      navigate('/report')
+    }
+    catch (err) {
+      console.log("Error in generating report : ", err.message);
+    }
   }
 
   return (
@@ -50,6 +143,15 @@ const PatientDashboard = () => {
             </div>
           </div>
           <div className='flex items-center gap-4'>
+            <button
+              onClick={() => generateReport()}
+              className="flex items-center gap-2 bg-[#FFB6C1] hover:bg-[#fba8b5] text-black px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                <path d="M13 3L4 14h7v7l9-11h-7V3z" fill="black" stroke="black" stroke-width="0.5" />
+              </svg>
+              Generate Report
+            </button>
             <button
               onClick={() => setShowModal(true)}
               className="flex items-center gap-2 bg-[#FFB6C1] hover:bg-[#fba8b5] text-black px-4 py-2 rounded-lg text-sm font-medium transition-colors"
