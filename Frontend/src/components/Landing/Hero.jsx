@@ -18,11 +18,11 @@ const Hero = () => {
   // const dispatch = useDispatch();
 
   const handleGetStarted = () => {
-
+    navigate('/auth')
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 pt-32 pb-20 relative overflow-hidden">
+    <div className="max-w-7xl mx-auto px-4 pb-20 relative overflow-hidden">
       <div className='absolute top-30 right-140'>
         <HealthCurves />
       </div>
@@ -36,8 +36,8 @@ const Hero = () => {
         <HealthWaves />
       </div>
 
-      <div className="max-w-full flex flex-col md:flex-row items-center gap-8 relative z-10">
-        <div>
+      <div className="max-w-full flex flex-col  md:flex-row items-center gap-8 relative z-10">
+        <div className='pt-32'>
           <h1 className="text-6xl font-bold leading-tight mb-6 dark:text-white">
             Your Health Journey, <span className="bg-[#FFB6C1] dark:bg-[#FF8DA1] text-black px-2 font-['Dancing_Script']">empowered</span> by AI.
           </h1>
@@ -60,12 +60,12 @@ const Hero = () => {
           </div>
         </div>
 
-        <div className="hidden lg:flex lg:w-1/2 lg:flex-row lg:gap-4 lg:rounded-2xl lg:shadow-lg">
+        <div className="top-[-1000px] hidden lg:flex lg:w-1/2 lg:flex-row lg:gap-4 lg:rounded-2xl ">
 
           {/* First flex container */}
           <div className="flex flex-col gap-4">
             {/* Top left - abstract design */}
-            <div className=" h-40 rounded-none rounded-bl-[80px] rounded-br-[80px] bg-white border border-gray-200 p-4 flex items-center justify-center">
+            <div className=" h-40 rounded-none rounded-bl-[80px] rounded-br-[80px] bg-red-400 border border-gray-200 p-4 flex items-center justify-center">
               <svg width="100" height="100" viewBox="0 0 100 100">
                 <path d="M20,30 C40,10 60,50 80,30" stroke="black" fill="none" strokeWidth="2" />
                 <path d="M30,70 C50,40 70,90 50,60" stroke="black" fill="none" strokeWidth="2" />

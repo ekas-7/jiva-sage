@@ -6,7 +6,7 @@ import Contact from '../components/Landing/Contact';
 
 const Landing = () => {
   return (
-    <div className="min-h-screen bg-[#50A8FF] dark:bg-gray-800 relative overflow-hidden">
+    <div className="min-h-screen bg-white dark:bg-gray-800 relative overflow-hidden">
       {/* Decorative elements */}
 {/*       
       <div className="absolute top-20 right-20">

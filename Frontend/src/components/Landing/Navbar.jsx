@@ -22,7 +22,7 @@ export default function Navbar() {
     <nav className={`
       fixed top-0 left-0 right-0 z-50 transition-all duration-300
       ${isScrolled
-        ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-lg my-4 mx-6 rounded-2xl border border-[#FFB6C1]/20'
+        ? 'bg-transparent dark:bg-gray-900/80 backdrop-blur-md shadow-lg my-4 mx-6 rounded-2xl border border-[#FFB6C1]/20'
         : 'bg-transparent'
       }
     `}>
@@ -71,12 +71,12 @@ export default function Navbar() {
               </a>
             </div>
           </div>
-          <div className="flex items-center gap-4">
+          {/* <div className="flex items-center gap-4">
             <DarkModeToggle />
             <button className="bg-[#FFB6C1] hover:bg-[#FF8DA1] text-black px-6 py-2 rounded-2xl transition-colors duration-300 font-medium">
               Free Trial
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </nav>
