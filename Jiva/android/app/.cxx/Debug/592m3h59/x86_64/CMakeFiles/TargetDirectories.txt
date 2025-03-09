@@ -1,2 +1,0 @@
-/home/gaurav/gitrepos/Jiva/android/app/.cxx/Debug/592m3h59/x86_64/CMakeFiles/edit_cache.dir
-/home/gaurav/gitrepos/Jiva/android/app/.cxx/Debug/592m3h59/x86_64/CMakeFiles/rebuild_cache.dir

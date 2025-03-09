@@ -6,6 +6,7 @@ import 'package:jiva/features/auth/data/sources/local_auth_service.dart';
 import 'package:jiva/injection_container.dart';
 import 'package:jiva/screens/qrcode.dart';
 import 'package:jiva/screens/web_analysis.dart';
+import 'package:jiva/screens/music.dart';
 
 class JivaMinimalistDashboard extends StatefulWidget {
   // Changed to StatefulWidget
@@ -109,44 +110,60 @@ class _JivaMinimalistDashboardState extends State<JivaMinimalistDashboard> {
     );
   }
 
-  Widget _buildHeader(Color textColor, Color subtitleColor) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Row(
-          children: [
-            Container(
+  // Update this in JivaMinimalistDashboard's _buildHeader method
+// Add the import at the top of the file:
+// import 'package:jiva/screens/music.dart';
+
+// Update this in JivaMinimalistDashboard's _buildHeader method
+// Make sure to add this exact import at the top of your dashboard.dart file:
+// import 'package:jiva/screens/music.dart';
+
+Widget _buildHeader(Color textColor, Color subtitleColor) {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      Row(
+        children: [
+          Container(
+            width: 100,
+            height: 80,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Image.asset(
+              'assets/jiva_logo.png',
               width: 100,
               height: 80,
-              decoration: BoxDecoration(
-               
-                borderRadius: BorderRadius.circular(12),
-              ),
-                              child: Image.asset(
-                  'assets/jiva_logo.png',
-                  width: 100,
-                  height: 80,
-                ),
             ),
-            const SizedBox(width: 12),
-            
-          ],
-        ),
-        Container(
+          ),
+          const SizedBox(width: 12),
+        ],
+      ),
+      GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const JivaMusicScreen(),
+            ),
+          );
+        },
+        child: Container(
           width: 40,
           height: 40,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
           ),
-          child:Icon(
-  Icons.favorite,
-    color: Colors.green,
-)
+          child: Icon(
+            Icons.favorite,
+            color: Colors.green,
+          )
         ),
-      ],
-    );
-  }
+      ),
+    ],
+  );
+}
 
   Widget _buildGreeting(Color textColor) {
     final displayName =
