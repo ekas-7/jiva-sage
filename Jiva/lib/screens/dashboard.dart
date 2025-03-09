@@ -116,26 +116,20 @@ class _JivaMinimalistDashboardState extends State<JivaMinimalistDashboard> {
         Row(
           children: [
             Container(
-              width: 40,
-              height: 40,
+              width: 100,
+              height: 60,
               decoration: BoxDecoration(
-                color: Colors.white,
+               
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: const Icon(
-                Icons.favorite,
-                color: Color(0xFFE9C8B7),
-              ),
+                              child: Image.asset(
+                  'assets/jiva_logo.png',
+                  width: 100,
+                  height: 80,
+                ),
             ),
             const SizedBox(width: 12),
-            Text(
-              'Jiva',
-              style: GoogleFonts.poppins(
-                fontSize: 24,
-                fontWeight: FontWeight.w600,
-                color: textColor,
-              ),
-            )
+            
           ],
         ),
         Container(
@@ -145,10 +139,10 @@ class _JivaMinimalistDashboardState extends State<JivaMinimalistDashboard> {
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Icon(
-            Icons.search,
-            color: textColor.withOpacity(0.7),
-          ),
+          child:Icon(
+  Icons.favorite,
+    color: Colors.green,
+)
         ),
       ],
     );
