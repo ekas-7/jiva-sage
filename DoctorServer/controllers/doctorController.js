@@ -5,9 +5,11 @@ import Insurance from "../models/insuranceModel.js";
 import LabReport from "../models/labReportModel.js";
 import MedicalRecord from "../models/medicalRecordModel.js";
 import Medication from "../models/medicationModel.js";
+import Appointment from '../models/appointmentModel.js'
 
 const modelMap = {
-    // user:User,
+    user:User,
+    appointments: Appointment,
     glucoseTrends: GlucoseTrend,
     healthMonitorings: HealthMonitoring,
     insurance: Insurance,

@@ -14,16 +14,18 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/" element={<Landing />} />
       {/* If not authenticated, only allow access to /auth */}
+      <Route path="/auth" element={token ? <Navigate to="/dashboard" replace /> : <Auth />} />
       {!token ? (
         <>
-        <Route path="/landing" element={<Landing />} />
-          <Route path="/auth" element={<Auth />} />
+      
           <Route path="*" element={<Navigate to="/auth" replace />} />
         </>
       ) : (
         <>
           {/* Authenticated Routes */}
+          
           <Route path="/*" element={<Home />} />
           <Route path="/qr-code" element={<QRCodeData />} />
           <Route path="/report" element={<ReportData />} />
