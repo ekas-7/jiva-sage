@@ -24,7 +24,7 @@ function App() {
       ) : (
         <>
           {/* Authenticated Routes */}
-          <Route path="/*" element={<Landing />} />
+          <Route path="/*" element={<Home />} />
           <Route path="/qr-code" element={<QRCodeData />} />
           <Route path="/report" element={<ReportData />} />
           <Route path="*" element={<Navigate to="/" replace />} />

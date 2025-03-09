@@ -84,14 +84,14 @@ function Sidebar({ darkMode }) {
     navigate("/landing")
   }
 
-  const bgColor = darkMode ? "bg-gray-900" : "bg-white";
-  const textColor = darkMode ? "text-white" : "text-gray-900";
-  const secondaryTextColor = darkMode ? "text-gray-400" : "text-gray-500";
-  const borderColor = darkMode ? "border-gray-800" : "border-gray-200";
-  const activeItemBg = darkMode ? "bg-gray-800" : "bg-[#FFB6C1]";
-  const hoverItemBg = darkMode ? "hover:bg-gray-800" : "hover:bg-[#FFF0F3]";
-  const helpSectionBg = darkMode ? "bg-gray-800" : "bg-[#FFF0F3]";
-  const logoContainerBg = darkMode ? "bg-[#FFB6C1]" : "bg-[#FFB6C1]";
+  const bgColor =  "bg-white";
+  const textColor = "text-gray-900";
+  const secondaryTextColor = "text-gray-500";
+  const borderColor =  "border-gray-200";
+  const activeItemBg =  "bg-[#FFB6C1]";
+  const hoverItemBg =  "hover:bg-[#FFF0F3]";
+  const helpSectionBg = "bg-[#FFF0F3]";
+  const logoContainerBg =  "bg-[#FFB6C1]";
 
   return (
     <>
@@ -145,7 +145,7 @@ function Sidebar({ darkMode }) {
                       className={`flex items-center justify-between w-full px-3 py-2.5 rounded-lg transition-colors ${
                         location.pathname === item.path 
                           ? `${activeItemBg} ${textColor} font-medium` 
-                          : `${secondaryTextColor} ${hoverItemBg} hover:text-gray-900`
+                          : `${secondaryTextColor} ${hoverItemBg} hover:text-gray-900 text-wh`
                       }`}
                     >
                       <div className="flex items-center space-x-3">
