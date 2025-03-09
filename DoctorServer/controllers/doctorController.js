@@ -1,3 +1,4 @@
+import User from "../models/userModel.js";
 import GlucoseTrend from "../models/glucoseTrendModel.js";
 import HealthMonitoring from "../models/healthMonitoringModel.js";
 import Insurance from "../models/insuranceModel.js";
@@ -6,6 +7,7 @@ import MedicalRecord from "../models/medicalRecordModel.js";
 import Medication from "../models/medicationModel.js";
 
 const modelMap = {
+    // user:User,
     glucoseTrends: GlucoseTrend,
     healthMonitorings: HealthMonitoring,
     insurance: Insurance,
@@ -17,12 +19,29 @@ const modelMap = {
 const sendQRData = async (req, res) => {
     try {
         const userId = req.userId;
+        const { pin } = req.body;
 
         if (!userId) {
             return res.status(400).json({
                 success: false,
                 message: "User ID is missing",
             });
+        }
+        console.log("userID : ", userId);
+
+        const user = await User.findOne({ _id:userId });
+        if (!user) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid credentials",
+            });
+        }
+
+        if(user.pin != pin){
+            return res.status(400).json({
+                success:false,
+                message: "Pin Incorrect"
+            })
         }
 
         const qrData = {};
@@ -51,4 +70,4 @@ const sendQRData = async (req, res) => {
 };
 
 
-export {sendQRData};
+export { sendQRData };

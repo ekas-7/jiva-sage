@@ -24,10 +24,10 @@ const modelMap = {
 
 const signup = async (req, res) => {
     try {
-        const { name, age, gender, bloodGroup, contact, email, password, emergencyContact, profileImage } = req.body;
+        const { name, age, gender, bloodGroup, contact, email, password, emergencyContact, profileImage,pin } = req.body;
 
         // Validate required fields
-        if (!name || !age || !gender || !bloodGroup || !contact || !email || !password) {
+        if (!name || !age || !gender || !bloodGroup || !contact || !email || !password || !pin) {
             return res.status(400).json({
                 success: false,
                 message: "All fields are required",
@@ -45,6 +45,7 @@ const signup = async (req, res) => {
 
         // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPin = await bcrypt.hash(pin, 10);
 
         // Create new user
         const newUser = new User({
@@ -57,6 +58,7 @@ const signup = async (req, res) => {
             password: hashedPassword,
             emergencyContact,
             profileImage,
+            pin: hashedPin
         });
 
         await newUser.save();
