@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { useUser } from '../../context/userContext';
 import {
   ResponsiveContainer,
   LineChart,
@@ -18,13 +17,11 @@ import {
   BarChart3
 } from 'lucide-react';
 
-const HealthMonitoring = ({ darkMode = false,userProfile }) => {
+const HealthMonitoring = ({ darkMode = false, userProfile }) => {
   const [selectedMetrics, setSelectedMetrics] = useState({
     heartRate: true,
     bloodPressure: true
   });
-
-  // const { profile } = useUser();
 
   const healthData = userProfile?.healthMonitorings || [];
 
@@ -67,7 +64,7 @@ const HealthMonitoring = ({ darkMode = false,userProfile }) => {
       }))}
       className={`flex items-center space-x-2 px-3 py-1.5 rounded-md text-sm font-medium ${
         selectedMetrics[metric]
-          ? 'bg-gray-900 text-white'
+          ? 'bg-[#00BF60] text-white'
           : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
       }`}
     >
@@ -96,14 +93,14 @@ const HealthMonitoring = ({ darkMode = false,userProfile }) => {
           label: 'Heart Rate',
           icon: HeartPulse,
           stats: heartRateStats,
-          color: 'text-orange-500',
-          bgColor: 'bg-orange-50'
+          color: 'text-[#00BF60]',
+          bgColor: 'bg-[#E6F7ED]'
         }, {
           label: 'Blood Pressure',
           icon: Activity,
           stats: bloodPressureStats,
-          color: 'text-blue-500',
-          bgColor: 'bg-blue-50'
+          color: 'text-[#00BF60]',
+          bgColor: 'bg-[#E6F7ED]'
         }].map(({ label, icon: Icon, stats, color, bgColor }, idx) => (
           <div key={idx} className={`p-4 rounded-lg ${bgColor} border border-gray-100`}>
             <div className="flex justify-between items-center">
@@ -115,7 +112,7 @@ const HealthMonitoring = ({ darkMode = false,userProfile }) => {
               </div>
               <div className="flex items-center space-x-1">
                 {stats.trend > 0 ? (
-                  <TrendingUp size={16} className="text-green-500" />
+                  <TrendingUp size={16} className="text-[#00BF60]" />
                 ) : (
                   <TrendingDown size={16} className="text-red-500" />
                 )}
@@ -125,7 +122,7 @@ const HealthMonitoring = ({ darkMode = false,userProfile }) => {
             <div className="flex justify-between mt-2">
               <p className="text-sm text-gray-600">Avg: {stats.average}</p>
               <p className="text-sm text-gray-600 flex items-center">
-                <span className={stats.trend > 0 ? "text-green-500" : "text-red-500"}>
+                <span className={stats.trend > 0 ? "text-[#00BF60]" : "text-red-500"}>
                   {stats.trend > 0 ? "+" : ""}{stats.trend.toFixed(1)}%
                 </span>
               </p>
@@ -135,7 +132,7 @@ const HealthMonitoring = ({ darkMode = false,userProfile }) => {
       </div>
 
       <div className="px-6 pb-6">
-        <div className="bg-gray-50 p-4 rounded-lg border border-gray-100">
+        <div className="bg-[#E6F7ED] p-4 rounded-lg border border-gray-100">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-gray-700">Health Metrics</h3>
             <div className="flex items-center text-xs text-gray-500">
@@ -155,7 +152,7 @@ const HealthMonitoring = ({ darkMode = false,userProfile }) => {
                   <Line 
                     type="monotone" 
                     dataKey="heartRate" 
-                    stroke="#F97316" 
+                    stroke="#00BF60" 
                     strokeWidth={2}
                     dot={{ r: 3 }}
                     activeDot={{ r: 5, strokeWidth: 0 }}
@@ -165,7 +162,7 @@ const HealthMonitoring = ({ darkMode = false,userProfile }) => {
                   <Line 
                     type="monotone" 
                     dataKey="bloodPressure" 
-                    stroke="#3B82F6" 
+                    stroke="#00BF60" 
                     strokeWidth={2}
                     dot={{ r: 3 }}
                     activeDot={{ r: 5, strokeWidth: 0 }}

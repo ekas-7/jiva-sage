@@ -19,8 +19,8 @@ const UserData = () => {
   console.log(data);
   
   return (
-    <div className={`min-h-screen relative ${darkMode ? 'bg-gray-900 text-white' : 'bg-[0xFFFFB6C1] text-gray-800'}`}>
-      <div className="container mx-auto px-4 py-6 bg-[#ffdde2] border-radius-5 border-black">
+    <div className={`min-h-screen relative ${darkMode ? 'bg-gray-900 text-white' : 'bg-[#e6f7ef] text-gray-800'}`}>
+      <div className="container mx-auto px-4 py-6 bg-[#e6f7ef] border-radius-5">
         <div className="flex flex-col lg:grid lg:grid-cols-3 gap-3">
           {/* Second Row */}
           <div className="col-span-1 h-120">

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Scanner } from '@yudiel/react-qr-scanner';
-import { Camera, AlertCircle, Loader, Heart, RefreshCw, User } from 'lucide-react';
+import { Camera, AlertCircle, Loader, HeartPulse, RefreshCw, User } from 'lucide-react';
 import UserData from './UserData.jsx';
 import { useDoctor } from '@/context/DoctorContext.jsx';
 import { useNavigate } from 'react-router-dom';
@@ -62,28 +62,28 @@ function QRCodeReader({ darkMode }) {
   };
 
   // Theme colors
-  const bgColor = darkMode ? "bg-gray-900" : "bg-gray-50";
+  const bgColor = darkMode ? "bg-gray-900" : "bg-[#e6f7ef]";
   const cardBgColor = darkMode ? "bg-gray-800" : "bg-white";
   const textColor = darkMode ? "text-white" : "text-gray-900";
   const secondaryTextColor = darkMode ? "text-gray-400" : "text-gray-500";
   const borderColor = darkMode ? "border-gray-700" : "border-gray-100";
-  const scannerBgColor = darkMode ? "bg-gray-700" : "bg-[#FFF0F3]";
+  const scannerBgColor = darkMode ? "bg-gray-700" : "bg-[#e6f7ef]";
   const footerBgColor = darkMode ? "bg-gray-800" : "bg-gray-800";
   const footerTextColor = darkMode ? "text-gray-300" : "text-gray-300";
 
   return (
     <div className={`flex flex-col min-h-screen ${bgColor}`}>
       {/* Header */}
-      <header className={`bg-[#FFB6C1] text-black p-4 shadow-md`}>
+      <header className={`bg-[#00bf60] text-white p-4 shadow-md`}>
         <div className="max-w-4xl mx-auto flex items-center justify-between">
           <div className="flex items-center">
             <div className="mr-3 bg-white p-2 rounded-full">
-              <Heart className="text-[#FF7C8C]" size={20} />
+              <HeartPulse className="text-[#00bf60]" size={20} />
             </div>
             <h1 className="text-xl font-bold">Medical QR Scanner</h1>
           </div>
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1 bg-white px-3 py-1 rounded-full text-sm font-medium">
+            <div className="flex items-center gap-1 bg-white px-3 py-1 rounded-full text-sm font-medium text-[#00bf60]">
               <User size={14} />
               <span>Doctor Mode</span>
             </div>
@@ -91,11 +91,11 @@ function QRCodeReader({ darkMode }) {
         </div>
       </header>
       
-      <main className="flex-1 mx-auto w-full p-4 bg-[#ffdde2]">
+      <main className="flex-1 mx-auto w-full p-4 bg-[#e6f7ef]">
         {/* Scanner Container - UPDATED WITH SMALLER SIZE */}
         <div className={`${cardBgColor} rounded-lg shadow-md overflow-hidden mb-6 border ${borderColor} max-w-md mx-auto`}>
           <div className={`p-3 ${scannerBgColor} border-b ${borderColor}`}>
-            <h2 className={`font-bold text-[#FF7C8C] flex items-center text-sm`}>
+            <h2 className={`font-bold text-[#00bf60] flex items-center text-sm`}>
               <Camera size={16} className="mr-2" />
               {scanActive ? 'Scan Patient QR Code' : 'Patient Data Loaded'}
             </h2>
@@ -110,13 +110,13 @@ function QRCodeReader({ darkMode }) {
                   constraints={{ facingMode: "environment" }}
                 />
               </div>
-              <div className="absolute inset-0 pointer-events-none border-2 border-[#FFB6C1] border-dashed opacity-70 m-4 rounded"></div>
+              <div className="absolute inset-0 pointer-events-none border-2 border-[#00bf60] border-dashed opacity-70 m-4 rounded"></div>
             </div>
           ) : (
             <div className={`aspect-square max-h-40 w-full ${darkMode ? "bg-gray-700" : "bg-gray-100"} flex items-center justify-center`}>
               <button 
                 onClick={resetScanner}
-                className="bg-[#FFB6C1] text-black py-1 px-3 rounded-md hover:bg-[#fba8b5] transition-colors flex items-center gap-2 text-sm"
+                className="bg-[#00bf60] text-white py-1 px-3 rounded-md hover:bg-[#00a050] transition-colors flex items-center gap-2 text-sm"
               >
                 <RefreshCw size={14} />
                 Scan New Code
@@ -130,7 +130,7 @@ function QRCodeReader({ darkMode }) {
           {/* Loading State */}
           {isLoading && (
             <div className={`${cardBgColor} p-4 rounded-lg shadow-md flex items-center border ${borderColor}`}>
-              <Loader size={20} className="text-[#FFB6C1] animate-spin mr-3" />
+              <Loader size={20} className="text-[#00bf60] animate-spin mr-3" />
               <p className={`${textColor} text-sm`}>Authenticating and retrieving patient data...</p>
             </div>
           )}

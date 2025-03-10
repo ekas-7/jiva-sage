@@ -108,17 +108,17 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#e6f7ef]">
       <Navbar />
       
       <div className="max-w-6xl mx-auto p-6">
         <div className="mt-10 text-center">
           <button
             onClick={() => setShowScanner(true)}
-            className="bg-gradient-to-r from-[#FF7C8C] to-[#FFB6C1] hover:from-[#FFB6C1] hover:to-[#FF7C8C] text-white px-6 py-3 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 mx-auto"
+            className="bg-gradient-to-r from-[#00bf60] to-[#00a050] hover:from-[#00a050] hover:to-[#00bf60] text-white px-6 py-3 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 mx-auto"
           >
             <Camera size={20} />
-            Click Me
+            Scan Patient QR
           </button>
         </div>
         
@@ -127,8 +127,8 @@ function Home() {
           <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
             <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-md w-full">
               {/* Header */}
-              <div className="bg-[#FFF0F3] p-3 border-b border-gray-100 flex justify-between items-center">
-                <h2 className="font-bold text-[#FF7C8C] flex items-center text-sm">
+              <div className="bg-[#e6f7ef] p-3 border-b border-gray-100 flex justify-between items-center">
+                <h2 className="font-bold text-[#00bf60] flex items-center text-sm">
                   <Camera size={16} className="mr-2" />
                   Scan Patient QR Code
                 </h2>
@@ -149,14 +149,14 @@ function Home() {
                     constraints={{ facingMode: "environment" }}
                   />
                 </div>
-                <div className="absolute inset-0 pointer-events-none border-2 border-[#FFB6C1] border-dashed opacity-70 m-4 rounded"></div>
+                <div className="absolute inset-0 pointer-events-none border-2 border-[#00bf60] border-dashed opacity-70 m-4 rounded"></div>
               </div>
               
               {/* Status Messages */}
               <div className="p-3">
                 {isLoading && (
                   <div className="bg-gray-50 p-3 rounded-md flex items-center">
-                    <Loader size={16} className="text-[#FFB6C1] animate-spin mr-2" />
+                    <Loader size={16} className="text-[#00bf60] animate-spin mr-2" />
                     <p className="text-gray-600 text-sm">Processing QR code...</p>
                   </div>
                 )}
@@ -182,8 +182,8 @@ function Home() {
           <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center p-4 z-50">
             <div className="bg-white rounded-lg shadow-lg overflow-hidden max-w-md w-full">
               {/* Header */}
-              <div className="bg-[#FFF0F3] p-3 border-b border-gray-100 flex justify-between items-center">
-                <h2 className="font-bold text-[#FF7C8C] flex items-center text-sm">
+              <div className="bg-[#e6f7ef] p-3 border-b border-gray-100 flex justify-between items-center">
+                <h2 className="font-bold text-[#00bf60] flex items-center text-sm">
                   <Lock size={16} className="mr-2" />
                   Enter Patient PIN
                 </h2>
@@ -211,7 +211,7 @@ function Home() {
                       value={digit}
                       onChange={(e) => handlePinChange(index, e.target.value)}
                       onKeyDown={(e) => handleKeyDown(index, e)}
-                      className="w-12 h-12 text-center text-xl font-bold border-2 border-gray-300 rounded-md focus:border-[#FFB6C1] focus:outline-none"
+                      className="w-12 h-12 text-center text-xl font-bold border-2 border-gray-300 rounded-md focus:border-[#00bf60] focus:outline-none"
                     />
                   ))}
                 </div>
@@ -219,7 +219,7 @@ function Home() {
                 <button
                   onClick={verifyPin}
                   disabled={isLoading || pin.some(digit => digit === '')}
-                  className="w-full bg-gradient-to-r from-[#FF7C8C] to-[#FFB6C1] hover:from-[#FFB6C1] hover:to-[#FF7C8C] text-white py-2 px-4 rounded-md font-medium shadow-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-[#00bf60] to-[#00a050] hover:from-[#00a050] hover:to-[#00bf60] text-white py-2 px-4 rounded-md font-medium shadow-md transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isLoading ? (
                     <span className="flex items-center justify-center">
