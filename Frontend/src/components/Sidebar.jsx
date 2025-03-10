@@ -76,7 +76,6 @@ function Sidebar({ darkMode }) {
     { path: "/lab-records", label: "Lab Records", icon: LineChart },
     { path: "/medication", label: "Medication", icon: BarChart3 },
     { path: "/insurance", label: "Insurance", icon: PieChart },
-    { path: "/health-monitoring", label: "Health Monitoring", icon: Calendar },
   ]
 
   // Logout handler
