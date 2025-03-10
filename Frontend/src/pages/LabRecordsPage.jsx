@@ -108,7 +108,7 @@ const LabRecordsPage = ({ darkMode }) => {
           : "bg-yellow-900 bg-opacity-50 text-yellow-300";
     } else {
       return status === "Normal" 
-        ? "bg-green-50 text-green-700" 
+        ? "bg-[#e6f7ef] text-[#00bf60]" 
         : status === "Elevated" 
           ? "bg-red-50 text-red-700" 
           : "bg-yellow-50 text-yellow-700";
@@ -116,7 +116,7 @@ const LabRecordsPage = ({ darkMode }) => {
   };
 
   // Theme colors
-  const bgColor = darkMode ? "bg-gray-900" : "bg-[#ffdde2]";
+  const bgColor = darkMode ? "bg-gray-900" : "bg-[#e6f7ef]";
   const cardBgColor = darkMode ? "bg-gray-800" : "bg-white";
   const textColor = darkMode ? "text-white" : "text-gray-900";
   const secondaryTextColor = darkMode ? "text-gray-400" : "text-gray-500";
@@ -138,7 +138,7 @@ const LabRecordsPage = ({ darkMode }) => {
                 <div className="flex flex-col sm:flex-row justify-between sm:items-start gap-3">
                   <div>
                     <CardTitle className={`text-xl font-semibold ${textColor} flex items-center gap-2`}>
-                      <Heart className="h-5 w-5 text-[#FFB6C1]" />
+                      <Heart className="h-5 w-5 text-[#00bf60]" />
                       Lab Reports & Test Results
                     </CardTitle>
                     <CardDescription className={`${secondaryTextColor}`}>
@@ -150,7 +150,7 @@ const LabRecordsPage = ({ darkMode }) => {
                     <Button variant="outline" size="sm" className={`text-xs sm:text-sm ${darkMode ? "border-gray-700 text-gray-300" : "border-gray-200"}`}>
                       <Calendar className="h-4 w-4 mr-1" /> By Date
                     </Button>
-                    <Button className="bg-[#FFB6C1] hover:bg-[#fba8b5] text-black text-xs sm:text-sm">
+                    <Button className="bg-[#00bf60] hover:bg-[#00a050] text-white text-xs sm:text-sm">
                       <Download className="h-4 w-4 mr-1" /> Export Results
                     </Button>
                   </div>
@@ -160,17 +160,17 @@ const LabRecordsPage = ({ darkMode }) => {
               <div className="p-4">
                 <Tabs defaultValue="reports" value={activeTab} onValueChange={setActiveTab} className="w-full">
                   <div className="flex flex-col sm:flex-row items-start gap-3 mb-4 justify-between">
-                    <TabsList className="bg-[#FFB6C1] p-1 rounded-lg">
+                    <TabsList className="bg-[#00bf60] p-1 rounded-lg">
                       <TabsTrigger
                         value="reports"
-                        className={`rounded-md text-sm ${activeTab === "reports" ? "bg-white shadow-sm" : "text-black hover:bg-[#ffc1ca]"}`}
+                        className={`rounded-md text-sm ${activeTab === "reports" ? "bg-white shadow-sm" : "text-white hover:bg-[#00a050]"}`}
                       >
                         <FileText className="h-4 w-4 mr-2" />
                         Reports
                       </TabsTrigger>
                       <TabsTrigger
                         value="trends"
-                        className={`rounded-md text-sm ${activeTab === "trends" ? "bg-white shadow-sm" : "text-black hover:bg-[#ffc1ca]"}`}
+                        className={`rounded-md text-sm ${activeTab === "trends" ? "bg-white shadow-sm" : "text-white hover:bg-[#00a050]"}`}
                       >
                         <TrendingUp className="h-4 w-4 mr-2" />
                         Health Trends
@@ -217,7 +217,7 @@ const LabRecordsPage = ({ darkMode }) => {
                         <p className={`text-sm ${secondaryTextColor}`}>
                           Showing {filteredReports.length} reports
                         </p>
-                        <Button variant="link" size="sm" className="text-[#FFB6C1] p-1 h-auto">
+                        <Button variant="link" size="sm" className="text-[#00bf60] p-1 h-auto">
                           <Plus className="h-4 w-4 mr-1" /> Request New Test
                         </Button>
                       </div>
@@ -231,7 +231,7 @@ const LabRecordsPage = ({ darkMode }) => {
                             >
                               <div className="flex flex-col sm:flex-row justify-between gap-3">
                                 <div className="flex items-start gap-3">
-                                  <div className={`h-10 w-10 rounded-full ${darkMode ? "bg-gray-700" : "bg-[#FFE6EA]"} flex items-center justify-center ${darkMode ? "text-[#FFB6C1]" : "text-[#FF7C8C]"}`}>
+                                  <div className={`h-10 w-10 rounded-full ${darkMode ? "bg-gray-700" : "bg-[#e6f7ef]"} flex items-center justify-center ${darkMode ? "text-[#00bf60]" : "text-[#00bf60]"}`}>
                                     <FileText size={18} />
                                   </div>
                                   <div>
@@ -262,7 +262,7 @@ const LabRecordsPage = ({ darkMode }) => {
                                     size="sm"
                                     className={`p-2 ${darkMode ? "hover:bg-gray-700" : "hover:bg-gray-100"}`}
                                   >
-                                    <Download size={16} className="text-[#FFB6C1]" />
+                                    <Download size={16} className="text-[#00bf60]" />
                                   </Button>
                                 </div>
                               </div>
@@ -286,14 +286,14 @@ const LabRecordsPage = ({ darkMode }) => {
                         <CardHeader className="pb-2">
                           <div className="flex justify-between items-center">
                             <div className="flex items-center gap-2">
-                              <div className={`h-8 w-8 rounded-full ${darkMode ? "bg-gray-700" : "bg-[#FFE6EA]"} flex items-center justify-center ${darkMode ? "text-[#FFB6C1]" : "text-[#FF7C8C]"}`}>
+                              <div className={`h-8 w-8 rounded-full ${darkMode ? "bg-gray-700" : "bg-[#e6f7ef]"} flex items-center justify-center ${darkMode ? "text-[#00bf60]" : "text-[#00bf60]"}`}>
                                 <TrendingUp size={16} />
                               </div>
                               <CardTitle className={`text-base font-medium ${textColor}`}>
                                 Blood Glucose Trend
                               </CardTitle>
                             </div>
-                            <Badge className={`${darkMode ? "bg-gray-700" : "bg-[#FFE6EA]"} ${darkMode ? "text-[#FFB6C1]" : "text-[#FF7C8C]"}`}>
+                            <Badge className={`${darkMode ? "bg-gray-700" : "bg-[#e6f7ef]"} ${darkMode ? "text-[#00bf60]" : "text-[#00bf60]"}`}>
                               {selectedTimeframe === "3months" ? "Last 3 months" : 
                                selectedTimeframe === "6months" ? "Last 6 months" :
                                selectedTimeframe === "1year" ? "Last 12 months" : "All time"}
@@ -319,7 +319,7 @@ const LabRecordsPage = ({ darkMode }) => {
                                   <Bar
                                     name="Blood Glucose (mg/dL)"
                                     dataKey="value"
-                                    fill={hoveredIndex !== null ? "#FF9CAD" : "#FFB6C1"}
+                                    fill={hoveredIndex !== null ? "#00a050" : "#00bf60"}
                                     barSize={30}
                                     radius={[4, 4, 0, 0]}
                                     onMouseOver={(data, index) => setHoveredIndex(index)}
@@ -343,7 +343,7 @@ const LabRecordsPage = ({ darkMode }) => {
                               Latest reading: <span className={`font-medium ${textColor}`}>95 mg/dL</span>
                             </div>
                             <div className="flex items-center gap-2">
-                              <div className={`h-2 w-2 rounded-full bg-green-500`}></div>
+                              <div className={`h-2 w-2 rounded-full bg-[#00bf60]`}></div>
                               <span className={`text-xs ${secondaryTextColor}`}>Within normal range</span>
                             </div>
                           </div>
@@ -355,14 +355,14 @@ const LabRecordsPage = ({ darkMode }) => {
                         <CardHeader className="pb-2">
                           <div className="flex justify-between items-center">
                             <div className="flex items-center gap-2">
-                              <div className={`h-8 w-8 rounded-full ${darkMode ? "bg-gray-700" : "bg-[#FFE6EA]"} flex items-center justify-center ${darkMode ? "text-[#FFB6C1]" : "text-[#FF7C8C]"}`}>
+                              <div className={`h-8 w-8 rounded-full ${darkMode ? "bg-gray-700" : "bg-[#e6f7ef]"} flex items-center justify-center ${darkMode ? "text-[#00bf60]" : "text-[#00bf60]"}`}>
                                 <Heart size={16} />
                               </div>
                               <CardTitle className={`text-base font-medium ${textColor}`}>
                                 Cholesterol Profile
                               </CardTitle>
                             </div>
-                            <Badge className={`${darkMode ? "bg-gray-700" : "bg-[#FFE6EA]"} ${darkMode ? "text-[#FFB6C1]" : "text-[#FF7C8C]"}`}>
+                            <Badge className={`${darkMode ? "bg-gray-700" : "bg-[#e6f7ef]"} ${darkMode ? "text-[#00bf60]" : "text-[#00bf60]"}`}>
                               {selectedTimeframe === "3months" ? "Last 3 months" : 
                                selectedTimeframe === "6months" ? "Last 6 months" :
                                selectedTimeframe === "1year" ? "Last 12 months" : "All time"}
@@ -389,10 +389,10 @@ const LabRecordsPage = ({ darkMode }) => {
                                     type="monotone" 
                                     dataKey="ldl" 
                                     name="LDL (mg/dL)" 
-                                    stroke="#FFB6C1" 
+                                    stroke="#00bf60" 
                                     strokeWidth={2}
-                                    dot={{ fill: "#FFB6C1", r: 4 }}
-                                    activeDot={{ r: 6, fill: "#FF7C8C" }}
+                                    dot={{ fill: "#00bf60", r: 4 }}
+                                    activeDot={{ r: 6, fill: "#00a050" }}
                                   />
                                   <Line 
                                     type="monotone" 
@@ -453,21 +453,21 @@ const LabRecordsPage = ({ darkMode }) => {
               <CardHeader className="pb-3">
                 <CardTitle className={`text-lg font-medium ${textColor}`}>
                   <span className="flex items-center gap-2">
-                    <Info className="h-5 w-5 text-[#FFB6C1]" /> 
+                    <Info className="h-5 w-5 text-[#00bf60]" /> 
                     Test Summary
                   </span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className={`p-4 rounded-lg ${darkMode ? "bg-gray-700" : "bg-[#fff8f9]"}`}>
+                <div className={`p-4 rounded-lg ${darkMode ? "bg-gray-700" : "bg-[#e6f7ef]"}`}>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <span className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"}`}>Total Tests</span>
-                      <Badge className="bg-[#FFE6EA] text-[#FF7C8C]">{labReports.length}</Badge>
+                      <Badge className="bg-[#e6f7ef] text-[#00bf60]">{labReports.length}</Badge>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"}`}>Normal Results</span>
-                      <Badge className="bg-green-100 text-green-800">
+                      <Badge className="bg-[#e6f7ef] text-[#00bf60]">
                         {labReports.filter(report => report.status === "Normal").length}
                       </Badge>
                     </div>
@@ -503,19 +503,19 @@ const LabRecordsPage = ({ darkMode }) => {
               <CardHeader className="pb-3">
                 <CardTitle className={`text-lg font-medium ${textColor}`}>
                   <span className="flex items-center gap-2">
-                    <Heart className="h-5 w-5 text-[#FFB6C1]" /> 
+                    <Heart className="h-5 w-5 text-[#00bf60]" /> 
                     Test Actions
                   </span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button className="w-full justify-start bg-[#FFE6EA] hover:bg-[#ffdde2] text-[#FF7C8C]">
+                <Button className="w-full justify-start bg-[#e6f7ef] hover:bg-[#d0f0e2] text-[#00bf60]">
                   <Plus className="mr-2 h-4 w-4" /> Request New Lab Test
                 </Button>
-                <Button className="w-full justify-start bg-[#FFE6EA] hover:bg-[#ffdde2] text-[#FF7C8C]">
+                <Button className="w-full justify-start bg-[#e6f7ef] hover:bg-[#d0f0e2] text-[#00bf60]">
                   <Download className="mr-2 h-4 w-4" /> Download All Results
                 </Button>
-                <Button className="w-full justify-start bg-[#FFE6EA] hover:bg-[#ffdde2] text-[#FF7C8C]">
+                <Button className="w-full justify-start bg-[#e6f7ef] hover:bg-[#d0f0e2] text-[#00bf60]">
                   <Calendar className="mr-2 h-4 w-4" /> Schedule Follow-Up
                 </Button>
               </CardContent>
@@ -526,15 +526,15 @@ const LabRecordsPage = ({ darkMode }) => {
               <CardHeader className="pb-3">
                 <CardTitle className={`text-lg font-medium ${textColor}`}>
                   <span className="flex items-center gap-2">
-                    <Calendar className="h-5 w-5 text-[#FFB6C1]" /> 
+                    <Calendar className="h-5 w-5 text-[#00bf60]" /> 
                     Upcoming Tests
                   </span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className={`p-4 rounded-lg border ${darkMode ? "border-gray-700 bg-gray-700" : "border-[#ffdde2] bg-[#fff8f9]"}`}>
+                <div className={`p-4 rounded-lg border ${darkMode ? "border-gray-700 bg-gray-700" : "border-[#e6f7ef] bg-[#e6f7ef]"}`}>
                   <div className="flex items-center mb-3 gap-3">
-                    <div className={`h-10 w-10 rounded-full ${darkMode ? "bg-gray-600" : "bg-[#FFE6EA]"} flex items-center justify-center ${darkMode ? "text-[#FFB6C1]" : "text-[#FF7C8C]"}`}>
+                    <div className={`h-10 w-10 rounded-full ${darkMode ? "bg-gray-600" : "bg-white"} flex items-center justify-center ${darkMode ? "text-[#00bf60]" : "text-[#00bf60]"}`}>
                       <AlertCircle size={18} />
                     </div>
                     <div>
@@ -546,7 +546,7 @@ const LabRecordsPage = ({ darkMode }) => {
                     <p>Includes: CBC, Lipid Panel, Metabolic Panel, Urinalysis</p>
                   </div>
                   <div className="flex justify-between">
-                    <Button variant="link" className="text-[#FF7C8C] p-0 h-auto text-xs">
+                    <Button variant="link" className="text-[#00bf60] p-0 h-auto text-xs">
                       View details
                     </Button>
                     <div className="flex items-center gap-1">

@@ -67,8 +67,8 @@ const HealthMonitoring = ({ darkMode = false }) => {
       }))}
       className={`flex items-center space-x-2 px-3 py-1.5 rounded-md text-sm font-medium ${
         selectedMetrics[metric]
-          ? 'bg-gray-900 text-white'
-          : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+          ? 'bg-[#00bf60] text-white'
+          : 'bg-[#e6f7ef] text-gray-700 hover:bg-[#d0f0e2]'
       }`}
     >
       <Icon size={16} />
@@ -96,14 +96,14 @@ const HealthMonitoring = ({ darkMode = false }) => {
           label: 'Heart Rate',
           icon: HeartPulse,
           stats: heartRateStats,
-          color: 'text-orange-500',
-          bgColor: 'bg-orange-50'
+          color: 'text-[#00bf60]',
+          bgColor: 'bg-[#e6f7ef]'
         }, {
           label: 'Blood Pressure',
           icon: Activity,
           stats: bloodPressureStats,
-          color: 'text-blue-500',
-          bgColor: 'bg-blue-50'
+          color: 'text-[#00bf60]',
+          bgColor: 'bg-[#e6f7ef]'
         }].map(({ label, icon: Icon, stats, color, bgColor }, idx) => (
           <div key={idx} className={`p-4 rounded-lg ${bgColor} border border-gray-100`}>
             <div className="flex justify-between items-center">
@@ -115,7 +115,7 @@ const HealthMonitoring = ({ darkMode = false }) => {
               </div>
               <div className="flex items-center space-x-1">
                 {stats.trend > 0 ? (
-                  <TrendingUp size={16} className="text-green-500" />
+                  <TrendingUp size={16} className="text-[#00bf60]" />
                 ) : (
                   <TrendingDown size={16} className="text-red-500" />
                 )}
@@ -125,7 +125,7 @@ const HealthMonitoring = ({ darkMode = false }) => {
             <div className="flex justify-between mt-2">
               <p className="text-sm text-gray-600">Avg: {stats.average}</p>
               <p className="text-sm text-gray-600 flex items-center">
-                <span className={stats.trend > 0 ? "text-green-500" : "text-red-500"}>
+                <span className={stats.trend > 0 ? "text-[#00bf60]" : "text-red-500"}>
                   {stats.trend > 0 ? "+" : ""}{stats.trend.toFixed(1)}%
                 </span>
               </p>
@@ -155,7 +155,7 @@ const HealthMonitoring = ({ darkMode = false }) => {
                   <Line 
                     type="monotone" 
                     dataKey="heartRate" 
-                    stroke="#F97316" 
+                    stroke="#00bf60" 
                     strokeWidth={2}
                     dot={{ r: 3 }}
                     activeDot={{ r: 5, strokeWidth: 0 }}

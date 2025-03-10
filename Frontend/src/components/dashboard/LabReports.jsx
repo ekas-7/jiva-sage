@@ -29,10 +29,10 @@ const LabReports = ({ darkMode }) => {
       </div>
 
       <div className="p-4 h-90 overflow-y-scroll">
-        <div className="bg-gray-50 rounded-lg border border-gray-100 p-4 mb-6 ">
+        <div className="bg-[#e6f7ef] rounded-lg border border-gray-100 p-4 mb-6">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-medium text-gray-700 flex items-center">
-              <BarChart2 size={16} className="mr-2 text-gray-400" />
+              <BarChart2 size={16} className="mr-2 text-[#00bf60]" />
               Blood Glucose Trend
             </h3>
             <div className="flex items-center text-xs text-gray-500">
@@ -51,7 +51,7 @@ const LabReports = ({ darkMode }) => {
                 />
                 <Bar
                   dataKey="value"
-                  fill={hoveredIndex !== null ? "#FFB6C1" : "#FFB6C1"}
+                  fill={hoveredIndex !== null ? "#00a050" : "#00bf60"}
                   barSize={30}
                   radius={[4, 4, 0, 0]}
                   onMouseOver={(data, index) => setHoveredIndex(index)}
@@ -64,7 +64,7 @@ const LabReports = ({ darkMode }) => {
 
         <div className="mb-3">
           <h3 className="text-sm font-medium text-gray-700 flex items-center mb-4">
-            <FileText size={16} className="mr-2 text-gray-400" />
+            <FileText size={16} className="mr-2 text-[#00bf60]" />
             Recent Lab Reports
           </h3>
           <div className="h-64 overflow-y-auto pr-1 space-y-2">
@@ -74,7 +74,7 @@ const LabReports = ({ darkMode }) => {
                 className="p-4 rounded-lg border border-gray-100 bg-white hover:border-gray-200 transition-colors flex justify-between items-center"
               >
                 <div className="flex items-start gap-3">
-                  <div className="h-10 w-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-500">
+                  <div className="h-10 w-10 rounded-full bg-[#e6f7ef] flex items-center justify-center text-[#00bf60]">
                     <FileText size={18} />
                   </div>
                   <div>
@@ -88,7 +88,7 @@ const LabReports = ({ darkMode }) => {
                   <span
                     className={`inline-block px-3 py-1 text-xs font-medium rounded-full mr-3 ${
                       report.status === "Normal"
-                        ? "bg-green-50 text-green-700"
+                        ? "bg-[#e6f7ef] text-[#00bf60]"
                         : report.status === "Elevated"
                         ? "bg-red-50 text-red-700"
                         : "bg-yellow-50 text-yellow-700"
@@ -97,7 +97,7 @@ const LabReports = ({ darkMode }) => {
                     {report.status}
                   </span>
                   <button
-                    className="p-2 rounded-full text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
+                    className="p-2 rounded-full text-gray-400 hover:text-[#00bf60] hover:bg-[#e6f7ef] transition-colors"
                   >
                     <Download size={18} />
                   </button>
@@ -109,7 +109,7 @@ const LabReports = ({ darkMode }) => {
         
         {labReports.length === 0 && (
           <div className="flex flex-col items-center justify-center h-40 text-center">
-            <FileText className="h-10 w-10 text-gray-300 mb-2" />
+            <FileText className="h-10 w-10 text-[#c0e8d5] mb-2" />
             <p className="text-gray-500">No lab reports available.</p>
           </div>
         )}

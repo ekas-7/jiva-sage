@@ -59,13 +59,13 @@ const PatientDashboard = () => {
   }
 
   return (
-    <div className={`min-h-screen relative ${darkMode ? 'bg-gray-900 text-white' : 'bg-[0xFFFFB6C1] text-gray-800'}`}>
-      <div className="container mx-auto px-4 py-6 bg-[#ffdde2] border-radius-5 border-black">
+    <div className={`min-h-screen relative ${darkMode ? 'bg-gray-900 text-white' : 'bg-[#e6f7ef] text-gray-800'}`}>
+      <div className="container mx-auto px-4 py-6 bg-[#e6f7ef] border-radius-5 border-black">
 
 
         <div className="flex mb-2 rounded-lg justify-between items-center bg-white py-4 px-6 border-b border-gray-100 shadow-sm">
           <div className="flex items-center">
-            <div className="h-10 w-10 rounded-full bg-[#FFE6EA] flex items-center justify-center text-[#FF7C8C] mr-3">
+            <div className="h-10 w-10 rounded-full bg-[#e6f7ef] flex items-center justify-center text-[#00bf60] mr-3">
               <span className="text-lg font-semibold">{user.name[0]}</span>
             </div>
             <div>
@@ -76,16 +76,16 @@ const PatientDashboard = () => {
           <div className='flex items-center gap-4'>
             <button
               onClick={() => generateReport()}
-              className="flex items-center gap-2 bg-[#FFB6C1] hover:bg-[#fba8b5] text-black px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+              className="flex items-center gap-2 bg-[#00bf60] hover:bg-[#00a050] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                <path d="M13 3L4 14h7v7l9-11h-7V3z" fill="black" stroke="black" stroke-width="0.5" />
+                <path d="M13 3L4 14h7v7l9-11h-7V3z" fill="white" stroke="white" stroke-width="0.5" />
               </svg>
               Generate Report
             </button>
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-2 bg-[#FFB6C1] hover:bg-[#fba8b5] text-black px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+              className="flex items-center gap-2 bg-[#00bf60] hover:bg-[#00a050] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>

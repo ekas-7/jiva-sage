@@ -71,7 +71,7 @@ const AppointmentPage = ({ darkMode }) => {
 
   return (
     <div 
-      className={`w-full ${darkMode ? "bg-gray-900" : "bg-[#ffdde2]"} transition-colors`} 
+      className={`w-full ${darkMode ? "bg-gray-900" : "bg-[#e6f7ef]"} transition-colors`} 
       style={{ minHeight: pageHeight }}
     >
       <div className="container mx-auto py-6 px-4">
@@ -84,7 +84,7 @@ const AppointmentPage = ({ darkMode }) => {
                   <div>
                     <CardTitle className={`text-xl font-semibold ${darkMode ? "text-white" : "text-gray-900"}`}>
                       <span className="flex items-center gap-2">
-                        <Calendar className="h-5 w-5 text-[#FFB6C1]" /> 
+                        <Calendar className="h-5 w-5 text-[#00bf60]" /> 
                         Appointments & Consultations
                       </span>
                     </CardTitle>
@@ -92,7 +92,7 @@ const AppointmentPage = ({ darkMode }) => {
                       Manage your upcoming and past medical appointments
                     </CardDescription>
                   </div>
-                  <Button className="bg-[#FFB6C1] hover:bg-[#fba8b5] text-black font-medium transition-colors border-0 h-10">
+                  <Button className="bg-[#00bf60] hover:bg-[#00a050] text-white font-medium transition-colors border-0 h-10">
                     <Plus className="mr-2 h-4 w-4" /> Schedule Now
                   </Button>
                 </div>
@@ -100,17 +100,17 @@ const AppointmentPage = ({ darkMode }) => {
 
               <div className="px-4 pt-4">
                 <Tabs defaultValue="upcoming" value={activeTab} onValueChange={setActiveTab} className="w-full">
-                  <TabsList className="grid w-full max-w-md grid-cols-2 bg-[#FFB6C1] p-1 rounded-lg">
+                  <TabsList className="grid w-full max-w-md grid-cols-2 bg-[#00bf60] p-1 rounded-lg">
                     <TabsTrigger
                       value="upcoming"
-                      className={`rounded-md ${activeTab === "upcoming" ? "bg-white shadow-sm" : "text-black hover:bg-[#ffc1ca]"}`}
+                      className={`rounded-md ${activeTab === "upcoming" ? "bg-white shadow-sm" : "text-white hover:bg-[#00a050]"}`}
                     >
                       <Calendar className="mr-2 h-4 w-4" />
                       Upcoming
                     </TabsTrigger>
                     <TabsTrigger 
                       value="past" 
-                      className={`rounded-md ${activeTab === "past" ? "bg-white shadow-sm" : "text-black hover:bg-[#ffc1ca]"}`}
+                      className={`rounded-md ${activeTab === "past" ? "bg-white shadow-sm" : "text-white hover:bg-[#00a050]"}`}
                     >
                       <Clock className="mr-2 h-4 w-4" />
                       Past Consultations
@@ -174,19 +174,19 @@ const AppointmentPage = ({ darkMode }) => {
               <CardHeader className="pb-2">
                 <CardTitle className={`text-lg font-medium ${darkMode ? "text-white" : "text-gray-900"}`}>
                   <span className="flex items-center gap-2">
-                    <Star className="h-5 w-5 text-[#FFB6C1]" /> 
+                    <Star className="h-5 w-5 text-[#00bf60]" /> 
                     Quick Actions
                   </span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button className="w-full justify-start bg-[#FFE6EA] hover:bg-[#ffdde2] text-[#FF7C8C]">
+                <Button className="w-full justify-start bg-[#e6f7ef] hover:bg-[#d0f0e2] text-[#00bf60]">
                   <Calendar className="mr-2 h-4 w-4" /> Book New Appointment
                 </Button>
-                <Button className="w-full justify-start bg-[#FFE6EA] hover:bg-[#ffdde2] text-[#FF7C8C]">
+                <Button className="w-full justify-start bg-[#e6f7ef] hover:bg-[#d0f0e2] text-[#00bf60]">
                   <Video className="mr-2 h-4 w-4" /> Start Virtual Consultation
                 </Button>
-                <Button className="w-full justify-start bg-[#FFE6EA] hover:bg-[#ffdde2] text-[#FF7C8C]">
+                <Button className="w-full justify-start bg-[#e6f7ef] hover:bg-[#d0f0e2] text-[#00bf60]">
                   <FileText className="mr-2 h-4 w-4" /> View Medical Records
                 </Button>
               </CardContent>
@@ -197,24 +197,24 @@ const AppointmentPage = ({ darkMode }) => {
               <CardHeader className="pb-2">
                 <CardTitle className={`text-lg font-medium ${darkMode ? "text-white" : "text-gray-900"}`}>
                   <span className="flex items-center gap-2">
-                    <HeartPulse className="h-5 w-5 text-[#FFB6C1]" /> 
+                    <HeartPulse className="h-5 w-5 text-[#00bf60]" /> 
                     Health Summary
                   </span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className={`rounded-lg p-4 ${darkMode ? "bg-gray-800" : "bg-[#fff8f9]"}`}>
+                <div className={`rounded-lg p-4 ${darkMode ? "bg-gray-800" : "bg-[#e6f7ef]"}`}>
                   <div className="flex items-center justify-between mb-3">
                     <span className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-600"}`}>Recent Consultations</span>
-                    <Badge className="bg-[#FFE6EA] text-[#FF7C8C]">{pastAppointments.length || 0}</Badge>
+                    <Badge className="bg-[#e6f7ef] text-[#00bf60]">{pastAppointments.length || 0}</Badge>
                   </div>
                   <div className="flex items-center justify-between mb-3">
                     <span className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-600"}`}>Upcoming Appointments</span>
-                    <Badge className="bg-[#FFE6EA] text-[#FF7C8C]">{upcomingAppointments.length || 0}</Badge>
+                    <Badge className="bg-[#e6f7ef] text-[#00bf60]">{upcomingAppointments.length || 0}</Badge>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-600"}`}>Prescription Renewals</span>
-                    <Badge className="bg-[#FFE6EA] text-[#FF7C8C]">0</Badge>
+                    <Badge className="bg-[#e6f7ef] text-[#00bf60]">0</Badge>
                   </div>
                 </div>
               </CardContent>
@@ -228,12 +228,12 @@ const AppointmentPage = ({ darkMode }) => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className={`p-4 rounded-lg border ${darkMode ? "border-gray-700 bg-gray-800" : "border-[#ffdde2] bg-[#fff8f9]"}`}>
+                <div className={`p-4 rounded-lg border ${darkMode ? "border-gray-700 bg-gray-800" : "border-[#e6f7ef] bg-[#e6f7ef]"}`}>
                   <div className="text-sm text-center">
                     <p className={`mb-3 ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
                       Regular check-ups help prevent health issues. Schedule your annual physical exam today.
                     </p>
-                    <Button variant="link" className="text-[#FF7C8C] p-0 h-auto">
+                    <Button variant="link" className="text-[#00bf60] p-0 h-auto">
                       Learn more
                     </Button>
                   </div>
@@ -267,11 +267,11 @@ const AppointmentCard = ({ appointment, darkMode, isPast }) => {
                   : "bg-gray-50 text-gray-500"
                 : appointment.isOnline
                   ? darkMode
-                    ? "bg-[#FFE6EA] bg-opacity-20 text-[#FFB6C1]"
-                    : "bg-[#FFE6EA] text-[#FF7C8C]"
+                    ? "bg-[#e6f7ef] bg-opacity-20 text-[#00bf60]"
+                    : "bg-[#e6f7ef] text-[#00bf60]"
                   : darkMode
-                    ? "bg-[#FFE6EA] bg-opacity-20 text-[#FFB6C1]"
-                    : "bg-[#FFE6EA] text-[#FF7C8C]"
+                    ? "bg-[#e6f7ef] bg-opacity-20 text-[#00bf60]"
+                    : "bg-[#e6f7ef] text-[#00bf60]"
               }`}
           >
             {isPast ? <FileText size={20} /> : appointment.isOnline ? <Video size={20} /> : <User size={20} />}
@@ -298,11 +298,11 @@ const AppointmentCard = ({ appointment, darkMode, isPast }) => {
               className={`mt-1 font-normal ${
                 appointment.isOnline
                   ? darkMode
-                    ? "bg-[#FFE6EA] bg-opacity-20 text-[#FFB6C1]"
-                    : "bg-[#FFE6EA] text-[#FF7C8C] hover:bg-[#FFE6EA]"
+                    ? "bg-[#e6f7ef] bg-opacity-20 text-[#00bf60]"
+                    : "bg-[#e6f7ef] text-[#00bf60] hover:bg-[#e6f7ef]"
                   : darkMode
-                    ? "bg-[#FFE6EA] bg-opacity-20 text-[#FFB6C1]"
-                    : "bg-[#FFE6EA] text-[#FF7C8C] hover:bg-[#FFE6EA]"
+                    ? "bg-[#e6f7ef] bg-opacity-20 text-[#00bf60]"
+                    : "bg-[#e6f7ef] text-[#00bf60] hover:bg-[#e6f7ef]"
                 }`}
             >
               {appointment.isOnline ? "Online" : "In-person"}
@@ -314,7 +314,7 @@ const AppointmentCard = ({ appointment, darkMode, isPast }) => {
       {/* Diagnosis & Prescription Section for Past Appointments */}
       {isPast && appointment.diagnosis && (
         <div className="mt-4 ml-0 sm:ml-14">
-          <div className={`pl-4 border-l ${darkMode ? "border-gray-700" : "border-[#FFE6EA]"}`}>
+          <div className={`pl-4 border-l ${darkMode ? "border-gray-700" : "border-[#e6f7ef]"}`}>
             <h4 className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"}`}>Diagnosis:</h4>
             <p className={`text-sm ${darkMode ? "text-gray-400" : "text-gray-500"}`}>{appointment.diagnosis}</p>
 
@@ -333,7 +333,7 @@ const AppointmentCard = ({ appointment, darkMode, isPast }) => {
             <Button
               variant="outline"
               size="sm"
-              className={`text-sm ${darkMode ? "border-gray-700 text-[#FFB6C1] hover:bg-gray-800 hover:text-[#FFB6C1]" : "border-[#FFB6C1] text-[#FF7C8C] hover:bg-[#FFE6EA]"}`}
+              className={`text-sm ${darkMode ? "border-gray-700 text-[#00bf60] hover:bg-gray-800 hover:text-[#00bf60]" : "border-[#00bf60] text-[#00bf60] hover:bg-[#e6f7ef]"}`}
             >
               View Summary
               <ExternalLink size={14} className="ml-2" />
@@ -352,7 +352,7 @@ const AppointmentCard = ({ appointment, darkMode, isPast }) => {
               <Button
                 variant="outline"
                 size="sm"
-                className={`text-sm ${darkMode ? "border-[#FFB6C1] bg-opacity-10 text-[#FFB6C1] hover:bg-[#FFB6C1] hover:bg-opacity-20" : "border-[#FFB6C1] text-[#FF7C8C] hover:bg-[#FFE6EA]"}`}
+                className={`text-sm ${darkMode ? "border-[#00bf60] bg-opacity-10 text-[#00bf60] hover:bg-[#00bf60] hover:bg-opacity-20" : "border-[#00bf60] text-[#00bf60] hover:bg-[#e6f7ef]"}`}
               >
                 Join Meeting
                 <ExternalLink size={14} className="ml-2" />
@@ -381,13 +381,13 @@ const AppointmentCard = ({ appointment, darkMode, isPast }) => {
 
 const EmptyState = ({ icon, message, darkMode }) => {
   return (
-    <div className={`flex flex-col items-center justify-center h-64 text-center p-6 rounded-xl border border-dashed ${darkMode ? "border-gray-700 bg-gray-800 bg-opacity-50" : "border-[#ffdde2] bg-[#fff8f9] bg-opacity-50"}`}>
+    <div className={`flex flex-col items-center justify-center h-64 text-center p-6 rounded-xl border border-dashed ${darkMode ? "border-gray-700 bg-gray-800 bg-opacity-50" : "border-[#e6f7ef] bg-[#e6f7ef] bg-opacity-50"}`}>
       <div className="mb-4">{icon}</div>
       <p className={`text-base ${darkMode ? "text-gray-300" : "text-gray-600"} font-medium`}>{message}</p>
       <p className={`text-sm ${darkMode ? "text-gray-500" : "text-gray-500"} mt-2 max-w-md`}>
         Your appointments will appear here once scheduled. Click the "Schedule Now" button to book a new appointment.
       </p>
-      <Button className="mt-4 bg-[#FFB6C1] hover:bg-[#fba8b5] text-black">
+      <Button className="mt-4 bg-[#00bf60] hover:bg-[#00a050] text-white">
         <Plus className="mr-2 h-4 w-4" /> Schedule Appointment
       </Button>
     </div>

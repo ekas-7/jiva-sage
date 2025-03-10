@@ -111,9 +111,9 @@ function Profile({ darkMode }) {
       {/* Profile Header */}
       <motion.div className="flex flex-col items-center mb-6 sm:mb-8" variants={itemVariants}>
         <div className="relative mb-4 group">
-          <Avatar className="h-24 w-24 sm:h-32 sm:w-32 border-4 border-[#FFB6C1] shadow-xl">
+          <Avatar className="h-24 w-24 sm:h-32 sm:w-32 border-4 border-[#00bf60] shadow-xl">
             <AvatarImage src={user.profileImage} alt={user.name} />
-            <AvatarFallback className={`text-3xl sm:text-4xl bg-[#FFE6EA] text-[#FF9CAD]`}>
+            <AvatarFallback className={`text-3xl sm:text-4xl bg-[#e6f7ef] text-[#00bf60]`}>
               {user.name
                 .split(" ")
                 .map((n) => n[0])
@@ -121,7 +121,7 @@ function Profile({ darkMode }) {
             </AvatarFallback>
           </Avatar>
           {isEditing && (
-            <Button size="sm" variant="secondary" className="absolute bottom-0 right-0 rounded-full bg-[#FFB6C1] hover:bg-[#FF9CAD] text-white">
+            <Button size="sm" variant="secondary" className="absolute bottom-0 right-0 rounded-full bg-[#00bf60] hover:bg-[#00a050] text-white">
               <Camera className="h-4 w-4" />
             </Button>
           )}
@@ -136,9 +136,9 @@ function Profile({ darkMode }) {
         </motion.h1>
         
         <div className="flex gap-2 mt-1 mb-3">
-          <Badge className="bg-[#FFE6EA] text-[#FF7C8C] hover:bg-[#FFE6EA] hover:text-[#FF7C8C]">{user.bloodGroup}</Badge>
-          <Badge className="bg-[#FFE6EA] text-[#FF7C8C] hover:bg-[#FFE6EA] hover:text-[#FF7C8C]">{user.gender}</Badge>
-          <Badge className="bg-[#FFE6EA] text-[#FF7C8C] hover:bg-[#FFE6EA] hover:text-[#FF7C8C]">{user.age} years</Badge>
+          <Badge className="bg-[#e6f7ef] text-[#00bf60] hover:bg-[#e6f7ef] hover:text-[#00bf60]">{user.bloodGroup}</Badge>
+          <Badge className="bg-[#e6f7ef] text-[#00bf60] hover:bg-[#e6f7ef] hover:text-[#00bf60]">{user.gender}</Badge>
+          <Badge className="bg-[#e6f7ef] text-[#00bf60] hover:bg-[#e6f7ef] hover:text-[#00bf60]">{user.age} years</Badge>
         </div>
 
         <motion.div
@@ -149,17 +149,17 @@ function Profile({ darkMode }) {
         >
           {isEditing ? (
             <>
-              <Button onClick={handleSave} className="flex items-center gap-1 bg-[#FFB6C1] hover:bg-[#FF9CAD] text-white border-0">
+              <Button onClick={handleSave} className="flex items-center gap-1 bg-[#00bf60] hover:bg-[#00a050] text-white border-0">
                 <Save className="h-4 w-4" />
                 Save Changes
               </Button>
-              <Button variant="outline" onClick={handleCancel} className="flex items-center gap-1 border-[#FFB6C1] text-[#FF7C8C] hover:bg-[#FFE6EA] hover:text-[#FF7C8C]">
+              <Button variant="outline" onClick={handleCancel} className="flex items-center gap-1 border-[#00bf60] text-[#00bf60] hover:bg-[#e6f7ef] hover:text-[#00bf60]">
                 <X className="h-4 w-4" />
                 Cancel
               </Button>
             </>
           ) : (
-            <Button onClick={() => setIsEditing(true)} className="flex items-center gap-1 bg-[#FFB6C1] hover:bg-[#FF9CAD] text-black border-0">
+            <Button onClick={() => setIsEditing(true)} className="flex items-center gap-1 bg-[#00bf60] hover:bg-[#00a050] text-white border-0">
               <Edit2 className="h-4 w-4" />
               Edit Profile
             </Button>
@@ -170,16 +170,16 @@ function Profile({ darkMode }) {
       {/* Profile Content */}
       <motion.div variants={itemVariants}>
         <Tabs defaultValue="personal" value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid grid-cols-2 mb-6 text-black bg-[#FFB6C1] p-1 rounded-lg max-w-md mx-auto">
+          <TabsList className="grid grid-cols-2 mb-6 text-white bg-[#00bf60] p-1 rounded-lg max-w-md mx-auto">
             <TabsTrigger 
               value="personal" 
-              className={`rounded-md text-sm ${activeTab === "personal" ? "bg-white shadow-sm" : "text-black hover:bg-[#FFC1CA]"}`}
+              className={`rounded-md text-sm ${activeTab === "personal" ? "bg-white text-gray-900 shadow-sm" : "text-white hover:bg-[#00a050]"}`}
             >
               Personal Info
             </TabsTrigger>
             <TabsTrigger 
               value="contact" 
-              className={`rounded-md text-sm ${activeTab === "contact" ? "bg-white shadow-sm" : "text-black hover:bg-[#FFC1CA]"}`}
+              className={`rounded-md text-sm ${activeTab === "contact" ? "bg-white text-gray-900 shadow-sm" : "text-white hover:bg-[#00a050]"}`}
             >
               Contact Details
             </TabsTrigger>
@@ -190,7 +190,7 @@ function Profile({ darkMode }) {
               <Card className={`${cardBgColor} ${borderColor} border shadow-sm`}>
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-2">
-                    <Heart className="h-5 w-5 text-[#FFB6C1]" />
+                    <Heart className="h-5 w-5 text-[#00bf60]" />
                     <CardTitle className={`${textColor}`}>Personal Information</CardTitle>
                   </div>
                   <CardDescription className={`${mutedTextColor}`}>Your basic personal details</CardDescription>
@@ -205,7 +205,7 @@ function Profile({ darkMode }) {
                           name="name" 
                           value={formData.name} 
                           onChange={handleInputChange} 
-                          className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
+                          className={`${inputBgColor} ${inputTextColor} border-[#00bf60] focus-visible:ring-[#00bf60]`}
                         />
                       ) : (
                         <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} ${textColor}`}>{user.name}</div>
@@ -220,7 +220,7 @@ function Profile({ darkMode }) {
                           name="gender" 
                           value={formData.gender} 
                           onChange={handleInputChange} 
-                          className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
+                          className={`${inputBgColor} ${inputTextColor} border-[#00bf60] focus-visible:ring-[#00bf60]`}
                         />
                       ) : (
                         <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} ${textColor}`}>{user.gender}</div>
@@ -235,7 +235,7 @@ function Profile({ darkMode }) {
                           name="bloodGroup"
                           value={formData.bloodGroup}
                           onChange={handleInputChange}
-                          className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
+                          className={`${inputBgColor} ${inputTextColor} border-[#00bf60] focus-visible:ring-[#00bf60]`}
                         />
                       ) : (
                         <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} ${textColor}`}>{user.bloodGroup}</div>
@@ -250,7 +250,7 @@ function Profile({ darkMode }) {
                           name="occupation"
                           value={formData.occupation || ""}
                           onChange={handleInputChange}
-                          className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
+                          className={`${inputBgColor} ${inputTextColor} border-[#00bf60] focus-visible:ring-[#00bf60]`}
                         />
                       ) : (
                         <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} ${textColor}`}>{user.occupation || "Not specified"}</div>
@@ -267,7 +267,7 @@ function Profile({ darkMode }) {
               <Card className={`${cardBgColor} ${borderColor} border shadow-sm`}>
                 <CardHeader className="pb-4">
                   <div className="flex items-center gap-2">
-                    <Phone className="h-5 w-5 text-[#FFB6C1]" />
+                    <Phone className="h-5 w-5 text-[#00bf60]" />
                     <CardTitle className={`${textColor}`}>Contact Information</CardTitle>
                   </div>
                   <CardDescription className={`${mutedTextColor}`}>Your contact details and emergency contact</CardDescription>
@@ -283,7 +283,7 @@ function Profile({ darkMode }) {
                           type="email"
                           value={formData.email}
                           onChange={handleInputChange}
-                          className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
+                          className={`${inputBgColor} ${inputTextColor} border-[#00bf60] focus-visible:ring-[#00bf60]`}
                         />
                       ) : (
                         <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} flex items-center gap-2 ${textColor}`}>
@@ -301,7 +301,7 @@ function Profile({ darkMode }) {
                           name="contact" 
                           value={formData.contact} 
                           onChange={handleInputChange} 
-                          className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
+                          className={`${inputBgColor} ${inputTextColor} border-[#00bf60] focus-visible:ring-[#00bf60]`}
                         />
                       ) : (
                         <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} flex items-center gap-2 ${textColor}`}>
@@ -319,7 +319,7 @@ function Profile({ darkMode }) {
                           name="address" 
                           value={formData.address || ""} 
                           onChange={handleInputChange} 
-                          className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
+                          className={`${inputBgColor} ${inputTextColor} border-[#00bf60] focus-visible:ring-[#00bf60]`}
                         />
                       ) : (
                         <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} flex items-center gap-2 ${textColor}`}>
@@ -334,7 +334,7 @@ function Profile({ darkMode }) {
 
                   <div>
                     <h3 className={`text-lg font-medium mb-4 flex items-center gap-2 ${textColor}`}>
-                      <User className="h-5 w-5 text-[#FFB6C1]" />
+                      <User className="h-5 w-5 text-[#00bf60]" />
                       Emergency Contact
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
@@ -346,7 +346,7 @@ function Profile({ darkMode }) {
                             name="emergencyContact.name"
                             value={formData.emergencyContact.name}
                             onChange={handleInputChange}
-                            className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
+                            className={`${inputBgColor} ${inputTextColor} border-[#00bf60] focus-visible:ring-[#00bf60]`}
                           />
                         ) : (
                           <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} flex items-center gap-2 ${textColor}`}>
@@ -364,7 +364,7 @@ function Profile({ darkMode }) {
                             name="emergencyContact.relation"
                             value={formData.emergencyContact.relation}
                             onChange={handleInputChange}
-                            className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
+                            className={`${inputBgColor} ${inputTextColor} border-[#00bf60] focus-visible:ring-[#00bf60]`}
                           />
                         ) : (
                           <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} ${textColor}`}>{user.emergencyContact.relation}</div>
@@ -379,7 +379,7 @@ function Profile({ darkMode }) {
                             name="emergencyContact.phone"
                             value={formData.emergencyContact.phone}
                             onChange={handleInputChange}
-                            className={`${inputBgColor} ${inputTextColor} border-[#FFB6C1] focus-visible:ring-[#FFB6C1]`}
+                            className={`${inputBgColor} ${inputTextColor} border-[#00bf60] focus-visible:ring-[#00bf60]`}
                           />
                         ) : (
                           <div className={`p-2 border ${borderColor} rounded-md ${inputBgColor} flex items-center gap-2 ${textColor}`}>

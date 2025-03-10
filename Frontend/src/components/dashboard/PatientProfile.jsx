@@ -26,7 +26,7 @@ const PatientProfile = ({ darkMode }) => {
   const textColor = darkMode ? "text-white" : "text-gray-900";
   const secondaryTextColor = darkMode ? "text-gray-300" : "text-gray-500";
   const borderColor = darkMode ? "border-gray-700" : "border-gray-100";
-  const headerBgColor = darkMode ? "bg-gray-700" : "bg-gray-50";
+  const headerBgColor = darkMode ? "bg-gray-700" : "bg-[#e6f7ef]";
   const cardBgColor = darkMode ? "bg-gray-700" : "bg-white";
 
   return (
@@ -46,7 +46,7 @@ const PatientProfile = ({ darkMode }) => {
                 <User size={32} className="text-gray-400" />
               </div>
             )}
-            <div className="absolute bottom-0 right-0 w-6 h-6 bg-green-500 rounded-full border-2 border-white"></div>
+            <div className="absolute bottom-0 right-0 w-6 h-6 bg-[#00bf60] rounded-full border-2 border-white"></div>
           </div>
           <div className="text-center sm:text-left w-full">
             <h3 className={`text-lg font-medium ${textColor}`}>{patient.name}</h3>
@@ -59,7 +59,7 @@ const PatientProfile = ({ darkMode }) => {
           {/* Age */}
           <div className={`p-2 rounded-lg border ${borderColor} ${cardBgColor}`}>
             <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-orange-50"} flex items-center justify-center ${darkMode ? "text-orange-300" : "text-orange-500"} mr-3`}>
+              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-[#e6f7ef]"} flex items-center justify-center ${darkMode ? "text-[#00bf60]" : "text-[#00bf60]"} mr-3`}>
                 <Calendar size={16} />
               </div>
               <p className={`text-sm font-medium ${secondaryTextColor}`}>Age</p>
@@ -70,7 +70,7 @@ const PatientProfile = ({ darkMode }) => {
           {/* Gender */}
           <div className={`p-2 rounded-lg border ${borderColor} ${cardBgColor}`}>
             <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-green-50"} flex items-center justify-center ${darkMode ? "text-green-300" : "text-green-500"} mr-3`}>
+              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-[#e6f7ef]"} flex items-center justify-center ${darkMode ? "text-[#00bf60]" : "text-[#00bf60]"} mr-3`}>
                 <User size={16} />
               </div>
               <p className={`text-sm font-medium ${secondaryTextColor}`}>Gender</p>
@@ -81,7 +81,7 @@ const PatientProfile = ({ darkMode }) => {
           {/* Blood Group */}
           <div className={`p-2 rounded-lg border ${borderColor} ${cardBgColor}`}>
             <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-red-50"} flex items-center justify-center ${darkMode ? "text-red-300" : "text-red-500"} mr-3`}>
+              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-[#e6f7ef]"} flex items-center justify-center ${darkMode ? "text-[#00bf60]" : "text-[#00bf60]"} mr-3`}>
                 <Droplet size={16} />
               </div>
               <p className={`text-sm font-medium ${secondaryTextColor}`}>Blood Group</p>
@@ -92,7 +92,7 @@ const PatientProfile = ({ darkMode }) => {
           {/* Contact */}
           <div className={`p-2 rounded-lg border ${borderColor} ${cardBgColor}`}>
             <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-blue-50"} flex items-center justify-center ${darkMode ? "text-blue-300" : "text-blue-500"} mr-3`}>
+              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-[#e6f7ef]"} flex items-center justify-center ${darkMode ? "text-[#00bf60]" : "text-[#00bf60]"} mr-3`}>
                 <Phone size={16} />
               </div>
               <p className={`text-sm font-medium ${secondaryTextColor}`}>Contact</p>
@@ -103,7 +103,7 @@ const PatientProfile = ({ darkMode }) => {
           {/* Email - Maintained span-2 for larger screens */}
           <div className={`p-2 rounded-lg border ${borderColor} ${cardBgColor} col-span-1 sm:col-span-2`}>
             <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-purple-50"} flex items-center justify-center ${darkMode ? "text-purple-300" : "text-purple-500"} mr-3`}>
+              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-[#e6f7ef]"} flex items-center justify-center ${darkMode ? "text-[#00bf60]" : "text-[#00bf60]"} mr-3`}>
                 <Mail size={16} />
               </div>
               <p className={`text-sm font-medium ${secondaryTextColor}`}>Email</p>
@@ -114,7 +114,7 @@ const PatientProfile = ({ darkMode }) => {
           {/* Emergency Contact - Maintained span-2 for larger screens */}
           <div className={`p-2 rounded-lg border ${borderColor} ${cardBgColor} col-span-1 sm:col-span-2`}>
             <div className="flex items-center">
-              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-teal-50"} flex items-center justify-center ${darkMode ? "text-teal-300" : "text-teal-500"} mr-3`}>
+              <div className={`w-8 h-8 rounded-full ${darkMode ? "bg-gray-600" : "bg-[#e6f7ef]"} flex items-center justify-center ${darkMode ? "text-[#00bf60]" : "text-[#00bf60]"} mr-3`}>
                 <Users size={16} />
               </div>
               <p className={`text-sm font-medium ${secondaryTextColor}`}>Emergency Contact</p>

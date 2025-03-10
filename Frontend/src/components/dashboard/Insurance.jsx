@@ -22,9 +22,9 @@ const Insurance = ({ darkMode }) => {
       </div>
 
       <div className="p-6">
-        <div className="p-5 space-y-3 rounded-lg bg-gray-50 border border-gray-100">
+        <div className="p-5 space-y-3 rounded-lg bg-[#e6f7ef] border border-gray-100">
           <div className="flex items-start">
-            <div className="w-10 h-10 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center mr-3">
+            <div className="w-10 h-10 rounded-full bg-white text-[#00bf60] flex items-center justify-center mr-3">
               <Shield size={20} />
             </div>
             <div className="flex-1">
@@ -37,7 +37,7 @@ const Insurance = ({ darkMode }) => {
           
           <div className="flex items-center mt-1">
             <Calendar size={16} className="text-gray-400 mr-2" />
-            <p className={`text-sm font-medium ${isExpired ? "text-red-600" : "text-green-600"}`}>
+            <p className={`text-sm font-medium ${isExpired ? "text-red-600" : "text-[#00bf60]"}`}>
               Expiry: {expiry.toDateString()} 
               {isExpired && (
                 <span className="flex items-center ml-2 text-red-600">
@@ -50,18 +50,18 @@ const Insurance = ({ darkMode }) => {
 
           {isExpired && (
             <div className="pt-2">
-              <button className="w-full px-4 py-2.5 bg-orange-500 hover:bg-orange-600 text-white rounded-lg text-sm font-medium transition-colors">
+              <button className="w-full px-4 py-2.5 bg-[#00bf60] hover:bg-[#00a050] text-white rounded-lg text-sm font-medium transition-colors">
                 Renew Insurance
               </button>
             </div>
           )}
         </div>
         
-        <div className="mt-4 flex items-center justify-center p-4 rounded-lg border border-gray-100 bg-gray-50">
+        <div className="mt-4 flex items-center justify-center p-4 rounded-lg border border-gray-100 bg-[#e6f7ef]">
           <div className="text-center">
             <p className="text-sm font-medium text-gray-900 mb-1">Need assistance with your insurance?</p>
             <p className="text-xs text-gray-500 mb-3">Our specialists are available 24/7</p>
-            <button className="px-4 py-2 border border-gray-200 hover:bg-gray-100 text-gray-700 rounded-lg text-sm font-medium transition-colors">
+            <button className="px-4 py-2 bg-[#00bf60] hover:bg-[#00a050] text-white rounded-lg text-sm font-medium transition-colors">
               Contact Support
             </button>
           </div>

@@ -15,7 +15,7 @@ const Medications = ({ darkMode }) => {
             <h2 className="text-xl font-semibold text-gray-900">Medications & Prescriptions</h2>
             <p className="text-sm text-gray-500">Current medications and refill status</p>
           </div>
-          <button className="bg-[#FFB6C1] hover:bg-[#fba8b5] text-black px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+          <button className="bg-[#00bf60] hover:bg-[#00a050] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
             Request All
           </button>
         </div>
@@ -36,7 +36,7 @@ const Medications = ({ darkMode }) => {
               >
                 <div className="flex justify-between items-start">
                   <div className="flex items-start gap-3">
-                    <div className="h-10 w-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-500">
+                    <div className="h-10 w-10 rounded-full bg-[#e6f7ef] flex items-center justify-center text-[#00bf60]">
                       <Pill size={18} />
                     </div>
                     <div>
@@ -52,7 +52,7 @@ const Medications = ({ darkMode }) => {
                         Refill in {daysUntilRefill} days
                       </span>
                     ) : (
-                      <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-green-50 text-green-700">
+                      <span className="inline-block px-3 py-1 text-xs font-medium rounded-full bg-[#e6f7ef] text-[#00bf60]">
                         Refill in {daysUntilRefill} days
                       </span>
                     )}
@@ -81,7 +81,7 @@ const Medications = ({ darkMode }) => {
                     <Bell size={16} className="mr-2" />
                     Set Reminder
                   </button>
-                  <button className="w-1/2 px-3 py-2 text-sm font-medium rounded-md bg-blue-50 text-blue-700 hover:bg-blue-100 transition-colors flex items-center justify-center">
+                  <button className="w-1/2 px-3 py-2 text-sm font-medium rounded-md bg-[#e6f7ef] text-[#00bf60] hover:bg-[#d0f0e2] transition-colors flex items-center justify-center">
                     <RefreshCw size={16} className="mr-2" />
                     Request Refill
                   </button>
@@ -92,7 +92,7 @@ const Medications = ({ darkMode }) => {
           
           {medications.length === 0 && (
             <div className="flex flex-col items-center justify-center h-40 text-center">
-              <Pill className="h-10 w-10 text-gray-300 mb-2" />
+              <Pill className="h-10 w-10 text-[#c0e8d5] mb-2" />
               <p className="text-gray-500">No medications available.</p>
             </div>
           )}

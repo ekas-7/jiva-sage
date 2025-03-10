@@ -362,7 +362,7 @@ function DashboardExport() {
               let yPosition = 0
               if (includeHeader) {
                 pdf.setFontSize(16)
-                pdf.setTextColor(42, 157, 143) // Teal color
+                pdf.setTextColor(0, 191, 96) // Green color (#00bf60)
                 pdf.text("Patient Dashboard Report", 10, 10)
                 pdf.setFontSize(10)
                 pdf.setTextColor(100, 100, 100)
@@ -429,7 +429,7 @@ function DashboardExport() {
   }
 
   return (
-    <div className="container mx-auto p-4 bg-[#ffdde2]">
+    <div className="container mx-auto p-4 bg-[#e6f7ef]">
       <Card className="mb-6">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
@@ -444,7 +444,7 @@ function DashboardExport() {
                     variant="default"
                     onClick={handleDownload}
                     disabled={isGenerating}
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 bg-[#00bf60] hover:bg-[#00a050] text-white"
                   >
                     {isGenerating ? (
                       <>
@@ -468,10 +468,10 @@ function DashboardExport() {
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="format" className="w-full">
-            <TabsList className="grid grid-cols-3 mb-4">
-              <TabsTrigger value="format">Format</TabsTrigger>
-              <TabsTrigger value="layout">Layout</TabsTrigger>
-              <TabsTrigger value="options">Options</TabsTrigger>
+            <TabsList className="grid grid-cols-3 mb-4 bg-[#00bf60] text-white">
+              <TabsTrigger value="format" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=inactive]:text-white">Format</TabsTrigger>
+              <TabsTrigger value="layout" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=inactive]:text-white">Layout</TabsTrigger>
+              <TabsTrigger value="options" className="data-[state=active]:bg-white data-[state=active]:text-black data-[state=inactive]:text-white">Options</TabsTrigger>
             </TabsList>
 
             <TabsContent value="format" className="space-y-4">
@@ -564,7 +564,7 @@ function DashboardExport() {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Button variant="outline" size="sm" onClick={handleShare}>
+                  <Button variant="outline" size="sm" onClick={handleShare} className="border-[#00bf60] text-[#00bf60] hover:bg-[#e6f7ef]">
                     <Share2 className="h-4 w-4" />
                   </Button>
                 </TooltipTrigger>
@@ -576,7 +576,7 @@ function DashboardExport() {
 
             <Popover>
               <PopoverTrigger asChild>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="border-[#00bf60] text-[#00bf60] hover:bg-[#e6f7ef]">
                   <Settings className="h-4 w-4" />
                 </Button>
               </PopoverTrigger>

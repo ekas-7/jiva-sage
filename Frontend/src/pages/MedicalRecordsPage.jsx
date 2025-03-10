@@ -67,20 +67,20 @@ const MedicalRecords = ({ darkMode }) => {
     conditions: {
       icon: <Activity size={16} className="mr-2" />,
       label: "Conditions",
-      color: darkMode ? "text-[#FFB6C1]" : "text-[#FF7C8C]",
-      bgColor: darkMode ? "bg-gray-700" : "bg-[#FFE6EA]"
+      color: darkMode ? "text-[#00bf60]" : "text-[#00bf60]",
+      bgColor: darkMode ? "bg-gray-700" : "bg-[#e6f7ef]"
     },
     allergies: {
       icon: <AlertCircle size={16} className="mr-2" />,
       label: "Allergies",
-      color: darkMode ? "text-[#FFB6C1]" : "text-[#FF7C8C]",
-      bgColor: darkMode ? "bg-gray-700" : "bg-[#FFE6EA]"
+      color: darkMode ? "text-[#00bf60]" : "text-[#00bf60]",
+      bgColor: darkMode ? "bg-gray-700" : "bg-[#e6f7ef]"
     },
     surgeries: {
       icon: <Scissors size={16} className="mr-2" />,
       label: "Surgeries",
-      color: darkMode ? "text-[#FFB6C1]" : "text-[#FF7C8C]",
-      bgColor: darkMode ? "bg-gray-700" : "bg-[#FFE6EA]"
+      color: darkMode ? "text-[#00bf60]" : "text-[#00bf60]",
+      bgColor: darkMode ? "bg-gray-700" : "bg-[#e6f7ef]"
     }
   };
 
@@ -96,12 +96,12 @@ const MedicalRecords = ({ darkMode }) => {
         ? 'bg-red-50 text-red-700' 
         : severity === 'Moderate' 
           ? 'bg-yellow-50 text-yellow-700' 
-          : 'bg-green-50 text-green-700';
+          : 'bg-[#e6f7ef] text-[#00bf60]';
     }
   };
 
   // Set colors based on dark mode
-  const bgColor = darkMode ? "bg-gray-900" : "bg-[#ffdde2]";
+  const bgColor = darkMode ? "bg-gray-900" : "bg-[#e6f7ef]";
   const cardBgColor = darkMode ? "bg-gray-800" : "bg-white";
   const textColor = darkMode ? "text-white" : "text-gray-900";
   const secondaryTextColor = darkMode ? "text-gray-400" : "text-gray-500";
@@ -123,7 +123,7 @@ const MedicalRecords = ({ darkMode }) => {
                 <div className="flex flex-col sm:flex-row justify-between sm:items-start gap-2">
                   <div>
                     <CardTitle className={`text-xl font-semibold ${textColor} flex items-center gap-2`}>
-                      <Heart className="h-5 w-5 text-[#FFB6C1]" />
+                      <Heart className="h-5 w-5 text-[#00bf60]" />
                       Medical Records & History
                     </CardTitle>
                     <CardDescription className={`${secondaryTextColor}`}>
@@ -135,7 +135,7 @@ const MedicalRecords = ({ darkMode }) => {
                     <Button variant="outline" size="sm" className={`text-xs sm:text-sm ${darkMode ? "border-gray-700 text-gray-300" : "border-gray-200"}`}>
                       <Printer className="h-4 w-4 mr-1" /> Print
                     </Button>
-                    <Button className="bg-[#FFB6C1] hover:bg-[#fba8b5] text-black text-xs sm:text-sm">
+                    <Button className="bg-[#00bf60] hover:bg-[#00a050] text-white text-xs sm:text-sm">
                       <Download className="h-4 w-4 mr-1" /> Export Records
                     </Button>
                   </div>
@@ -164,7 +164,7 @@ const MedicalRecords = ({ darkMode }) => {
                 </div>
 
                 {/* Tabs */}
-                <div className="bg-[#FFB6C1] text-black inline-flex p-1 rounded-lg mb-4 overflow-x-auto whitespace-nowrap">
+                <div className="bg-[#00bf60] text-white inline-flex p-1 rounded-lg mb-4 overflow-x-auto whitespace-nowrap">
                   {Object.keys(tabConfig).map((tab) => (
                     <button
                       key={tab}
@@ -172,7 +172,7 @@ const MedicalRecords = ({ darkMode }) => {
                       className={`flex items-center px-3 sm:px-4 py-2 text-xs sm:text-sm font-medium rounded-md transition ${
                         activeTab === tab
                           ? 'bg-white text-gray-900 shadow-sm'
-                          : 'text-black hover:bg-[#ffc1ca]'
+                          : 'text-white hover:bg-[#00a050]'
                       }`}
                     >
                       {tabConfig[tab].icon}
@@ -188,7 +188,7 @@ const MedicalRecords = ({ darkMode }) => {
                     <p className={`text-sm ${secondaryTextColor}`}>
                       Showing {filteredData[activeTab].length} {activeTab}
                     </p>
-                    <Button variant="link" size="sm" className="text-[#FFB6C1] p-1 h-auto">
+                    <Button variant="link" size="sm" className="text-[#00bf60] p-1 h-auto">
                       <Plus className="h-4 w-4 mr-1" /> Add New
                     </Button>
                   </div>
@@ -217,7 +217,7 @@ const MedicalRecords = ({ darkMode }) => {
                                 {condition.severity}
                               </span>
                               <Button variant="ghost" size="sm" className="p-1 h-6">
-                                <FileText className="h-4 w-4 text-[#FFB6C1]" />
+                                <FileText className="h-4 w-4 text-[#00bf60]" />
                               </Button>
                             </div>
                           </div>
@@ -254,7 +254,7 @@ const MedicalRecords = ({ darkMode }) => {
                                 {allergy.severity}
                               </span>
                               <Button variant="ghost" size="sm" className="p-1 h-6">
-                                <FileText className="h-4 w-4 text-[#FFB6C1]" />
+                                <FileText className="h-4 w-4 text-[#00bf60]" />
                               </Button>
                             </div>
                           </div>
@@ -292,7 +292,7 @@ const MedicalRecords = ({ darkMode }) => {
                               </div>
                             </div>
                             <Button variant="ghost" size="sm" className="p-1 h-6 self-start">
-                              <FileText className="h-4 w-4 text-[#FFB6C1]" />
+                              <FileText className="h-4 w-4 text-[#00bf60]" />
                             </Button>
                           </div>
                         </div>
@@ -315,25 +315,25 @@ const MedicalRecords = ({ darkMode }) => {
               <CardHeader className="pb-3">
                 <CardTitle className={`text-lg font-medium ${textColor}`}>
                   <span className="flex items-center gap-2">
-                    <Info className="h-5 w-5 text-[#FFB6C1]" /> 
+                    <Info className="h-5 w-5 text-[#00bf60]" /> 
                     Health Summary
                   </span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className={`p-4 rounded-lg ${darkMode ? "bg-gray-700" : "bg-[#fff8f9]"}`}>
+                <div className={`p-4 rounded-lg ${darkMode ? "bg-gray-700" : "bg-[#e6f7ef]"}`}>
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
                       <span className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"}`}>Conditions</span>
-                      <Badge className="bg-[#FFE6EA] text-[#FF7C8C]">{medicalData.conditions.length}</Badge>
+                      <Badge className="bg-[#e6f7ef] text-[#00bf60]">{medicalData.conditions.length}</Badge>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"}`}>Allergies</span>
-                      <Badge className="bg-[#FFE6EA] text-[#FF7C8C]">{medicalData.allergies.length}</Badge>
+                      <Badge className="bg-[#e6f7ef] text-[#00bf60]">{medicalData.allergies.length}</Badge>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"}`}>Surgeries</span>
-                      <Badge className="bg-[#FFE6EA] text-[#FF7C8C]">{medicalData.surgeries.length}</Badge>
+                      <Badge className="bg-[#e6f7ef] text-[#00bf60]">{medicalData.surgeries.length}</Badge>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className={`text-sm font-medium ${darkMode ? "text-gray-300" : "text-gray-700"}`}>Last Updated</span>
@@ -349,19 +349,19 @@ const MedicalRecords = ({ darkMode }) => {
               <CardHeader className="pb-3">
                 <CardTitle className={`text-lg font-medium ${textColor}`}>
                   <span className="flex items-center gap-2">
-                    <Heart className="h-5 w-5 text-[#FFB6C1]" /> 
+                    <Heart className="h-5 w-5 text-[#00bf60]" /> 
                     Health Actions
                   </span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button className="w-full justify-start bg-[#FFE6EA] hover:bg-[#ffdde2] text-[#FF7C8C]">
+                <Button className="w-full justify-start bg-[#e6f7ef] hover:bg-[#d0f0e2] text-[#00bf60]">
                   <Plus className="mr-2 h-4 w-4" /> Add New Medical Record
                 </Button>
-                <Button className="w-full justify-start bg-[#FFE6EA] hover:bg-[#ffdde2] text-[#FF7C8C]">
+                <Button className="w-full justify-start bg-[#e6f7ef] hover:bg-[#d0f0e2] text-[#00bf60]">
                   <Download className="mr-2 h-4 w-4" /> Download Complete History
                 </Button>
-                <Button className="w-full justify-start bg-[#FFE6EA] hover:bg-[#ffdde2] text-[#FF7C8C]">
+                <Button className="w-full justify-start bg-[#e6f7ef] hover:bg-[#d0f0e2] text-[#00bf60]">
                   <Calendar className="mr-2 h-4 w-4" /> Schedule Follow-Up
                 </Button>
               </CardContent>
@@ -375,12 +375,12 @@ const MedicalRecords = ({ darkMode }) => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className={`p-4 rounded-lg border ${darkMode ? "border-gray-700 bg-gray-700" : "border-[#ffdde2] bg-[#fff8f9]"}`}>
+                <div className={`p-4 rounded-lg border ${darkMode ? "border-gray-700 bg-gray-700" : "border-[#e6f7ef] bg-[#e6f7ef]"}`}>
                   <div className="text-sm">
                     <p className={`mb-3 ${darkMode ? "text-gray-300" : "text-gray-700"}`}>
                       Remember to bring your updated medication list to your next appointment with Dr. Johnson on March 15.
                     </p>
-                    <Button variant="link" className="text-[#FF7C8C] p-0 h-auto">
+                    <Button variant="link" className="text-[#00bf60] p-0 h-auto">
                       Set reminder
                     </Button>
                   </div>

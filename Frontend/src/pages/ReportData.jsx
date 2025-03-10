@@ -43,7 +43,7 @@ const ReportData = () => {
       yPosition += 8;
       
       // Table header
-      doc.setFillColor(255, 124, 140);
+      doc.setFillColor(0, 191, 96); // Green #00bf60
       doc.rect(14, yPosition, pageWidth - 28, 8, 'F');
       doc.setTextColor(255, 255, 255);
       doc.setFontSize(10);
@@ -253,7 +253,7 @@ const ReportData = () => {
       case 'Moderate':
         return 'bg-yellow-100 text-yellow-800';
       case 'Low':
-        return 'bg-[#FFE6EA] text-[#FF7C8C]';
+        return 'bg-[#e6f7ef] text-[#00bf60]';
       default:
         return 'bg-gray-100 text-gray-800';
     }
@@ -266,7 +266,7 @@ const ReportData = () => {
       case 'Borderline':
         return <Activity className="w-5 h-5 text-yellow-500" />;
       case 'Normal':
-        return <ThumbsUp className="w-5 h-5 text-green-500" />;
+        return <ThumbsUp className="w-5 h-5 text-[#00bf60]" />;
       default:
         return <Heart className="w-5 h-5 text-blue-500" />;
     }
@@ -278,11 +278,11 @@ const ReportData = () => {
         {/* Add action buttons at the top */}
         <div className="flex justify-end mb-4 gap-4">
           <button 
-            className="flex items-center gap-2 bg-[#FFB6C1] hover:bg-[#fba8b5] text-black px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+            className="flex items-center gap-2 bg-[#00bf60] hover:bg-[#00a050] text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
             onClick={generatePDF}
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-              <path d="M13 3L4 14h7v7l9-11h-7V3z" fill="black" stroke="black" strokeWidth="0.5" />
+              <path d="M13 3L4 14h7v7l9-11h-7V3z" fill="white" stroke="white" strokeWidth="0.5" />
             </svg>
             Download Pdf
           </button>
@@ -301,7 +301,7 @@ const ReportData = () => {
           {/* Header */}
           <div className="flex mb-2 rounded-lg justify-between items-center bg-white py-4 px-6 border-b border-gray-100 shadow-sm">
             <div className="flex items-center">
-              <div className="h-10 w-10 rounded-full bg-[#FFE6EA] flex items-center justify-center text-[#FF7C8C] mr-3">
+              <div className="h-10 w-10 rounded-full bg-[#e6f7ef] flex items-center justify-center text-[#00bf60] mr-3">
                 <span className="text-lg font-semibold">{report.patient_name[0]}</span>
               </div>
               <div>
@@ -309,7 +309,7 @@ const ReportData = () => {
                 <p className="text-sm text-gray-500">Report Date: {report.analysis_date}</p>
               </div>
             </div>
-            <div className="bg-[#FFE6EA] text-[#FF7C8C] rounded-lg px-4 py-2 font-medium">
+            <div className="bg-[#e6f7ef] text-[#00bf60] rounded-lg px-4 py-2 font-medium">
               {report.overall_health_status}
             </div>
           </div>
@@ -320,7 +320,7 @@ const ReportData = () => {
               <button 
                 className={`px-6 py-3 border-b-2 font-medium text-sm ${
                   activeTab === 'analysis' 
-                    ? 'border-[#FF7C8C] text-[#FF7C8C]' 
+                    ? 'border-[#00bf60] text-[#00bf60]' 
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
                 onClick={() => setActiveTab('analysis')}
@@ -330,7 +330,7 @@ const ReportData = () => {
               <button 
                 className={`px-6 py-3 border-b-2 font-medium text-sm ${
                   activeTab === 'nutrition' 
-                    ? 'border-[#FF7C8C] text-[#FF7C8C]' 
+                    ? 'border-[#00bf60] text-[#00bf60]' 
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
                 onClick={() => setActiveTab('nutrition')}
@@ -340,7 +340,7 @@ const ReportData = () => {
               <button 
                 className={`px-6 py-3 border-b-2 font-medium text-sm ${
                   activeTab === 'activity' 
-                    ? 'border-[#FF7C8C] text-[#FF7C8C]' 
+                    ? 'border-[#00bf60] text-[#00bf60]' 
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
                 onClick={() => setActiveTab('activity')}
@@ -350,7 +350,7 @@ const ReportData = () => {
               <button 
                 className={`px-6 py-3 border-b-2 font-medium text-sm ${
                   activeTab === 'followup' 
-                    ? 'border-[#FF7C8C] text-[#FF7C8C]' 
+                    ? 'border-[#00bf60] text-[#00bf60]' 
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
                 onClick={() => setActiveTab('followup')}
@@ -398,7 +398,7 @@ const ReportData = () => {
                         <h4 className="text-sm font-medium text-gray-500 mb-2">Recommended Foods:</h4>
                         <div className="flex flex-wrap gap-2">
                           {item.examples.map((example, i) => (
-                            <span key={i} className="bg-[#FFE6EA] text-[#FF7C8C] text-xs px-3 py-1 rounded-full">
+                            <span key={i} className="bg-[#e6f7ef] text-[#00bf60] text-xs px-3 py-1 rounded-full">
                               {example}
                             </span>
                           ))}
@@ -448,7 +448,7 @@ const ReportData = () => {
                         <h4 className="text-sm font-medium text-gray-500 mb-2">Suggested Activities:</h4>
                         <div className="flex flex-wrap gap-2">
                           {item.examples.map((example, i) => (
-                            <span key={i} className="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">
+                            <span key={i} className="bg-[#e6f7ef] text-[#00bf60] text-xs px-3 py-1 rounded-full">
                               {example}
                             </span>
                           ))}
@@ -477,7 +477,7 @@ const ReportData = () => {
                   <ul className="space-y-4">
                     {report.follow_up_recommendations.map((item, index) => (
                       <li key={index} className="flex">
-                        <ArrowRight className="w-5 h-5 text-[#FF7C8C] mt-0.5 flex-shrink-0" />
+                        <ArrowRight className="w-5 h-5 text-[#00bf60] mt-0.5 flex-shrink-0" />
                         <span className="ml-3 text-gray-700">{item}</span>
                       </li>
                     ))}

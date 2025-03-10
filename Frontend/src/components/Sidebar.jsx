@@ -90,10 +90,10 @@ function Sidebar({ darkMode }) {
   const textColor = "text-gray-900";
   const secondaryTextColor = "text-gray-500";
   const borderColor = "border-gray-200";
-  const activeItemBg = "bg-[#FFB6C1]";
-  const hoverItemBg = "hover:bg-[#FFF0F3]";
-  const helpSectionBg = "bg-[#FFF0F3]";
-  const logoContainerBg = "bg-[#FFB6C1]";
+  const activeItemBg = "bg-[#00bf60]";
+  const hoverItemBg = "hover:bg-[#e6f7ef]";
+  const helpSectionBg = "bg-[#e6f7ef]";
+  const logoContainerBg = "bg-[#00bf60]";
 
   return (
     <>
@@ -101,7 +101,7 @@ function Sidebar({ darkMode }) {
       <div className="fixed top-4 left-4 z-40 sm:hidden">
         <Button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="w-10 h-10 p-0 rounded-full bg-[#FFB6C1] hover:bg-[#FF9CAD] text-white"
+          className="w-10 h-10 p-0 rounded-full bg-[#00bf60] hover:bg-[#00a050] text-white"
         >
           {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
         </Button>
@@ -137,16 +137,16 @@ function Sidebar({ darkMode }) {
                     <Link
                       to={item.path}
                       className={`flex items-center justify-between w-full px-3 py-2.5 rounded-lg transition-colors ${location.pathname === item.path
-                        ? `${activeItemBg} ${textColor} font-medium`
+                        ? `${activeItemBg} text-white font-medium`
                         : `${secondaryTextColor} ${hoverItemBg} hover:text-gray-900 text-wh`
                         }`}
                     >
                       <div className="flex items-center space-x-3">
-                        <item.icon className={`h-5 w-5 ${location.pathname === item.path ? "text-black" : secondaryTextColor}`} />
+                        <item.icon className={`h-5 w-5 ${location.pathname === item.path ? "text-white" : secondaryTextColor}`} />
                         <span className="text-sm">{item.label}</span>
                       </div>
                       {location.pathname === item.path && (
-                        <div className="w-1.5 h-1.5 rounded-full bg-black"></div>
+                        <div className="w-1.5 h-1.5 rounded-full bg-white"></div>
                       )}
                     </Link>
                   </SidebarMenuItem>
@@ -157,11 +157,11 @@ function Sidebar({ darkMode }) {
             <div className="mx-4 my-6">
               <div className={`${helpSectionBg} rounded-xl p-4`}>
                 <div className="flex items-center space-x-3 mb-2">
-                  <HelpCircle className="h-5 w-5 text-[#FFB6C1]" />
+                  <HelpCircle className="h-5 w-5 text-[#00bf60]" />
                   <span className={`text-sm font-medium ${textColor}`}>Need help?</span>
                 </div>
                 <p className={`text-xs ${secondaryTextColor} mb-3`}>Contact our support team for assistance</p>
-                <Button className="w-full bg-[#FF9CAD] hover:bg-[#FF9CAD] text-black text-xs rounded-lg">
+                <Button className="w-full bg-[#00bf60] hover:bg-[#00a050] text-white text-xs rounded-lg">
                   Contact Support
                 </Button>
               </div>
@@ -170,9 +170,9 @@ function Sidebar({ darkMode }) {
             <SidebarFooter className={`border-t ${borderColor} p-4`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <Avatar className="h-10 w-10 border-2 border-[#FFB6C1] shadow-sm">
+                  <Avatar className="h-10 w-10 border-2 border-[#00bf60] shadow-sm">
                     <AvatarImage src={user.profileImage} alt={user.name} />
-                    <AvatarFallback className="bg-[#FFE6EA] text-[#FF9CAD]">{getInitials(user.name)}</AvatarFallback>
+                    <AvatarFallback className="bg-[#e6f7ef] text-[#00bf60]">{getInitials(user.name)}</AvatarFallback>
                   </Avatar>
                   <div className="flex-1 min-w-0">
                     <p className={`text-sm font-medium truncate ${textColor}`}>{user.name}</p>
@@ -182,7 +182,7 @@ function Sidebar({ darkMode }) {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className={`${secondaryTextColor} hover:text-[#FF9CAD] hover:bg-transparent`}
+                  className={`${secondaryTextColor} hover:text-[#00bf60] hover:bg-transparent`}
                   onClick={handleLogout}
                 >
                   <LogOut className="h-5 w-5" />

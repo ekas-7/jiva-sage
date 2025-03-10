@@ -31,7 +31,7 @@ const Appointments = ({ darkMode }) => {
               Upcoming and past medical appointments
             </CardDescription>
           </div>
-          <Button className="bg-[#FFB6C1] hover:bg-[#fba8b5] text-black font-medium transition-colors border-0 text-sm h-9 px-3 py-2 self-start sm:self-auto">
+          <Button className="bg-[#00bf60] hover:bg-[#00a050] text-white font-medium transition-colors border-0 text-sm h-9 px-3 py-2 self-start sm:self-auto">
             Schedule Now
           </Button>
         </div>
@@ -39,14 +39,14 @@ const Appointments = ({ darkMode }) => {
 
       <div className="px-3 sm:px-4 pt-2">
         <Tabs defaultValue="upcoming" value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full text-black max-w-[350px] grid-cols-2 bg-[#FFB6C1] p-1 rounded-lg text-xs sm:text-sm">
+          <TabsList className="grid w-full text-black max-w-[350px] grid-cols-2 bg-[#00bf60] p-1 rounded-lg text-xs sm:text-sm">
             <TabsTrigger
               value="upcoming"
-              className={`rounded-md ${activeTab === "upcoming" ? "bg-white shadow-sm" : ""}`}
+              className={`rounded-md ${activeTab === "upcoming" ? "bg-white shadow-sm" : "text-white"}`}
             >
               Upcoming
             </TabsTrigger>
-            <TabsTrigger value="past" className={`rounded-md ${activeTab === "past" ? "bg-white shadow-sm" : ""}`}>
+            <TabsTrigger value="past" className={`rounded-md ${activeTab === "past" ? "bg-white shadow-sm" : "text-white"}`}>
               Past Consultations
             </TabsTrigger>
           </TabsList>
@@ -125,8 +125,8 @@ const AppointmentCard = ({ appointment, darkMode, isPast }) => {
                     ? "bg-blue-900 text-blue-300"
                     : "bg-blue-50 text-blue-500"
                   : darkMode
-                    ? "bg-[#ffdde2] bg-opacity-20 text-[#ffdde2]"
-                    : "bg-[#ffdde2] text-pink-700"
+                    ? "bg-[#e6f7ef] bg-opacity-20 text-[#e6f7ef]"
+                    : "bg-[#e6f7ef] text-[#00bf60]"
               }`}
           >
             {isPast ? <FileText size={18} /> : appointment.isOnline ? <Video size={18} /> : <User size={18} />}
@@ -156,8 +156,8 @@ const AppointmentCard = ({ appointment, darkMode, isPast }) => {
                     ? "bg-blue-900 text-blue-300"
                     : "bg-blue-50 text-blue-700 hover:bg-blue-50"
                   : darkMode
-                    ? "bg-[#ffdde2] bg-opacity-20 text-[#ffdde2]"
-                    : "bg-[#ffdde2] text-pink-700 hover:bg-[#ffdde2]"
+                    ? "bg-[#e6f7ef] bg-opacity-20 text-[#e6f7ef]"
+                    : "bg-[#e6f7ef] text-[#00bf60] hover:bg-[#e6f7ef]"
                 }`}
             >
               {appointment.isOnline ? "Online" : "In-person"}
@@ -187,7 +187,7 @@ const AppointmentCard = ({ appointment, darkMode, isPast }) => {
           <Button
             variant="outline"
             size="sm"
-            className={`text-xs h-8 px-2 py-1 ${darkMode ? "border-gray-700 text-gray-300 hover:bg-gray-800" : "bg-[#FFB6C1]"}`}
+            className={`text-xs h-8 px-2 py-1 ${darkMode ? "border-gray-700 text-gray-300 hover:bg-gray-800" : "bg-[#00bf60] text-white hover:bg-[#00a050]"}`}
           >
             View Summary
             <ExternalLink size={12} className="ml-1 sm:ml-2" />
@@ -197,7 +197,7 @@ const AppointmentCard = ({ appointment, darkMode, isPast }) => {
             <Button
               variant="outline"
               size="sm"
-              className={`text-xs h-8 px-2 py-1 ${darkMode ? "border-gray-700 text-gray-300 hover:bg-gray-800" : ""} border-[#ffdde2] hover:border-[#ffcbd3] hover:bg-[#ffdde2] hover:bg-opacity-10`}
+              className={`text-xs h-8 px-2 py-1 ${darkMode ? "border-gray-700 text-gray-300 hover:bg-gray-800" : ""} border-[#e6f7ef] hover:border-[#00bf60] hover:bg-[#e6f7ef] text-[#00bf60]`}
             >
               Join Meeting
               <ExternalLink size={12} className="ml-1 sm:ml-2" />

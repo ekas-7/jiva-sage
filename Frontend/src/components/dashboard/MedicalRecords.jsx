@@ -25,8 +25,8 @@ const MedicalRecords = ({ darkMode }) => {
     conditions: {
       icon: <Activity size={16} className="mr-2" />,
       label: "Conditions",
-      color: "text-orange-500",
-      bgColor: "bg-orange-50"
+      color: "text-[#00bf60]",
+      bgColor: "bg-[#e6f7ef]"
     },
     allergies: {
       icon: <AlertCircle size={16} className="mr-2" />,
@@ -37,8 +37,8 @@ const MedicalRecords = ({ darkMode }) => {
     surgeries: {
       icon: <Scissors size={16} className="mr-2" />,
       label: "Surgeries",
-      color: "text-blue-500",
-      bgColor: "bg-blue-50"
+      color: "text-[#00bf60]",
+      bgColor: "bg-[#e6f7ef]"
     }
   };
 
@@ -56,7 +56,7 @@ const MedicalRecords = ({ darkMode }) => {
 
       {/* Tabs */}
       <div className="px-6 pt-4">
-        <div className="bg-[#FFB6C1] text-black inline-flex p-1 rounded-lg">
+        <div className="bg-[#00bf60] text-white inline-flex p-1 rounded-lg">
           {Object.keys(tabConfig).map((tab) => (
             <button
               key={tab}
@@ -64,7 +64,7 @@ const MedicalRecords = ({ darkMode }) => {
               className={`flex items-center px-4 py-2 text-sm font-medium rounded-md transition ${
                 activeTab === tab
                   ? 'bg-white text-gray-900 shadow-sm'
-                  : 'text-black hover:text-gray-900'
+                  : 'text-white hover:text-gray-100'
               }`}
             >
               {tabConfig[tab].icon}
@@ -97,7 +97,7 @@ const MedicalRecords = ({ darkMode }) => {
                   <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${
                     condition.severity === 'Severe' ? 'bg-red-50 text-red-700' :
                     condition.severity === 'Moderate' ? 'bg-yellow-50 text-yellow-700' :
-                    'bg-green-50 text-green-700'
+                    'bg-[#e6f7ef] text-[#00bf60]'
                   }`}>
                     {condition.severity}
                   </span>
@@ -124,7 +124,7 @@ const MedicalRecords = ({ darkMode }) => {
                   <span className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${
                     allergy.severity === 'Severe' ? 'bg-red-50 text-red-700' :
                     allergy.severity === 'Moderate' ? 'bg-yellow-50 text-yellow-700' :
-                    'bg-green-50 text-green-700'
+                    'bg-[#e6f7ef] text-[#00bf60]'
                   }`}>
                     {allergy.severity}
                   </span>
