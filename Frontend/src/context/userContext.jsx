@@ -29,7 +29,8 @@ export const UserProvider = ({ children }) => {
         
         try{
             const res = await axios.post(`${URI}/api/user/signin`,{email,password})
-    
+            console.log("res : ", res);
+            
             if(!res.data.success){
                 console.log("Error in signing in : ",res);
                 return;

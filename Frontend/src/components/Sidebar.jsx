@@ -2,14 +2,14 @@
 import { useNavigate, useLocation, Link } from "react-router-dom"
 import { useUser } from "../context/userContext"
 import { useState, useEffect } from "react"
-import { 
-  BarChart3, 
-  Wallet, 
-  Home, 
-  LogOut, 
-  PieChart, 
-  LineChart, 
-  Settings, 
+import {
+  BarChart3,
+  Wallet,
+  Home,
+  LogOut,
+  PieChart,
+  LineChart,
+  Settings,
   User,
   CreditCard,
   Calendar,
@@ -20,23 +20,25 @@ import {
 } from "lucide-react"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import {   
-  Sidebar as ShadcnSidebar,   
-  SidebarContent,   
-  SidebarFooter,   
-  SidebarHeader,   
-  SidebarMenu,  
-  SidebarMenuItem,   
-  SidebarProvider,   
-  SidebarTrigger, 
+import {
+  Sidebar as ShadcnSidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuItem,
+  SidebarProvider,
+  SidebarTrigger,
 } from "@/components/ui/sidebar"
+
+import logo from '../assets/logo.png'
 
 function Sidebar({ darkMode }) {
   const navigate = useNavigate()
   const location = useLocation()
   const { profile, setToken } = useUser()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  
+
   const user = profile?.user?.[0] || {
     name: "Dwayne Tatum",
     role: "CEO Assistant",
@@ -84,20 +86,20 @@ function Sidebar({ darkMode }) {
     navigate("/")
   }
 
-  const bgColor =  "bg-white";
+  const bgColor = "bg-white";
   const textColor = "text-gray-900";
   const secondaryTextColor = "text-gray-500";
-  const borderColor =  "border-gray-200";
-  const activeItemBg =  "bg-[#FFB6C1]";
-  const hoverItemBg =  "hover:bg-[#FFF0F3]";
+  const borderColor = "border-gray-200";
+  const activeItemBg = "bg-[#FFB6C1]";
+  const hoverItemBg = "hover:bg-[#FFF0F3]";
   const helpSectionBg = "bg-[#FFF0F3]";
-  const logoContainerBg =  "bg-[#FFB6C1]";
+  const logoContainerBg = "bg-[#FFB6C1]";
 
   return (
     <>
       {/* Mobile Menu Toggle Button - Visible only on small screens */}
       <div className="fixed top-4 left-4 z-40 sm:hidden">
-        <Button 
+        <Button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           className="w-10 h-10 p-0 rounded-full bg-[#FFB6C1] hover:bg-[#FF9CAD] text-white"
         >
@@ -107,7 +109,7 @@ function Sidebar({ darkMode }) {
 
       {/* Mobile Sidebar Overlay */}
       {isMobileMenuOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-black bg-opacity-50 z-40 sm:hidden"
           onClick={() => setIsMobileMenuOpen(false)}
         />
@@ -116,37 +118,28 @@ function Sidebar({ darkMode }) {
       <div className={`h-screen transition-all duration-300 ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'} fixed sm:static top-0 left-0 z-50 w-64 sm:w-auto`}>
         <SidebarProvider>
           <ShadcnSidebar className={`h-full ${borderColor} border-r ${bgColor}`}>
-            <SidebarHeader className="flex items-center justify-between px-4 py-5">
-              <div className="flex items-center space-x-3">
-                <div className={`rounded-full ${logoContainerBg} p-2`}>
-                  <span className="text-white font-bold text-sm">Jiva</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className={`text-sm font-bold ${textColor}`}>JIVA</span>
+            <SidebarHeader className="flex items-center justify-between">
+              <div className="flex items-center space-x-2 md:space-x-3">
+                <div className="rounded-full">
+                  <img
+                    src={logo}
+                    alt="JIVA Logo"
+                    className="w-6 h-6 sm:w-8 sm:h-8 md:w-26 md:h-14 object-contain"
+                  />
                 </div>
               </div>
-              {/* <div className="hidden sm:block">
-                <SidebarTrigger className={secondaryTextColor} />
-              </div> */}
-              <button 
-                className="block sm:hidden text-gray-400" 
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                <X size={18} />
-              </button>
             </SidebarHeader>
-            
+
             <SidebarContent className="px-3">
               <SidebarMenu className="space-y-1 py-3">
                 {navItems.map((item) => (
                   <SidebarMenuItem key={item.path}>
-                    <Link 
-                      to={item.path} 
-                      className={`flex items-center justify-between w-full px-3 py-2.5 rounded-lg transition-colors ${
-                        location.pathname === item.path 
-                          ? `${activeItemBg} ${textColor} font-medium` 
-                          : `${secondaryTextColor} ${hoverItemBg} hover:text-gray-900 text-wh`
-                      }`}
+                    <Link
+                      to={item.path}
+                      className={`flex items-center justify-between w-full px-3 py-2.5 rounded-lg transition-colors ${location.pathname === item.path
+                        ? `${activeItemBg} ${textColor} font-medium`
+                        : `${secondaryTextColor} ${hoverItemBg} hover:text-gray-900 text-wh`
+                        }`}
                     >
                       <div className="flex items-center space-x-3">
                         <item.icon className={`h-5 w-5 ${location.pathname === item.path ? "text-black" : secondaryTextColor}`} />
@@ -160,7 +153,7 @@ function Sidebar({ darkMode }) {
                 ))}
               </SidebarMenu>
             </SidebarContent>
-            
+
             <div className="mx-4 my-6">
               <div className={`${helpSectionBg} rounded-xl p-4`}>
                 <div className="flex items-center space-x-3 mb-2">
@@ -173,7 +166,7 @@ function Sidebar({ darkMode }) {
                 </Button>
               </div>
             </div>
-            
+
             <SidebarFooter className={`border-t ${borderColor} p-4`}>
               <div className="flex items-center justify-between">
                 <div className="flex items-center space-x-3">
@@ -186,9 +179,9 @@ function Sidebar({ darkMode }) {
                     <p className={`text-xs ${secondaryTextColor} truncate`}>{user.role}</p>
                   </div>
                 </div>
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
+                <Button
+                  variant="ghost"
+                  size="icon"
                   className={`${secondaryTextColor} hover:text-[#FF9CAD] hover:bg-transparent`}
                   onClick={handleLogout}
                 >

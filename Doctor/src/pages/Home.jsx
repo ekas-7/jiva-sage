@@ -18,6 +18,7 @@ function Home() {
   const navigate = useNavigate();
 
   const { setUserProfile } = useDoctor();
+  const HOST_URI = import.meta.env.VITE_HOST_URI;
 
   const handleScan = async (result) => {
     if (!result || result.length === 0) return;
@@ -70,6 +71,8 @@ function Home() {
     try {
       setIsLoading(true);
       setError(null);
+      console.log("host : ",HOST_URI+'/api/doctor/qr-data');
+      const temp = HOST_URI+'/api/doctor/qr-data'
       
       // Make API call with both QR value and PIN
       const res = await axios.post(

@@ -21,8 +21,6 @@ const UserQRCode = ({closeModal}) => {
     profileImage: "/placeholder.svg?height=40&width=40"
   }
 
-  const URI = import.meta.env.VITE_FRONTEND_URI
-
   // In a real app, this would be a unique URL with the user's token
   // For this example, we're using a placeholder URL
   const url = token
