@@ -28,7 +28,7 @@ class _MoodSectionState extends State<MoodSection>
       label: 'Good',
       emoji: '👍',
       color: AppColors.primary,
-      gradient: [AppColors.primary, Color(0xFF8CB5D4)],
+      gradient: [AppColors.primary, Color(0xFF4CD080)], // Updated gradient for green theme
     ),
     MoodOption(
       label: 'Neutral',
@@ -40,7 +40,7 @@ class _MoodSectionState extends State<MoodSection>
       label: 'Sad',
       emoji: '😔',
       color: AppColors.secondary,
-      gradient: [AppColors.secondary, Color(0xFFB1D1E3)],
+      gradient: [AppColors.secondary, Color(0xFF4CD080)], // Updated gradient for green theme
     ),
     MoodOption(
       label: 'Angry',

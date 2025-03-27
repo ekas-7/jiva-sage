@@ -12,21 +12,26 @@ import 'package:jiva/models/mood_entry.dart';
 import 'package:jiva/sections/appointment.dart';
 
 // Healthcare theme colors
+import 'package:flutter/material.dart';
+
 class HealthcareColors {
-  static const Color primary = Color(0xFFFFB6C1); // Light pink
-  static const Color primaryDark = Color(0xFFFF8DA1); // Darker pink for accents
-  static const Color secondary = Color(0xFF8ED1FC); // Light blue for contrast
-  static const Color success =
-      Color(0xFF7FDBCA); // Mint green for positive indicators
-  static const Color warning = Color(0xFFFFD3B6); // Peach for moderate alerts
-  static const Color error = Color(0xFFFF9AA2); // Salmon for errors
-  static const Color background =
-      Color(0xFFF8F9FA); // Very light gray/white for background
-  static const Color surface = Colors.white; // Pure white surfaces
-  static const Color textPrimary =
-      Color(0xFF4A4A4A); // Dark gray for primary text
-  static const Color textSecondary =
-      Color(0xFF7A7A7A); // Medium gray for secondary text
+  // Primary Colors
+  static const Color primary = Color(0xFF01bf60); // Green
+  static const Color primaryDark = Color(0xFF4CD080); // Lighter green accent
+  static const Color secondary = Color(0xFF4CD080); // Lighter green accent
+
+  // Text Colors
+  static const Color textPrimary = Color(0xFF2C3E50);
+  static const Color textSecondary = Color(0xFF595959);
+
+  // Background Colors
+  static const Color background = Color(0xFFFAFAFA);
+  static const Color surface = Color(0xFFFFFFFF);
+
+  // State Colors
+  static const Color success = Color(0xFF7FC8A9); // Mint green
+  static const Color error = Color(0xFFE88D8D); // Soft red
+  static const Color warning = Color(0xFFFFD93D); // Muted yellow
 }
 
 class ProfileScreen extends StatefulWidget {

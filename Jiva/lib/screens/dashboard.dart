@@ -69,11 +69,11 @@ class _JivaMinimalistDashboardState extends State<JivaMinimalistDashboard> {
   Widget build(BuildContext context) {
     // Soft color palette inspired by the reference design
     const backgroundColor =
-        Color.fromARGB(255, 251, 218, 223); // Soft beige background
-    const cardColor = Color(0xFFF9F7FC); // Soft white for cards
-    const primaryAccent = Color(0xFFFFB6C1); // Sage green accent
-    const secondaryAccent = Color(0xFF94A3B8); // Soft peach accent
-    const tertiaryAccent = Color(0xFFC4C8E7); // Soft lavender accent
+    Color.fromARGB(255, 232, 255, 240); // Soft green background
+    const cardColor = Color(0xFFF9FFF9); // Soft white with green tint for cards
+    const primaryAccent = Color(0xFF01BF60); // Green accent
+    const secondaryAccent = Color(0xFF4CD080); // Light green accent
+    const tertiaryAccent = Color(0xFFC3E8D1); // Soft green accent
     const textColor = Color(0xFF2D2D2D); // Dark text for readability
     const subtitleColor = Color(0xFF777777); // Medium gray for subtitles
 

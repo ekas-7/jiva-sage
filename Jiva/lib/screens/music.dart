@@ -204,9 +204,9 @@ class _JivaMusicScreenState extends State<JivaMusicScreen> {
                   color: accentColor.withOpacity(0.3),
                   borderRadius: BorderRadius.circular(20),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.music_note,
-                  color: Color(0xFFFFB6C1),
+                  color: const Color(0xFF01BF60),
                   size: 40,
                 ),
               ),
@@ -253,7 +253,7 @@ class _JivaMusicScreenState extends State<JivaMusicScreen> {
                         const SizedBox(width: 12),
                         const Icon(
                           Icons.favorite,
-                          color: Color(0xFFFFB6C1),
+                          color: Color(0xFF01BF60),
                           size: 22,
                         ),
                       ],
@@ -309,104 +309,104 @@ class _JivaMusicScreenState extends State<JivaMusicScreen> {
   }
   
   Widget _buildTrackCard(Map<String, dynamic> track, Color cardColor, Color textColor, Color subtitleColor, int index) {
-    final bool isPlaying = _currentlyPlayingIndex == index && _isPlaying;
-    
-    return Container(
-      width: 150,
-      margin: const EdgeInsets.only(right: 16),
-      decoration: BoxDecoration(
-        color: cardColor,
-        borderRadius: BorderRadius.circular(20),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            height: 100,
-            decoration: BoxDecoration(
-              color: _getCategoryColor(track['category']).withOpacity(0.3),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            child: Center(
-              child: Icon(
-                Icons.music_note,
-                color: _getCategoryColor(track['category']),
-                size: 30,
-              ),
+  final bool isPlaying = _currentlyPlayingIndex == index && _isPlaying;
+  
+  return Container(
+    width: 140, // Further reduced from 145 to 140
+    margin: const EdgeInsets.only(right: 10), // Reduced from 12 to 10
+    decoration: BoxDecoration(
+      color: cardColor,
+      borderRadius: BorderRadius.circular(20),
+    ),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(
+          height: 90, // Reduced from 95 to 90
+          decoration: BoxDecoration(
+            color: _getCategoryColor(track['category']).withOpacity(0.3),
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20),
+              topRight: Radius.circular(20),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  track['title'],
-                  style: GoogleFonts.poppins(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: textColor,
-                  ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  track['duration'],
-                  style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w400,
-                    color: subtitleColor,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                GestureDetector(
-                  onTap: () => _togglePlay(index),
-                  child: Container(
-                    width: 32,
-                    height: 32,
-                    decoration: BoxDecoration(
-                      color: _getCategoryColor(track['category']).withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Icon(
-                      isPlaying ? Icons.pause : Icons.play_arrow,
-                      color: _getCategoryColor(track['category']),
-                      size: 18,
-                    ),
-                  ),
-                ),
-              ],
+          child: Center(
+            child: Icon(
+              Icons.music_note,
+              color: _getCategoryColor(track['category']),
+              size: 26, // Reduced from 28 to 26
             ),
           ),
-        ],
-      ),
-    );
-  }
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8), // Reduced from 10 to 8
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                track['title'],
+                style: GoogleFonts.poppins(
+                  fontSize: 12, // Reduced from 13 to 12
+                  fontWeight: FontWeight.w600,
+                  color: textColor,
+                ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+              const SizedBox(height: 2), // Reduced from 3 to 2
+              Text(
+                track['duration'],
+                style: GoogleFonts.poppins(
+                  fontSize: 10, // Reduced from 11 to 10
+                  fontWeight: FontWeight.w400,
+                  color: subtitleColor,
+                ),
+              ),
+              const SizedBox(height: 5), // Reduced from 6 to 5
+              GestureDetector(
+                onTap: () => _togglePlay(index),
+                child: Container(
+                  width: 28, // Reduced from 30 to 28
+                  height: 28, // Reduced from 30 to 28
+                  decoration: BoxDecoration(
+                    color: _getCategoryColor(track['category']).withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Icon(
+                    isPlaying ? Icons.pause : Icons.play_arrow,
+                    color: _getCategoryColor(track['category']),
+                    size: 14, // Reduced from 16 to 14
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
   
   Color _getCategoryColor(String category) {
     switch (category) {
       case 'meditation':
-        return const Color(0xFFFFB6C1); // Pink
+        return const Color(0xFF01BF60); // Green instead of Pink
       case 'sleep':
-        return const Color(0xFF94A3B8); // Blue-gray
+        return const Color(0xFF4CD080); // Light green instead of Blue-gray
       case 'focus':
-        return const Color(0xFF9DB0A3); // Green
+        return const Color(0xFF019D4E); // Dark green instead of Green
       default:
-        return const Color(0xFFC4C8E7); // Purple
+        return const Color(0xFF7FC8A9); // Mint green instead of Purple
     }
   }
   
   @override
   Widget build(BuildContext context) {
-    // Using same color palette as the main dashboard for consistency
-    const backgroundColor = Color.fromARGB(255, 251, 218, 223); // Soft beige background
-    const cardColor = Color(0xFFF9F7FC); // Soft white for cards
-    const primaryAccent = Color(0xFFFFB6C1); // Sage green accent
-    const secondaryAccent = Color(0xFF94A3B8); // Soft peach accent
+    // Using green color palette instead of pink
+    const backgroundColor = Color.fromARGB(255, 232, 255, 240); // Soft green background
+    const cardColor = Color(0xFFF9FFF9); // Soft white with green tint
+    const primaryAccent = Color(0xFF01BF60); // Green accent
+    const secondaryAccent = Color(0xFF4CD080); // Light green accent
     const textColor = Color(0xFF2D2D2D); // Dark text for readability
     const subtitleColor = Color(0xFF777777); // Medium gray for subtitles
     

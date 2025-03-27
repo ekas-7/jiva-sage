@@ -23,6 +23,9 @@ class _SOSScreenState extends State<SOSScreen> {
   final String _emergencyMessage =
       'I may be in danger. My phone has detected a fall. This is an automated SOS message.';
 
+  // Color theme
+  final Color _themeColor = const Color(0xFF01bf60);
+
   // State variables
   bool _isMonitoring = false;
   bool _sosTriggered = false;
@@ -210,7 +213,7 @@ class _SOSScreenState extends State<SOSScreen> {
             Container(
               width: double.infinity,
               padding: const EdgeInsets.all(16.0),
-              color: _sosTriggered ? Colors.red : _isMonitoring ? Colors.green : Colors.grey,
+              color: _sosTriggered ? Colors.red : _isMonitoring ? _themeColor : Colors.grey,
               child: Column(
                 children: [
                   Text(
@@ -244,9 +247,19 @@ class _SOSScreenState extends State<SOSScreen> {
       children: [
         GestureDetector(
           onTap: _toggleMonitoring,
-          child: Icon(_isMonitoring ? Icons.shield : Icons.shield_outlined, size: 100, color: _isMonitoring ? Colors.green : Colors.grey),
+          child: Icon(_isMonitoring ? Icons.shield : Icons.shield_outlined, 
+            size: 100, 
+            color: _isMonitoring ? _themeColor : Colors.grey
+          ),
         ),
-        Text(_isMonitoring ? 'Protection Active' : 'Tap to Activate', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+        Text(
+          _isMonitoring ? 'Protection Active' : 'Tap to Activate', 
+          style: TextStyle(
+            fontSize: 24, 
+            fontWeight: FontWeight.bold,
+            color: _isMonitoring ? _themeColor : Colors.grey
+          )
+        ),
       ],
     );
   }
@@ -255,8 +268,21 @@ class _SOSScreenState extends State<SOSScreen> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text('FALL DETECTED - SOS ACTIVATED', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.red)),
-        ElevatedButton(onPressed: _cancelSOS, child: const Text('CANCEL SOS')),
+        const Text(
+          'FALL DETECTED - SOS ACTIVATED', 
+          style: TextStyle(
+            fontSize: 24, 
+            fontWeight: FontWeight.bold, 
+            color: Colors.red
+          )
+        ),
+        ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: _themeColor,
+          ),
+          onPressed: _cancelSOS, 
+          child: const Text('CANCEL SOS')
+        ),
       ],
     );
   }

@@ -8,12 +8,12 @@ import 'package:flutter_tts/flutter_tts.dart';
 
 // Theme colors
 class ThemeColors {
-  static const Color primary = Color(0xFFFFB6C1); // Light pink - main accent
+  static const Color primary = Color(0xFF01BF60); // Green - main accent
   static const Color primaryDark =
-      Color(0xFFFF8DA1); // Darker pink for emphasis
-  static const Color secondary = Color(0xFFA2D7FF); // Light blue complement
+      Color(0xFF019D4E); // Darker green for emphasis
+  static const Color secondary = Color(0xFF4CD080); // Light green complement
   static const Color background =
-      Color(0xFFFFF5F6); // Very light pink background
+      Color(0xFFF0FFF5); // Very light green background
   static const Color surface = Colors.white; // White surface
   static const Color success =
       Color(0xFF9CE5CB); // Mint green for positive indicators

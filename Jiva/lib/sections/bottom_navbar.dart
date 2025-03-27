@@ -38,7 +38,7 @@ class BottomNavBar extends StatelessWidget {
       child: Theme(
         data: Theme.of(context).copyWith(
           navigationBarTheme: NavigationBarThemeData(
-            indicatorColor: const Color(0xFFFFE0E0).withOpacity(0.3),
+            indicatorColor: const Color(0xFFE0FFE0).withOpacity(0.3),
             surfaceTintColor: Colors.transparent,
             backgroundColor: Colors.transparent,
             height: 50,
@@ -115,8 +115,8 @@ class BottomNavBar extends StatelessWidget {
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: isSelected
-                      ? const Color(0xFFF676A7)
-                      : const Color(0xFFFFB6C1),
+                      ? const Color(0xFF4CD080)
+                      : const Color(0xFF01BF60),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -128,7 +128,7 @@ class BottomNavBar extends StatelessWidget {
             : Icon(
                 icon,
                 color: isSelected
-                    ? const Color(0xFFF05984)
+                    ? const Color(0xFF019D4E)
                     : const Color(0xFF94A3B8).withOpacity(0.8),
                 size: 26,
               ),
@@ -142,7 +142,7 @@ class BottomNavBar extends StatelessWidget {
             ? Container(
                 padding: const EdgeInsets.all(8),
                 decoration: const BoxDecoration(
-                  color: Color(0xFFF05984),
+                  color: Color(0xFF019D4E),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
@@ -153,7 +153,7 @@ class BottomNavBar extends StatelessWidget {
               )
             : Icon(
                 selectedIcon,
-                color: const Color(0xFFF05984),
+                color: const Color(0xFF019D4E),
                 size: 26,
               ),
       ),
@@ -178,7 +178,7 @@ class _FitnessAppBottomNavState extends State<FitnessAppBottomNav> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: const Color(0xFFF9F5F6), // Light pink background from reference
+        color: const Color(0xFFF0FFF5), // Light green background
         child: const Center(
           child: Text('Fitness App Content Area'),
         ),
