@@ -133,6 +133,5 @@ Node.js backend handling user authentication, data storage, and API services for
 
 
 <div align="center">
-  <p>Made with ❤️ by the Jiva</p>
-  <p>Electrothon 7.0</p>
+  <p>Made with ❤️ by the SAGE</p>
 </div>
