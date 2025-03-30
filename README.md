@@ -28,14 +28,9 @@ Jiva consists of several interconnected components:
 - **ML Pipeline** - FastAPI services for OCR and medical data summarization
 
 ## 🚀 Getting Started
+![image](https://github.com/user-attachments/assets/a7600801-1cd9-4e46-bef3-b41859f6dadb)
+![image](https://github.com/user-attachments/assets/d970daad-e64a-4965-b776-0317879d7e5b)
 
-### Prerequisites
-
-- Node.js (v16+)
-- Flutter (v3.0+)
-- Python (v3.8+)
-- MongoDB
-- Redis
 
 ### Installation
 
